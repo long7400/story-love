@@ -5,8 +5,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import HomePage from "@/pages/HomePage";
+import AdminPage from "@/pages/AdminPage";
 import { SoundProvider } from "@/lib/SoundContext";
 import { useEffect, useState } from "react";
+import MusicPlayer from "@/components/MusicPlayer";
 
 // Loading animation component
 function LoadingScreen() {
@@ -49,6 +51,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={HomePage} />
+      <Route path="/admin" component={AdminPage} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -71,7 +74,12 @@ function App() {
       <SoundProvider>
         <TooltipProvider>
           <Toaster />
-          {loading ? <LoadingScreen /> : <Router />}
+          {loading ? <LoadingScreen /> : (
+            <>
+              <Router />
+              <MusicPlayer />
+            </>
+          )}
         </TooltipProvider>
       </SoundProvider>
     </QueryClientProvider>
