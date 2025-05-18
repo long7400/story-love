@@ -1,4 +1,4 @@
-import API_CONFIG from '@/config/apiConfig';
+import API_CONFIG from '../config/apiConfig';
 import { 
   Event, 
   Photo, 
@@ -16,11 +16,9 @@ import {
  * API client for communicating with Spring Boot backend
  */
 class ApiClient {
-  private baseUrl: string;
   private token: string | null = null;
 
   constructor() {
-    this.baseUrl = API_CONFIG.BASE_URL;
     // Kiểm tra nếu đã có token trong local storage
     this.token = localStorage.getItem('auth_token');
   }
@@ -62,7 +60,8 @@ class ApiClient {
    * Make API request with error handling
    */
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const url = `${this.baseUrl}${endpoint}`;
+    // Sử dụng đường dẫn tương đối thay vì base URL
+    const url = endpoint;
     
     try {
       const response = await fetch(url, {
@@ -103,7 +102,7 @@ class ApiClient {
     const formData = new FormData();
     formData.append('file', file);
 
-    const url = `${this.baseUrl}${API_CONFIG.ENDPOINTS.FILES.UPLOAD}`;
+    const url = API_CONFIG.ENDPOINTS.FILES.UPLOAD;
     
     try {
       const response = await fetch(url, {
@@ -138,7 +137,7 @@ class ApiClient {
       formData.append('files', file);
     });
 
-    const url = `${this.baseUrl}${API_CONFIG.ENDPOINTS.FILES.UPLOADS}`;
+    const url = API_CONFIG.ENDPOINTS.FILES.UPLOADS;
     
     try {
       const response = await fetch(url, {

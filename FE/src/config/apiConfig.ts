@@ -16,26 +16,26 @@ const API_CONFIG = {
     },
     
     // Quản lý dữ liệu cốt lõi
-    PROFILES: '/profiles',
-    RELATIONSHIPS: '/relationships',
-    EVENTS: '/events',
-    PHOTOS: '/photos',
+    PROFILES: '/api/profiles',
+    RELATIONSHIPS: '/api/relationships',
+    EVENTS: '/api/events',
+    PHOTOS: '/api/photos',
     
     // Tính năng bản đồ
-    LOCATION_MARKERS: '/location-markers',
+    LOCATION_MARKERS: '/api/location-markers',
     
     // Tính năng bưu thiếp
-    POSTCARDS: '/postcards',
+    POSTCARDS: '/api/postcards',
     
     // Tính năng đếm ngược
-    COUNTDOWNS: '/countdowns',
+    COUNTDOWNS: '/api/countdowns',
     
     // Quản lý file
     FILES: {
-      UPLOAD: '/files/upload',
-      UPLOADS: '/files/uploads',
-      DOWNLOAD: '/files/download',
-      DELETE: '/files'
+      UPLOAD: '/api/files/upload',
+      UPLOADS: '/api/files/uploads',
+      DOWNLOAD: '/api/files/download',
+      DELETE: '/api/files'
     }
   }
 };
