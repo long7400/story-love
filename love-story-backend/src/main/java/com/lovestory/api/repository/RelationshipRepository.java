@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RelationshipRepository extends JpaRepository<Relationship, Long> {
+    // Custom queries can be added here if needed
 }
