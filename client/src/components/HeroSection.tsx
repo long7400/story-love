@@ -16,7 +16,10 @@ interface HeroSectionProps {
 
 export default function HeroSection({ profiles, relationship }: HeroSectionProps) {
   const [daysCounter, setDaysCounter] = useState({ years: 0, months: 0, days: 0 });
-  const { playHover } = useSound();
+  const { playHover, playClick } = useSound();
+  const [isProfile1Hovered, setIsProfile1Hovered] = useState(false);
+  const [isProfile2Hovered, setIsProfile2Hovered] = useState(false);
+  const [isHeartHovered, setIsHeartHovered] = useState(false);
 
   useEffect(() => {
     const counter = calculateDaysTogether(relationship.startDate);
@@ -32,111 +35,148 @@ export default function HeroSection({ profiles, relationship }: HeroSectionProps
   }, [relationship.startDate]);
 
   return (
-    <section id="home" className="pt-24 pb-16 md:pt-28 md:pb-20 bg-pink-50/40 overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section 
+      id="home" 
+      className="pt-20 pb-16 min-h-screen flex flex-col justify-center items-center relative overflow-hidden"
+      style={{
+        backgroundImage: "url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-amber-800/50 backdrop-blur-sm"></div>
+      
+      <div className="container mx-auto px-4 z-10 relative">
         <motion.div 
           className="text-center mb-12"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="flex items-center justify-center mb-4">
-            <div className="h-px w-12 bg-primary opacity-50"></div>
-            <Heart className="h-6 w-6 mx-3 text-primary fill-primary animate-pulse" />
-            <div className="h-px w-12 bg-primary opacity-50"></div>
+          <div className="mb-2 text-white/90 font-medium tracking-wider text-sm">
+            SAVE THE DATE
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 bg-gradient-to-r from-primary via-pink-400 to-primary bg-clip-text text-transparent">
-            Our Love Story
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 text-white">
+            {profiles.profile1.name} & {profiles.profile2.name}
           </h1>
+          <p className="text-lg text-white/80 mb-6">
+            {formatDate(relationship.startDate, { day: '2-digit', month: '2-digit', year: 'numeric' })}
+          </p>
+          <button 
+            className="bg-white/90 text-primary hover:bg-white px-6 py-2 rounded-md text-sm font-medium transition-colors duration-300"
+            onClick={() => playClick()}
+          >
+            OUR LOVE STORY
+          </button>
         </motion.div>
 
-        {/* New Profile Layout Based on Example */}
-        <div className="max-w-5xl mx-auto relative">
-          {/* Center Vertical Timeline */}
-          <div className="absolute left-1/2 top-0 transform -translate-x-1/2 h-full w-1 bg-pink-200 rounded-full"></div>
-          
-          {/* Profile Cards with Heart Connector */}
-          <div className="flex flex-col md:flex-row justify-between items-center md:items-start relative">
-            {/* Profile 1 Card */}
-            <motion.div 
-              className="w-full md:w-5/12 mb-10 md:mb-0"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              onMouseEnter={playHover}
+        {/* Floating Hearts Animation */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+          {[...Array(10)].map((_, i) => (
+            <div 
+              key={i}
+              className="absolute animate-float text-red-500"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDuration: `${5 + Math.random() * 10}s`,
+                animationDelay: `${Math.random() * 5}s`,
+              }}
             >
-              <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-                <div className="overflow-hidden">
+              <Heart className="h-4 w-4 fill-red-400" />
+            </div>
+          ))}
+        </div>
+
+        {/* Profile Cards at Bottom */}
+        <div className="mt-20 max-w-5xl mx-auto">
+          <div className="relative flex justify-center">
+            {/* Profile Pictures Container */}
+            <div className="flex justify-center w-full">
+              {/* Profile 1 */}
+              <motion.div 
+                className="w-40 h-40 md:w-56 md:h-56 relative mr-4 md:mr-8"
+                whileHover={{ scale: 1.05 }}
+                onMouseEnter={() => {
+                  setIsProfile1Hovered(true);
+                  playHover();
+                }}
+                onMouseLeave={() => setIsProfile1Hovered(false)}
+              >
+                <div className={`w-full h-full overflow-hidden rounded-lg border-4 transition-all duration-300 ${isProfile1Hovered ? 'border-red-400 shadow-xl' : 'border-white/80 shadow-md'}`}>
                   <img 
                     src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&h=500&q=80" 
-                    alt={`${profiles.profile1.name} profile`} 
-                    className="w-full h-96 object-cover" 
+                    alt={profiles.profile1.name} 
+                    className="w-full h-full object-cover object-center" 
                   />
                 </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-3xl font-serif font-bold text-gray-800">
-                    {profiles.profile1.name}
-                  </h3>
-                  <div className="flex items-center justify-center mt-2 text-gray-600">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    <p>{profiles.profile1.birthday}</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-            
-            {/* Center Heart */}
-            <div className="absolute left-1/2 top-1/2 md:top-80 transform -translate-x-1/2 -translate-y-1/2 z-10">
-              <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center">
-                <Heart className="h-8 w-8 text-primary fill-primary" />
-              </div>
-            </div>
-            
-            {/* Profile 2 Card */}
-            <motion.div 
-              className="w-full md:w-5/12"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              onMouseEnter={playHover}
-            >
-              <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-                <div className="overflow-hidden">
+              </motion.div>
+              
+              {/* Profile 2 */}
+              <motion.div 
+                className="w-40 h-40 md:w-56 md:h-56 relative ml-4 md:ml-8"
+                whileHover={{ scale: 1.05 }}
+                onMouseEnter={() => {
+                  setIsProfile2Hovered(true);
+                  playHover();
+                }}
+                onMouseLeave={() => setIsProfile2Hovered(false)}
+              >
+                <div className={`w-full h-full overflow-hidden rounded-lg border-4 transition-all duration-300 ${isProfile2Hovered ? 'border-red-400 shadow-xl' : 'border-white/80 shadow-md'}`}>
                   <img 
                     src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&h=500&q=80" 
-                    alt={`${profiles.profile2.name} profile`} 
-                    className="w-full h-96 object-cover" 
+                    alt={profiles.profile2.name} 
+                    className="w-full h-full object-cover object-center" 
                   />
                 </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-3xl font-serif font-bold text-gray-800">
-                    {profiles.profile2.name}
-                  </h3>
-                  <div className="flex items-center justify-center mt-2 text-gray-600">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    <p>{profiles.profile2.birthday}</p>
-                  </div>
-                </div>
+              </motion.div>
+            </div>
+            
+            {/* Heart Between */}
+            <motion.div 
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
+              initial={{ scale: 0.8 }}
+              animate={{ 
+                scale: isHeartHovered ? 1.2 : [0.9, 1.1, 0.9],
+                rotate: isHeartHovered ? [0, 10, -10, 0] : 0
+              }}
+              transition={{ 
+                scale: { duration: 2, repeat: Infinity, repeatType: "reverse" },
+                rotate: { duration: 0.5, repeat: isHeartHovered ? 2 : 0 }
+              }}
+              onMouseEnter={() => {
+                setIsHeartHovered(true);
+                playHover();
+              }}
+              onMouseLeave={() => setIsHeartHovered(false)}
+            >
+              <div className="w-14 h-14 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-lg cursor-pointer">
+                <Heart className="h-8 w-8 text-red-500 fill-red-400" />
               </div>
             </motion.div>
           </div>
           
-          {/* Days Together Indicator */}
-          <motion.div 
-            className="text-center mt-16"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <div className="inline-block bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6">
-              <h3 className="text-xl font-medium text-primary mb-2">
-                Together Since {formatDate(relationship.startDate)}
-              </h3>
-              <p className="text-gray-600">
-                {daysCounter.years} years, {daysCounter.months} months, and {daysCounter.days} days of beautiful memories
-              </p>
+          {/* Names */}
+          <div className="flex justify-center mt-4 gap-40 text-white">
+            <div className="text-center">
+              <h3 className="text-xl md:text-2xl font-serif">{profiles.profile1.name}</h3>
+              <p className="text-sm text-white/70">{profiles.profile1.birthday}</p>
             </div>
-          </motion.div>
+            <div className="text-center">
+              <h3 className="text-xl md:text-2xl font-serif">{profiles.profile2.name}</h3>
+              <p className="text-sm text-white/70">{profiles.profile2.birthday}</p>
+            </div>
+          </div>
+          
+          {/* "We are Getting Married" */}
+          <div className="text-center mt-10">
+            <h2 className="text-2xl md:text-3xl font-script text-white">We are Getting Married</h2>
+            <p className="mt-2 text-white/80 max-w-xl mx-auto text-sm md:text-base">
+              Our love story began with a simple hello, now we're writing our own story together. 
+              Join us as we celebrate the beginning of our forever.
+            </p>
+          </div>
         </div>
       </div>
     </section>
