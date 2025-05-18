@@ -1,56 +1,61 @@
-# Love Story
+# Love Story Website
 
-Ứng dụng kỷ niệm tình yêu kỹ thuật số với giao diện tối giản, tương tác cao, cho phép bạn tạo và chia sẻ câu chuyện tình yêu một cách sáng tạo và độc đáo.
+Nền tảng số thân mật dành cho các cặp đôi giúp họ lưu giữ và chia sẻ câu chuyện tình yêu của mình qua các trải nghiệm tương tác sáng tạo được hỗ trợ bởi công nghệ.
 
-## Cấu Trúc Dự Án
+## Cấu trúc dự án
 
-Dự án được tổ chức thành hai phần riêng biệt:
-- `FE/`: Mã nguồn frontend (React/Vite)
-- `BE/`: Mã nguồn backend (Spring Boot)
+Dự án được tổ chức thành hai phần chính:
+
+- **BE**: Backend Spring Boot Java
+  - REST API
+  - Xác thực và phân quyền
+  - Kết nối cơ sở dữ liệu PostgreSQL
+  - Tích hợp OpenAI
+
+- **FE**: Frontend React + Node.js API
+  - Giao diện người dùng React
+  - API Node.js
+  - Tích hợp với BE
+
+## Công nghệ sử dụng
+
+- **Frontend**:
+  - React.js với TypeScript
+  - Tailwind CSS
+  - Vite
+  - Các component tương tác với chủ đề tình yêu và micro-animations
+
+- **Backend**:
+  - Spring Boot Java
+  - Node.js Express (API trung gian)
+  - PostgreSQL
 
 ## Tính năng chính
 
-- **Timeline Tình Yêu**: Hiển thị câu chuyện tình yêu theo dòng thời gian với giao diện tương tác.
-- **Thư Viện Ảnh**: Lưu trữ và trưng bày kỷ niệm qua hình ảnh với chức năng kéo thả để tải lên.
-- **Bản Đồ Tình Yêu**: Đánh dấu các địa điểm đặc biệt trên bản đồ tương tác.
-- **Thiệp Kỹ Thuật Số**: Tạo và gửi thiệp kỹ thuật số cho nhau.
-- **Đếm Ngược Sự Kiện**: Tạo bộ đếm ngược cho các sự kiện sắp tới.
-- **Hỗ trợ Nội Dung HTML**: Tùy chỉnh nội dung mô tả với định dạng phong phú.
+- **Dòng thời gian mối quan hệ**: Hiển thị các sự kiện quan trọng theo thứ tự thời gian
+- **Thư viện ảnh**: Lưu trữ và hiển thị khoảnh khắc đáng nhớ
+- **Bảng điều khiển tâm trạng**: Trực quan hóa cảm xúc của cặp đôi theo thời gian
+- **Trích dẫn tình yêu**: Hiển thị các trích dẫn lãng mạn với hiệu ứng chuyển đổi
+- **Nhịp tim cột mốc**: Theo dõi các mốc quan trọng trong mối quan hệ với hiệu ứng nhịp tim
+- **Bản đồ tình yêu**: Hiển thị các địa điểm quan trọng của cặp đôi
+- **Thẻ bưu thiếp**: Tạo và chia sẻ các bưu thiếp tình yêu cá nhân hóa
 
-## Yêu cầu hệ thống
+## Triển khai
 
-### Yêu cầu phần cứng
-- CPU: 2 lõi trở lên
-- RAM: 4GB trở lên
-- Ổ cứng: 10GB dung lượng trống
-
-### Yêu cầu phần mềm
-- Docker và Docker Compose
-- Trình duyệt web hiện đại (Chrome, Firefox, Safari, Edge)
-- Git (để clone repository)
-
-## Cài Đặt và Chạy
-
-### Sử Dụng Docker Compose (Khuyến nghị)
+Dự án được cấu hình để triển khai dễ dàng bằng Docker:
 
 ```bash
-# Clone repository
-git clone <repository-url>
-cd storylove
-
-# Tạo file .env nếu cần
-touch .env
-
-# Khởi động ứng dụng
 docker-compose up -d
 ```
 
-Truy cập ứng dụng:
-- Storefront: http://localhost
-- Back Office: http://localhost/admin
-- Swagger UI: http://localhost:8080/swagger-ui.html
+Sau khi triển khai:
+- Frontend: http://localhost
+- Backend: http://localhost:8080
+- API Documentation: http://localhost:8080/swagger-ui.html
 
-### Chạy Frontend Riêng
+## Phát triển
+
+### Frontend
 
 ```bash
 cd FE
@@ -58,75 +63,19 @@ npm install
 npm run dev
 ```
 
-Frontend sẽ chạy tại http://localhost:5173
-
-### Chạy Backend Riêng
+### Backend (Spring Boot)
 
 ```bash
 cd BE
-./run.sh
+./mvnw spring-boot:run
 ```
 
-Backend sẽ chạy tại http://localhost:8080
+## Tài liệu
 
-## Khởi tạo tài khoản
+Xem thêm tài liệu chi tiết trong thư mục `docs`:
 
-### Tài khoản Back Office (BO)
-
-Để tạo tài khoản admin đầu tiên cho Back Office, sử dụng API sau:
-
-```
-POST /api/auth/register
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "email": "admin@example.com",
-  "password": "StrongPassword123!",
-  "roles": ["admin"]
-}
-```
-
-Hoặc sử dụng curl:
-
-```bash
-curl -X POST http://localhost:8080/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"username":"admin","email":"admin@example.com","password":"StrongPassword123!","roles":["admin"]}'
-```
-
-### Tài khoản Storefront (SF)
-
-Tạo tài khoản cho người dùng Storefront:
-
-```
-POST /api/auth/register
-Content-Type: application/json
-
-{
-  "username": "user",
-  "email": "user@example.com",
-  "password": "UserPassword123!",
-  "roles": ["user"]
-}
-```
-
-## Tài liệu API
-
-Chi tiết về các API có thể truy cập qua Swagger UI tại:
-- http://localhost:8080/swagger-ui.html
-
-## Tích hợp OpenAI
-
-Để sử dụng tính năng tích hợp OpenAI:
-
-1. Đảm bảo bạn đã thêm API key vào biến môi trường:
-   ```
-   OPENAI_API_KEY=your_api_key
-   ```
-
-2. Trong Back Office, sử dụng các tính năng tạo nội dung tự động cho timeline và gallery.
-
-## Hỗ trợ và liên hệ
-
-Nếu bạn gặp vấn đề khi cài đặt hoặc sử dụng ứng dụng, vui lòng xem thêm các tài liệu trong thư mục `/docs`.
+- [Cài đặt](docs/INSTALLATION.md)
+- [Tài liệu API](docs/API_DOCUMENTATION.md)
+- [Hướng dẫn Back Office](docs/BACK_OFFICE_GUIDE.md)
+- [Tích hợp OpenAI](docs/OPENAI_INTEGRATION.md)
+- [Hướng dẫn Swagger](docs/SWAGGER_GUIDE.md)

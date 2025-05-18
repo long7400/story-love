@@ -1,114 +1,181 @@
 {
   "profiles": {
     "profile1": {
-      "name": "Minh Anh",
-      "birthday": "30/05/1995"
+      "id": 1,
+      "name": "Minh",
+      "birthday": "1995-05-10",
+      "bio": "Yêu thích âm nhạc, nghệ thuật và khám phá những địa điểm mới.",
+      "favoriteColor": "#FF5757",
+      "imageUrl": "/images/profile1.jpg"
     },
     "profile2": {
-      "name": "Thanh Hà",
-      "birthday": "15/08/1998"
+      "id": 2,
+      "name": "Linh",
+      "birthday": "1996-08-15",
+      "bio": "Đam mê đọc sách, nấu ăn và đi du lịch cùng người yêu.",
+      "favoriteColor": "#5D9CEC",
+      "imageUrl": "/images/profile2.jpg"
     }
   },
   "relationship": {
-    "startDate": "2021-12-15T00:00:00Z"
+    "id": 1,
+    "startDate": "2020-11-09",
+    "title": "Mối tình đẹp",
+    "description": "Một hành trình tình yêu tràn đầy kỷ niệm đẹp, niềm vui và sự tôn trọng lẫn nhau.",
+    "song": "Em Của Ngày Hôm Qua - Sơn Tùng MTP",
+    "songUrl": "/sounds/love-song.mp3",
+    "coupleImageUrl": "/images/couple.jpg"
   },
   "events": [
     {
       "id": 1,
-      "title": "First Meeting",
-      "date": "2021-11-15T00:00:00Z",
-      "shortDescription": "We met at a mutual friend's birthday party. I was immediately drawn to her smile across the room.",
-      "fullDescription": "It was fate that brought us together at Linh's birthday celebration. The moment I saw her laughing with friends, I knew I had to introduce myself. We talked for hours about our favorite books, travel dreams, and discovered we both love the same obscure indie band. <strong>Sometimes the universe aligns perfectly.</strong>",
-      "imageUrl": "https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=450&q=80"
+      "title": "Ngày đầu tiên gặp nhau",
+      "date": "2020-11-02",
+      "shortDescription": "Chúng mình gặp nhau lần đầu tại quán cà phê ở phố cổ.",
+      "fullDescription": "Hôm đó là một ngày thu đẹp trời, tình cờ chúng mình gặp nhau tại quán cà phê yên tĩnh ở phố cổ. Cuộc trò chuyện đầu tiên đã kéo dài hơn 3 tiếng đồng hồ mà không ai muốn kết thúc. Từ âm nhạc, sách, đến những ước mơ trong tương lai - chúng mình đã chia sẻ mọi thứ như đã quen nhau từ rất lâu.",
+      "imageUrl": "/images/first-meet.jpg"
     },
     {
       "id": 2,
-      "title": "First Date",
-      "date": "2021-12-05T00:00:00Z",
-      "shortDescription": "Our first official date at the lakeside café. We talked for hours until the staff had to ask us to leave.",
-      "fullDescription": "The lakeside café became 'our place' that day. Despite the December chill, we sat on the patio watching the sunset reflect on the water. Our coffee went cold because we were too busy talking. When the staff finally had to close, we realized we'd been there for over 4 hours! It felt like minutes. <em>Walking her home under the stars, I knew something special was beginning.</em>",
-      "imageUrl": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=450&q=80"
+      "title": "Bắt đầu hẹn hò",
+      "date": "2020-11-09",
+      "shortDescription": "Chính thức trở thành một cặp sau buổi hẹn dưới trời sao.",
+      "fullDescription": "Sau một tuần nói chuyện liên tục qua điện thoại, chúng mình quyết định gặp nhau lần nữa tại công viên. Dưới bầu trời đầy sao, chúng mình đã chia sẻ những cảm xúc chân thành và quyết định bắt đầu một hành trình mới cùng nhau. Đó là khoảnh khắc mà cả hai đều biết rằng điều gì đó rất đặc biệt đang bắt đầu.",
+      "imageUrl": "/images/start-dating.jpg"
     },
     {
       "id": 3,
-      "title": "Relationship Begins",
-      "date": "2021-12-15T00:00:00Z",
-      "shortDescription": "On a starry night, I gathered my courage and asked her to be my girlfriend. Her smile and \"yes\" made it the happiest day.",
-      "fullDescription": "After ten days that felt like a lifetime, I knew I didn't want to be just friends. I planned a special night at the botanical garden's winter light festival. Surrounded by thousands of twinkling lights, I took her hands and told her how I felt. When she said yes, the lights seemed to shine even brighter. <strong>We sealed our new relationship with our first kiss under the garden's grand oak tree.</strong> A perfect beginning to our story.",
-      "imageUrl": "https://images.unsplash.com/photo-1513279922550-250c2129b13a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=450&q=80"
+      "title": "Kỷ niệm 100 ngày yêu",
+      "date": "2021-02-17",
+      "shortDescription": "Cùng nhau đón kỷ niệm 100 ngày yêu tại Đà Lạt.",
+      "fullDescription": "Để kỷ niệm 100 ngày bên nhau, chúng mình đã quyết định đi Đà Lạt - nơi mà cả hai đều mơ ước được đến cùng nhau. Những ngày tại thành phố mộng mơ đã để lại nhiều kỷ niệm khó quên: cùng nhau đạp xe quanh hồ Xuân Hương, thưởng thức cà phê trong sáng sớm se lạnh và nắm tay nhau dạo bước dưới những hàng thông. Đây là chuyến đi đầu tiên của chúng mình và cũng là lúc chúng mình biết rằng chúng mình có thể cùng nhau đi đến bất cứ đâu.",
+      "imageUrl": "/images/100-days.jpg"
     },
     {
       "id": 4,
-      "title": "First Trip Together",
-      "date": "2022-06-20T00:00:00Z",
-      "shortDescription": "Our first weekend getaway to the mountains. Exploring nature hand in hand created memories that will last forever.",
-      "fullDescription": "Six months into our relationship, we took the leap and planned our first trip together. Three days in the mountains testing our compatibility in close quarters. We hiked to hidden waterfalls, cooked meals together in our tiny cabin kitchen, and stayed up late playing cards by the fireplace. <br><br>On the last night, we lay on a blanket <strong>counting shooting stars</strong> and talking about our future. Coming home, we both knew we'd passed an important relationship milestone with flying colors.",
-      "imageUrl": "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=450&q=80"
+      "title": "Kỷ niệm 1 năm",
+      "date": "2021-11-09",
+      "shortDescription": "Tổ chức bữa tối lãng mạn nhân dịp tròn 1 năm bên nhau.",
+      "fullDescription": "Một năm trôi qua thật nhanh nhưng đầy ắp những kỷ niệm tuyệt vời. Để kỷ niệm cột mốc quan trọng này, anh đã bí mật chuẩn bị một bữa tối lãng mạn tại nhà hàng yêu thích của em, nơi chúng mình đã có buổi hẹn hò đầu tiên. Những món ăn ngon, rượu vang đỏ, và chiếc bánh kem nhỏ xinh với một chiếc nhẫn bạc - món quà kỷ niệm một năm mà anh tặng em. Chúng mình đã chia sẻ những khoảnh khắc đẹp nhất trong năm qua và lên kế hoạch cho tương lai.",
+      "imageUrl": "/images/anniversary-1year.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Chuyến du lịch Phú Quốc",
+      "date": "2022-07-15",
+      "shortDescription": "Kỳ nghỉ hè tuyệt vời tại bãi biển Phú Quốc.",
+      "fullDescription": "Mùa hè năm 2022, chúng mình đã thực hiện chuyến du lịch đáng nhớ đến Phú Quốc. Những ngày trên đảo ngọc là khoảng thời gian thư giãn và gắn kết tuyệt vời: cùng nhau ngắm bình minh trên biển, lặn ngắm san hô, thưởng thức hải sản tươi ngon và cùng nhau ngồi trên bãi cát trắng ngắm hoàng hôn. Đây cũng là lần đầu tiên chúng mình ở chung phòng trong một kỳ nghỉ dài, và chúng mình đã học được nhiều điều về nhau hơn - từ những thói quen nhỏ đến cách chúng mình cùng nhau giải quyết những vấn đề phát sinh trong chuyến đi.",
+      "imageUrl": "/images/phu-quoc-trip.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Kỷ niệm 2 năm",
+      "date": "2022-11-09",
+      "shortDescription": "Kỷ niệm 2 năm bên nhau với một chuyến dã ngoại đặc biệt.",
+      "fullDescription": "Hai năm bên nhau, chúng mình quyết định kỷ niệm khác biệt một chút với chuyến dã ngoại ở vùng ngoại ô. Thay vì những không gian sang trọng, chúng mình đã chọn sự bình yên của thiên nhiên: cùng nhau dựng lều, nấu ăn outdoors và ngồi bên đống lửa trại dưới bầu trời đầy sao. Đêm đó, chúng mình đã nói về ngôi nhà tương lai, về những đứa trẻ có thể sẽ chào đời, và về việc chúng mình sẽ cùng nhau già đi như thế nào. Đó là lúc chúng mình biết rằng tình yêu này không chỉ là hiện tại mà còn là tương lai.",
+      "imageUrl": "/images/anniversary-2year.jpg"
+    },
+    {
+      "id": 7,
+      "title": "Chuyến du lịch Hội An",
+      "date": "2023-04-22",
+      "shortDescription": "Khám phá vẻ đẹp cổ kính của Hội An cùng nhau.",
+      "fullDescription": "Tháng 4 năm 2023, chúng mình đã thực hiện chuyến du lịch đến Hội An, thành phố cổ xinh đẹp mà cả hai đều ao ước được đến. Dưới ánh đèn lồng rực rỡ, chúng mình đã cùng nhau thả đèn hoa đăng trên sông Hoài, khám phá những con phố cổ, thử may những bộ áo dài truyền thống và thưởng thức ẩm thực địa phương. Đặc biệt, tại một quán cà phê nhỏ nhìn ra sông, chúng mình đã bất ngờ gặp được một cặp đôi già đang kỷ niệm 50 năm ngày cưới. Họ đã chia sẻ với chúng mình bí quyết của một tình yêu bền vững: sự kiên nhẫn, thấu hiểu và không bao giờ đi ngủ khi còn giận nhau. Đó là bài học quý giá mà chúng mình luôn ghi nhớ.",
+      "imageUrl": "/images/hoi-an-trip.jpg"
+    },
+    {
+      "id": 8,
+      "title": "Kỷ niệm 3 năm",
+      "date": "2023-11-09",
+      "shortDescription": "Ba năm hạnh phúc bên nhau được đánh dấu bằng chuyến du lịch Nhật Bản.",
+      "fullDescription": "Để kỷ niệm 3 năm bên nhau, chúng mình đã thực hiện ước mơ chung: chuyến du lịch đến Nhật Bản vào mùa lá đỏ. Từ những ngôi đền cổ kính ở Kyoto, đến sự nhộn nhịp của Tokyo, mỗi khoảnh khắc đều trở nên đặc biệt khi được chia sẻ cùng nhau. Đứng dưới những tán phong lá đỏ ở công viên Arashiyama, chúng mình đã viết ra những mong ước cho tương lai và hứa sẽ quay lại đây sau 10 năm nữa, khi đó có thể đã là một gia đình nhỏ với những đứa trẻ. Chuyến đi này không chỉ là một kỷ niệm đẹp mà còn là lời hứa cho một hành trình dài phía trước.",
+      "imageUrl": "/images/anniversary-3year.jpg"
     }
   ],
   "photos": [
     {
       "id": 1,
-      "title": "Park Picnic",
-      "date": "2022-04-10T00:00:00Z",
-      "description": "Our first spring together. We packed homemade sandwiches and spent the whole day reading and relaxing under the cherry blossoms.",
-      "imageUrl": "https://images.unsplash.com/photo-1522673607200-164d1b3ce551?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+      "title": "Lần đầu đi xem phim cùng nhau",
+      "date": "2020-11-20",
+      "description": "Buổi tối đi xem 'Tenet' tại rạp sau ngày làm việc mệt mỏi.",
+      "imageUrl": "/images/movie-date.jpg"
     },
     {
       "id": 2,
-      "title": "Beach Sunset",
-      "date": "2022-07-15T00:00:00Z",
-      "description": "Weekend trip to the coast. We collected seashells and watched the most beautiful sunset we'd ever seen.",
-      "imageUrl": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+      "title": "Picnic cuối tuần",
+      "date": "2021-03-27",
+      "description": "Buổi picnic đầu tiên tại công viên thành phố vào một ngày xuân đẹp trời.",
+      "imageUrl": "/images/picnic.jpg"
     },
     {
       "id": 3,
-      "title": "Mountain Adventure",
-      "date": "2022-10-08T00:00:00Z",
-      "description": "Fall hiking trip. The views were breathtaking, but not as breathtaking as she looked surrounded by autumn colors.",
-      "imageUrl": "https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+      "title": "Sinh nhật của Linh",
+      "date": "2021-08-15",
+      "description": "Bữa tiệc sinh nhật bất ngờ cho Linh tại nhà với bạn bè thân thiết.",
+      "imageUrl": "/images/birthday-linh.jpg"
     },
     {
       "id": 4,
-      "title": "Anniversary Dinner",
-      "date": "2022-12-15T00:00:00Z",
-      "description": "Our one-year anniversary. Celebrated at the fancy restaurant we'd always wanted to try. Worth every penny to see her smile.",
-      "imageUrl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+      "title": "Noel 2021",
+      "date": "2021-12-24",
+      "description": "Đón Giáng sinh đầu tiên cùng nhau tại khu phố đèn lồng.",
+      "imageUrl": "/images/christmas-2021.jpg"
     },
     {
       "id": 5,
-      "title": "Carnival Fun",
-      "date": "2023-02-14T00:00:00Z",
-      "description": "Valentine's Day at the winter carnival. I won her a giant teddy bear at the ring toss after 15 attempts!",
-      "imageUrl": "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+      "title": "Chuyến đi Sapa",
+      "date": "2022-01-15",
+      "description": "Cùng nhau ngắm tuyết rơi tại Sapa, trải nghiệm hiếm có ở Việt Nam.",
+      "imageUrl": "/images/sapa-trip.jpg"
     },
     {
       "id": 6,
-      "title": "Wedding Dance",
-      "date": "2023-05-20T00:00:00Z",
-      "description": "Dancing at her sister's wedding. Everyone said we were the most in-love couple there (besides the bride and groom, of course).",
-      "imageUrl": "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+      "title": "Sinh nhật của Minh",
+      "date": "2022-05-10",
+      "description": "Kỷ niệm sinh nhật Minh với chuyến đi chơi thuyền kayak.",
+      "imageUrl": "/images/birthday-minh.jpg"
     },
     {
       "id": 7,
-      "title": "City Lights",
-      "date": "2023-07-04T00:00:00Z",
-      "description": "Rooftop date night watching fireworks over the city. We made wishes on each explosion of color.",
-      "imageUrl": "https://images.unsplash.com/photo-1498036882173-b41c28a8ba34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+      "title": "Lễ hội ánh sáng",
+      "date": "2022-09-18",
+      "description": "Tham gia lễ hội ánh sáng tại bảo tàng nghệ thuật thành phố.",
+      "imageUrl": "/images/light-festival.jpg"
     },
     {
       "id": 8,
-      "title": "Cooking Class",
-      "date": "2023-08-12T00:00:00Z",
-      "description": "Learning to make pasta from scratch. More flour ended up on our faces than in the actual pasta.",
-      "imageUrl": "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+      "title": "Tết Nguyên Đán 2023",
+      "date": "2023-01-22",
+      "description": "Cùng nhau đón giao thừa và tham quan chợ hoa Tết.",
+      "imageUrl": "/images/tet-2023.jpg"
     },
     {
       "id": 9,
-      "title": "Concert Night",
-      "date": "2023-09-30T00:00:00Z",
-      "description": "Front row at our favorite band's concert. She surprised me with tickets for my birthday and it was the best gift ever.",
-      "imageUrl": "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+      "title": "Kỷ niệm 1000 ngày yêu",
+      "date": "2023-08-05",
+      "description": "Kỷ niệm đặc biệt 1000 ngày bên nhau tại nhà hàng trên tầng thượng.",
+      "imageUrl": "/images/1000-days.jpg"
+    },
+    {
+      "id": 10,
+      "title": "Halloween 2023",
+      "date": "2023-10-31",
+      "description": "Cùng nhau hóa trang thành cặp đôi trong phim 'La La Land' trong bữa tiệc Halloween.",
+      "imageUrl": "/images/halloween-2023.jpg"
+    },
+    {
+      "id": 11,
+      "title": "Kỷ niệm 3 năm tại Nhật Bản",
+      "date": "2023-11-09",
+      "description": "Khoảnh khắc đặc biệt dưới tán lá đỏ tại Arashiyama, Kyoto.",
+      "imageUrl": "/images/japan-anniversary.jpg"
+    },
+    {
+      "id": 12,
+      "title": "Năm mới 2024",
+      "date": "2024-01-01",
+      "description": "Chào đón năm mới 2024 cùng nhau tại bữa tiệc countdown.",
+      "imageUrl": "/images/new-year-2024.jpg"
     }
   ]
 }
