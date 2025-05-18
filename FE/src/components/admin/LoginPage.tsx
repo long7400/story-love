@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Lock, User } from "lucide-react";
 import { motion } from "framer-motion";
+import API_CONFIG from "../../config/apiConfig";
 
 interface LoginFormData {
   username: string;
@@ -23,21 +24,38 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     setError("");
     
     try {
-      // In a real implementation, we'd call an API endpoint
-      // For this demo, we'll use a simple check against hardcoded credentials
-      // In a production app, this would be replaced with proper authentication
-      if (data.username === "admin" && data.password === "lovestory2023") {
-        // Simulate API delay
-        await new Promise(r => setTimeout(r, 800));
+      // Gọi API đăng nhập từ Spring Boot backend
+      const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.AUTH.LOGIN}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: data.username,
+          password: data.password
+        }),
+        credentials: 'include'
+      });
+      
+      if (response.ok) {
+        const authData = await response.json();
         
-        // Store auth token in sessionStorage (in a real app, use secure cookies)
+        // Lưu token vào sessionStorage
+        if (authData.token) {
+          sessionStorage.setItem("love_story_auth_token", authData.token);
+        }
+        
+        // Nếu không có token trong phản hồi, giả định là đăng nhập thành công
         sessionStorage.setItem("love_story_admin_auth", "true");
         onLogin(true);
       } else {
-        setError("Invalid username or password");
+        // Nếu phản hồi không thành công, hiển thị thông báo lỗi
+        const errorData = await response.json();
+        setError(errorData.message || "Invalid username or password");
       }
     } catch (err) {
-      setError("Login failed. Please try again.");
+      console.error("Login error:", err);
+      setError("Connection failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
