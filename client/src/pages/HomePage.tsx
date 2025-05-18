@@ -5,6 +5,9 @@ import Timeline from "@/components/Timeline";
 import PhotoGallery from "@/components/PhotoGallery";
 import Footer from "@/components/Footer";
 import SummaryHeader from "@/components/SummaryHeader";
+import MoodDashboard from "@/components/MoodDashboard";
+import LoveQuoteOverlay from "@/components/LoveQuoteOverlay";
+import HeartbeatMilestones from "@/components/HeartbeatMilestones";
 import { useState } from "react";
 import EventDetailsModal from "@/components/EventDetailsModal";
 import GalleryModal from "@/components/GalleryModal";
@@ -74,10 +77,30 @@ export default function HomePage() {
           profile2: data.profiles.profile2.name
         }}
       />
+      
+      {/* Bảng điều khiển tâm trạng */}
+      <section className="container mx-auto px-4 py-12">
+        <MoodDashboard
+          profile1Name={data.profiles.profile1.name}
+          profile2Name={data.profiles.profile2.name}
+        />
+      </section>
+      
+      {/* Timeline sự kiện */}
       <Timeline 
         events={data.events}
         onEventClick={handleEventClick}
       />
+      
+      {/* Nhịp tim cột mốc */}
+      <section className="container mx-auto px-4 py-12">
+        <HeartbeatMilestones
+          startDate={data.relationship.startDate}
+          profile1Name={data.profiles.profile1.name}
+          profile2Name={data.profiles.profile2.name}
+        />
+      </section>
+      
       <PhotoGallery 
         photos={data.photos}
         onPhotoClick={handleOpenGallery}
@@ -87,6 +110,7 @@ export default function HomePage() {
         profile2Name={data.profiles.profile2.name}
       />
       
+      {/* Các modal */}
       {selectedEvent && (
         <EventDetailsModal
           event={selectedEvent}
@@ -101,6 +125,9 @@ export default function HomePage() {
           onClose={() => setGalleryOpen(false)}
         />
       )}
+      
+      {/* Lớp phủ trích dẫn tình yêu */}
+      <LoveQuoteOverlay />
     </div>
   );
 }
