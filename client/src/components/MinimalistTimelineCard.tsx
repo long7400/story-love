@@ -22,7 +22,7 @@ export default function MinimalistTimelineCard({ event, onReadMore }: Minimalist
 
   return (
     <motion.div
-      className="bg-white rounded-2xl shadow-md shadow-pink-100/30 overflow-hidden"
+      className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden"
       whileHover={{ y: -5 }}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -65,10 +65,10 @@ export default function MinimalistTimelineCard({ event, onReadMore }: Minimalist
         <div className="flex justify-end">
           <button
             onClick={handleReadMore}
-            className="flex items-center text-sm text-primary px-4 py-1.5 rounded-full bg-pink-50 hover:bg-pink-100 transition-colors group"
+            className="flex items-center text-xs text-gray-700 px-4 py-2 rounded-md border border-gray-200 hover:bg-gray-50 transition-colors group"
           >
             <span>Read more</span>
-            <ArrowRight className="w-3.5 h-3.5 ml-1.5 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="w-3 h-3 ml-1.5 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
       </div>

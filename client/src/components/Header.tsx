@@ -34,14 +34,14 @@ export default function Header() {
 
   return (
     <header 
-      className={`bg-white/80 backdrop-blur-md fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'shadow-lg shadow-pink-200/20' : ''
+      className={`bg-white/95 backdrop-blur-sm fixed w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'shadow-sm border-b border-gray-100' : ''
       }`}
     >
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <h1 className="text-2xl md:text-3xl font-script text-primary flex items-center">
-          <Heart className="w-5 h-5 mr-2 text-primary fill-primary animate-pulse" />
-          <span className="bg-gradient-to-r from-primary to-pink-400 bg-clip-text text-transparent">Our Love Story</span>
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <h1 className="text-xl md:text-2xl font-script text-gray-800 flex items-center">
+          <Heart className="w-4 h-4 mr-2 text-primary fill-primary" />
+          <span>Our Love Story</span>
         </h1>
         
         <nav>

@@ -27,41 +27,41 @@ export default function SummaryHeader({ relationship, profileNames }: SummaryHea
   }, [relationship.startDate]);
 
   return (
-    <section className="py-10 bg-white/80 backdrop-blur-md">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-10"
         >
           {/* Couple Names */}
-          <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl p-6 shadow-md shadow-pink-100/30 flex flex-col items-center justify-center text-center">
-            <Users className="h-8 w-8 text-primary mb-4" />
-            <h3 className="text-lg font-medium text-gray-700 mb-1">Couple</h3>
-            <p className="font-script text-xl text-primary">
+          <div className="bg-white border border-gray-100 rounded-lg p-8 shadow-sm flex flex-col items-center justify-center text-center">
+            <Users className="h-6 w-6 text-gray-400 mb-4" />
+            <h3 className="text-sm uppercase tracking-widest text-gray-400 mb-2">Couple</h3>
+            <p className="font-heading text-2xl text-gray-800">
               {profileNames.profile1} & {profileNames.profile2}
             </p>
           </div>
 
           {/* Relationship Duration */}
-          <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl p-6 shadow-md shadow-pink-100/30 flex flex-col items-center justify-center text-center">
-            <Clock className="h-8 w-8 text-primary mb-4" />
-            <h3 className="text-lg font-medium text-gray-700 mb-1">Together for</h3>
-            <div className="font-medium">
-              <span className="text-2xl text-primary">{daysCounter.totalDays}</span>
-              <span className="text-gray-600 ml-1">days</span>
+          <div className="bg-white border border-gray-100 rounded-lg p-8 shadow-sm flex flex-col items-center justify-center text-center">
+            <Clock className="h-6 w-6 text-gray-400 mb-4" />
+            <h3 className="text-sm uppercase tracking-widest text-gray-400 mb-2">Together for</h3>
+            <div className="font-heading">
+              <span className="text-3xl text-gray-800">{daysCounter.totalDays}</span>
+              <span className="text-gray-600 ml-1 text-lg">days</span>
             </div>
-            <p className="text-sm text-gray-500 mt-1">
-              ({daysCounter.years} years, {daysCounter.months} months, {daysCounter.days} days)
+            <p className="text-sm text-gray-500 mt-2 font-light">
+              {daysCounter.years} years, {daysCounter.months} months, {daysCounter.days} days
             </p>
           </div>
 
           {/* Love Story */}
-          <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl p-6 shadow-md shadow-pink-100/30 flex flex-col items-center justify-center text-center">
-            <Heart className="h-8 w-8 text-primary mb-4 fill-pink-200" />
-            <h3 className="text-lg font-medium text-gray-700 mb-1">Our Story</h3>
-            <p className="text-sm text-gray-600">
+          <div className="bg-white border border-gray-100 rounded-lg p-8 shadow-sm flex flex-col items-center justify-center text-center">
+            <Heart className="h-6 w-6 text-gray-400 mb-4" />
+            <h3 className="text-sm uppercase tracking-widest text-gray-400 mb-2">Our Story</h3>
+            <p className="text-gray-700 font-light">
               A journey of love, laughter, and cherished moments that we'll remember forever.
             </p>
           </div>
