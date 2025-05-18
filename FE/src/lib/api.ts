@@ -10,7 +10,7 @@ import {
   Countdown,
   AuthResponse,
   UserCredentials
-} from '@/lib/types';
+} from '../lib/types';
 
 /**
  * API client for communicating with Spring Boot backend
