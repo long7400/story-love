@@ -1,15 +1,12 @@
-# Love Story Web Application
+# Love Story
 
 Ứng dụng kỷ niệm tình yêu kỹ thuật số với giao diện tối giản, tương tác cao, cho phép bạn tạo và chia sẻ câu chuyện tình yêu một cách sáng tạo và độc đáo.
 
-![Love Story Preview](./preview.png)
+## Cấu Trúc Dự Án
 
-## Cấu trúc dự án
-
-Dự án được tổ chức thành các phần riêng biệt:
-- `client/`: Mã nguồn frontend React/Vite
-- `love-story-backend/`: Mã nguồn backend Spring Boot
-- `docs/`: Hướng dẫn và tài liệu
+Dự án được tổ chức thành hai phần riêng biệt:
+- `FE/`: Mã nguồn frontend (React/Vite)
+- `BE/`: Mã nguồn backend (Spring Boot)
 
 ## Tính năng chính
 
@@ -32,69 +29,45 @@ Dự án được tổ chức thành các phần riêng biệt:
 - Trình duyệt web hiện đại (Chrome, Firefox, Safari, Edge)
 - Git (để clone repository)
 
-## Cài đặt và chạy ứng dụng
+## Cài Đặt và Chạy
 
-### Phương pháp 1: Sử dụng Docker (Khuyến nghị)
+### Sử Dụng Docker Compose (Khuyến nghị)
 
-1. Clone repository:
-   ```bash
-   git clone <repository-url>
-   cd love-story
-   ```
+```bash
+# Clone repository
+git clone <repository-url>
+cd storylove
 
-2. Tạo file .env từ .env.example (nếu chưa có):
-   ```bash
-   cp .env.example .env
-   ```
+# Tạo file .env nếu cần
+touch .env
 
-3. Khởi động ứng dụng với Docker Compose:
-   ```bash
-   docker-compose up -d
-   ```
+# Khởi động ứng dụng
+docker-compose up -d
+```
 
-4. Truy cập ứng dụng:
-   - Storefront (SF): http://localhost
-   - Back Office (BO): http://localhost/admin
-   - Swagger UI: http://localhost:8080/swagger-ui.html
-   
-   Phiên bản production:
-   - Storefront (SF): https://yourdomain.com
-   - Back Office (BO): https://admin.yourdomain.com
-   - Swagger UI: https://api.yourdomain.com/swagger-ui.html
+Truy cập ứng dụng:
+- Storefront: http://localhost
+- Back Office: http://localhost/admin
+- Swagger UI: http://localhost:8080/swagger-ui.html
 
-### Phương pháp 2: Chạy riêng từng phần
+### Chạy Frontend Riêng
 
-#### Backend (Spring Boot)
+```bash
+cd FE
+npm install
+npm run dev
+```
 
-1. Đảm bảo cài đặt JDK 17 trở lên và Maven
-2. Di chuyển vào thư mục backend:
-   ```bash
-   cd love-story-backend
-   ```
+Frontend sẽ chạy tại http://localhost:5173
 
-3. Cấp quyền chạy cho script và khởi động:
-   ```bash
-   chmod +x mvnw run.sh
-   ./run.sh
-   ```
+### Chạy Backend Riêng
 
-4. Backend sẽ chạy tại http://localhost:8080
+```bash
+cd BE
+./run.sh
+```
 
-#### Frontend (React)
-
-1. Đảm bảo cài đặt Node.js v16 trở lên
-2. Di chuyển vào thư mục client và cài đặt dependencies:
-   ```bash
-   cd client
-   npm install
-   ```
-
-3. Khởi động ứng dụng frontend:
-   ```bash
-   npm run dev
-   ```
-
-4. Frontend sẽ chạy tại http://localhost:5173
+Backend sẽ chạy tại http://localhost:8080
 
 ## Khởi tạo tài khoản
 
@@ -138,109 +111,22 @@ Content-Type: application/json
 }
 ```
 
-Hoặc sử dụng curl:
+## Tài liệu API
 
-```bash
-curl -X POST http://localhost:8080/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"username":"user","email":"user@example.com","password":"UserPassword123!","roles":["user"]}'
-```
+Chi tiết về các API có thể truy cập qua Swagger UI tại:
+- http://localhost:8080/swagger-ui.html
 
-### Tài khoản Partner
+## Tích hợp OpenAI
 
-Tạo tài khoản cho đối tác (có quyền đặc biệt):
+Để sử dụng tính năng tích hợp OpenAI:
 
-```
-POST /api/auth/register
-Content-Type: application/json
-
-{
-  "username": "partner",
-  "email": "partner@example.com", 
-  "password": "PartnerPassword123!",
-  "roles": ["partner"]
-}
-```
-
-## Đăng nhập
-
-Đăng nhập vào hệ thống:
-
-```
-POST /api/auth/login
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "password": "StrongPassword123!"
-}
-```
-
-Phản hồi sẽ bao gồm JWT token để xác thực các yêu cầu API tiếp theo.
-
-## Thiết lập ban đầu
-
-Sau khi đăng nhập vào Back Office với tài khoản admin, bạn cần thiết lập nội dung ban đầu:
-
-1. Tạo mối quan hệ (relationship)
-2. Thêm thông tin profile cho cả hai người
-3. Thêm các sự kiện vào timeline
-4. Tải lên ảnh cho thư viện
-
-## Cấu hình nâng cao
-
-### Sử dụng OpenAI để tạo nội dung
-
-Ứng dụng có tích hợp với OpenAI để tự động tạo nội dung:
-
-1. Đảm bảo bạn đã cung cấp OPENAI_API_KEY trong biến môi trường:
+1. Đảm bảo bạn đã thêm API key vào biến môi trường:
    ```
-   OPENAI_API_KEY=your_openai_api_key
+   OPENAI_API_KEY=your_api_key
    ```
 
-2. Trong Back Office, sử dụng chức năng "AI Content Generator" để tạo mô tả sự kiện, nội dung thiệp, v.v.
+2. Trong Back Office, sử dụng các tính năng tạo nội dung tự động cho timeline và gallery.
 
-### Tùy chỉnh database
+## Hỗ trợ và liên hệ
 
-Nếu muốn sử dụng database PostgreSQL có sẵn thay vì container Docker:
-
-1. Chỉnh sửa file `application-local.properties` hoặc `application-dev.properties`:
-   ```
-   spring.datasource.url=jdbc:postgresql://your_db_host:5432/your_db_name
-   spring.datasource.username=your_username
-   spring.datasource.password=your_password
-   ```
-
-## API Documentation
-
-Tài liệu API đầy đủ có thể truy cập tại:
-- Swagger UI: http://localhost:8080/swagger-ui.html
-- OpenAPI Spec: http://localhost:8080/v3/api-docs
-
-## Cấu trúc thư mục
-
-```
-love-story/
-├── client/                  # Frontend React code
-├── love-story-backend/      # Spring Boot backend
-├── docker-compose.yml       # Docker configuration
-├── .env                     # Environment variables
-└── README.md                # This documentation
-```
-
-## Vấn đề thường gặp
-
-### Backend không kết nối được với database
-
-- Kiểm tra cài đặt PostgreSQL
-- Xác nhận thông tin kết nối trong application.properties
-- Đảm bảo database đã được tạo
-
-### Upload ảnh lỗi
-
-- Kiểm tra thư mục uploads đã tồn tại và có quyền ghi
-- Giới hạn kích thước tối đa mặc định là 10MB
-
-## License
-
-Copyright © 2024 Love Story App. All rights reserved.
+Nếu bạn gặp vấn đề khi cài đặt hoặc sử dụng ứng dụng, vui lòng xem thêm các tài liệu trong thư mục `/docs`.

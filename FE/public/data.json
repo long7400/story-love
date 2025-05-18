@@ -1,0 +1,114 @@
+{
+  "profiles": {
+    "profile1": {
+      "name": "Minh Anh",
+      "birthday": "30/05/1995"
+    },
+    "profile2": {
+      "name": "Thanh Hà",
+      "birthday": "15/08/1998"
+    }
+  },
+  "relationship": {
+    "startDate": "2021-12-15T00:00:00Z"
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "First Meeting",
+      "date": "2021-11-15T00:00:00Z",
+      "shortDescription": "We met at a mutual friend's birthday party. I was immediately drawn to her smile across the room.",
+      "fullDescription": "It was fate that brought us together at Linh's birthday celebration. The moment I saw her laughing with friends, I knew I had to introduce myself. We talked for hours about our favorite books, travel dreams, and discovered we both love the same obscure indie band. <strong>Sometimes the universe aligns perfectly.</strong>",
+      "imageUrl": "https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=450&q=80"
+    },
+    {
+      "id": 2,
+      "title": "First Date",
+      "date": "2021-12-05T00:00:00Z",
+      "shortDescription": "Our first official date at the lakeside café. We talked for hours until the staff had to ask us to leave.",
+      "fullDescription": "The lakeside café became 'our place' that day. Despite the December chill, we sat on the patio watching the sunset reflect on the water. Our coffee went cold because we were too busy talking. When the staff finally had to close, we realized we'd been there for over 4 hours! It felt like minutes. <em>Walking her home under the stars, I knew something special was beginning.</em>",
+      "imageUrl": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=450&q=80"
+    },
+    {
+      "id": 3,
+      "title": "Relationship Begins",
+      "date": "2021-12-15T00:00:00Z",
+      "shortDescription": "On a starry night, I gathered my courage and asked her to be my girlfriend. Her smile and \"yes\" made it the happiest day.",
+      "fullDescription": "After ten days that felt like a lifetime, I knew I didn't want to be just friends. I planned a special night at the botanical garden's winter light festival. Surrounded by thousands of twinkling lights, I took her hands and told her how I felt. When she said yes, the lights seemed to shine even brighter. <strong>We sealed our new relationship with our first kiss under the garden's grand oak tree.</strong> A perfect beginning to our story.",
+      "imageUrl": "https://images.unsplash.com/photo-1513279922550-250c2129b13a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=450&q=80"
+    },
+    {
+      "id": 4,
+      "title": "First Trip Together",
+      "date": "2022-06-20T00:00:00Z",
+      "shortDescription": "Our first weekend getaway to the mountains. Exploring nature hand in hand created memories that will last forever.",
+      "fullDescription": "Six months into our relationship, we took the leap and planned our first trip together. Three days in the mountains testing our compatibility in close quarters. We hiked to hidden waterfalls, cooked meals together in our tiny cabin kitchen, and stayed up late playing cards by the fireplace. <br><br>On the last night, we lay on a blanket <strong>counting shooting stars</strong> and talking about our future. Coming home, we both knew we'd passed an important relationship milestone with flying colors.",
+      "imageUrl": "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=450&q=80"
+    }
+  ],
+  "photos": [
+    {
+      "id": 1,
+      "title": "Park Picnic",
+      "date": "2022-04-10T00:00:00Z",
+      "description": "Our first spring together. We packed homemade sandwiches and spent the whole day reading and relaxing under the cherry blossoms.",
+      "imageUrl": "https://images.unsplash.com/photo-1522673607200-164d1b3ce551?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+    },
+    {
+      "id": 2,
+      "title": "Beach Sunset",
+      "date": "2022-07-15T00:00:00Z",
+      "description": "Weekend trip to the coast. We collected seashells and watched the most beautiful sunset we'd ever seen.",
+      "imageUrl": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+    },
+    {
+      "id": 3,
+      "title": "Mountain Adventure",
+      "date": "2022-10-08T00:00:00Z",
+      "description": "Fall hiking trip. The views were breathtaking, but not as breathtaking as she looked surrounded by autumn colors.",
+      "imageUrl": "https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+    },
+    {
+      "id": 4,
+      "title": "Anniversary Dinner",
+      "date": "2022-12-15T00:00:00Z",
+      "description": "Our one-year anniversary. Celebrated at the fancy restaurant we'd always wanted to try. Worth every penny to see her smile.",
+      "imageUrl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+    },
+    {
+      "id": 5,
+      "title": "Carnival Fun",
+      "date": "2023-02-14T00:00:00Z",
+      "description": "Valentine's Day at the winter carnival. I won her a giant teddy bear at the ring toss after 15 attempts!",
+      "imageUrl": "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+    },
+    {
+      "id": 6,
+      "title": "Wedding Dance",
+      "date": "2023-05-20T00:00:00Z",
+      "description": "Dancing at her sister's wedding. Everyone said we were the most in-love couple there (besides the bride and groom, of course).",
+      "imageUrl": "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+    },
+    {
+      "id": 7,
+      "title": "City Lights",
+      "date": "2023-07-04T00:00:00Z",
+      "description": "Rooftop date night watching fireworks over the city. We made wishes on each explosion of color.",
+      "imageUrl": "https://images.unsplash.com/photo-1498036882173-b41c28a8ba34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+    },
+    {
+      "id": 8,
+      "title": "Cooking Class",
+      "date": "2023-08-12T00:00:00Z",
+      "description": "Learning to make pasta from scratch. More flour ended up on our faces than in the actual pasta.",
+      "imageUrl": "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+    },
+    {
+      "id": 9,
+      "title": "Concert Night",
+      "date": "2023-09-30T00:00:00Z",
+      "description": "Front row at our favorite band's concert. She surprised me with tickets for my birthday and it was the best gift ever.",
+      "imageUrl": "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=500&q=80"
+    }
+  ]
+}
