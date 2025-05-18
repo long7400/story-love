@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Story - Chuyển hướng</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #fff8f8;
+        color: #333;
+        text-align: center;
+      }
+      .container {
+        max-width: 600px;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #e95e6a;
+        margin-bottom: 1rem;
+      }
+      p {
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+      }
+      .heart {
+        color: #e95e6a;
+        font-size: 2rem;
+        animation: pulse 1.5s infinite;
+        display: inline-block;
+        margin: 0 0.5rem;
+      }
+      .cta {
+        display: inline-block;
+        background-color: #e95e6a;
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+      .cta:hover {
+        background-color: #d74854;
+        transform: translateY(-2px);
+      }
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+      }
+    </style>
+    <script>
+      // Sau 2 giây, chuyển hướng người dùng đến ứng dụng FE
+      window.onload = function() {
+        setTimeout(function() {
+          window.location.href = "http://localhost:3000";
+        }, 2000);
+      };
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Love Story <span class="heart">❤</span> Website</h1>
+      <p>Chúng tôi đang chuyển hướng bạn đến trang mới với cấu trúc BE/FE mới.</p>
+      <p>Nếu bạn không được chuyển hướng sau vài giây, vui lòng nhấp vào nút bên dưới:</p>
+      <a href="http://localhost:3000" class="cta">Đi đến ứng dụng</a>
+    </div>
+  </body>
+</html>
