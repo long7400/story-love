@@ -58,13 +58,13 @@ export default function LoveButton({ className = '' }: LoveButtonProps) {
         className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center 
                    transition-all duration-300 ${isActive 
                      ? 'bg-primary text-white' 
-                     : 'bg-white text-gray-300'}`}
+                     : 'bg-white'}`}
         onClick={toggleLove}
         whileTap={{ scale: 0.9 }}
         initial={{ scale: 1 }}
         whileHover={{ scale: 1.1 }}
       >
-        <Heart className={`w-6 h-6 ${isActive ? 'fill-white' : ''}`} />
+        <Heart className={`w-6 h-6 ${isActive ? 'fill-white' : 'text-gray-300'}`} />
       </motion.button>
 
       {/* Heart burst animation container */}
