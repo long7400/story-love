@@ -16,6 +16,7 @@ import java.util.List;
 public class Relationship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
     private Long id;
     
     private LocalDate startDate;
