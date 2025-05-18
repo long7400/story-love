@@ -48,6 +48,10 @@
 4. Truy cập ứng dụng:
    - Storefront (SF): http://localhost
    - Back Office (BO): http://localhost/admin
+   
+   Phiên bản production:
+   - Storefront (SF): https://yourdomain.com
+   - Back Office (BO): https://admin.yourdomain.com
 
 ### Phương pháp 2: Chạy riêng từng phần
 
