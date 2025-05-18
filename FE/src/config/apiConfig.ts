@@ -1,18 +1,18 @@
 // API Configuration
 const API_CONFIG = {
-  // Sử dụng BASE_URL từ biến môi trường hoặc mặc định đến proxy
-  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+  // Sử dụng BASE_URL từ biến môi trường hoặc mặc định đến backend Spring Boot
+  BASE_URL: '',
   
   // API endpoints cơ bản
   ENDPOINTS: {
     // Dữ liệu chung
-    LOVE_STORY_DATA: '/love-story-data',
+    LOVE_STORY_DATA: '/api/love-story-data',
     
     // Quản lý người dùng và xác thực
     AUTH: {
-      LOGIN: '/auth/login',
-      REGISTER: '/auth/register',
-      USER: '/auth/user'
+      LOGIN: '/api/auth/login',
+      REGISTER: '/api/auth/register',
+      USER: '/api/auth/user'
     },
     
     // Quản lý dữ liệu cốt lõi

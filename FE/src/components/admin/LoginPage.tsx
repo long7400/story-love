@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Lock, User } from "lucide-react";
 import { motion } from "framer-motion";
@@ -24,17 +24,21 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     setError("");
     
     try {
+      // Sử dụng đường dẫn tương đối để tận dụng proxy của Vite
+      console.log(`Đang kết nối đến: /api/auth/login`);
       // Gọi API đăng nhập từ Spring Boot backend
-      const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.AUTH.LOGIN}`, {
+      const response = await fetch(`/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           username: data.username,
           password: data.password
         }),
-        credentials: 'include'
+        // Chỉ sử dụng credentials 'include' khi thực sự cần
+        credentials: 'same-origin'
       });
       
       if (response.ok) {
