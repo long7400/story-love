@@ -50,9 +50,9 @@ export default function Header() {
               <button 
                 onMouseEnter={playHover}
                 onClick={() => scrollToSection("home")} 
-                className="flex items-center px-3 py-1.5 rounded-full text-gray-800 hover:text-primary hover:bg-pink-50 transition-all duration-300 font-medium"
+                className="flex items-center px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
               >
-                <Home className="w-4 h-4 mr-1.5" />
+                <Home className="w-3.5 h-3.5 mr-1.5" />
                 <span>Home</span>
               </button>
             </li>
@@ -60,9 +60,9 @@ export default function Header() {
               <button 
                 onMouseEnter={playHover}
                 onClick={() => scrollToSection("timeline")} 
-                className="flex items-center px-3 py-1.5 rounded-full text-gray-800 hover:text-primary hover:bg-pink-50 transition-all duration-300 font-medium"
+                className="flex items-center px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
               >
-                <Clock className="w-4 h-4 mr-1.5" />
+                <Clock className="w-3.5 h-3.5 mr-1.5" />
                 <span>Timeline</span>
               </button>
             </li>
@@ -70,9 +70,9 @@ export default function Header() {
               <button 
                 onMouseEnter={playHover}
                 onClick={() => scrollToSection("gallery")} 
-                className="flex items-center px-3 py-1.5 rounded-full text-gray-800 hover:text-primary hover:bg-pink-50 transition-all duration-300 font-medium"
+                className="flex items-center px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
               >
-                <Image className="w-4 h-4 mr-1.5" />
+                <Image className="w-3.5 h-3.5 mr-1.5" />
                 <span>Gallery</span>
               </button>
             </li>
@@ -80,13 +80,13 @@ export default function Header() {
               <button 
                 onMouseEnter={playHover}
                 onClick={toggleMute}
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-pink-50 text-gray-700 hover:text-primary transition-all"
+                className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 text-gray-500 hover:text-gray-900 hover:border-gray-300 transition-all"
                 aria-label={isMuted ? "Unmute sounds" : "Mute sounds"}
               >
                 {isMuted ? (
-                  <VolumeX className="w-4 h-4" />
+                  <VolumeX className="w-3.5 h-3.5" />
                 ) : (
-                  <Volume2 className="w-4 h-4" />
+                  <Volume2 className="w-3.5 h-3.5" />
                 )}
               </button>
             </li>

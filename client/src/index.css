@@ -3,26 +3,26 @@
 @tailwind utilities;
 
 :root {
-  --background: 348 100% 98%;
+  --background: 0 0% 98%;
   --foreground: 220 14.3% 4.1%;
-  --muted: 348 4.8% 95.9%;
-  --muted-foreground: 348 5.3% 44.7%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
   --popover: 0 0% 100%;
   --popover-foreground: 220 14.3% 4.1%;
   --card: 0 0% 100%;
   --card-foreground: 220 14.3% 4.1%;
-  --border: 348 5.9% 90%;
-  --input: 348 5.9% 90%;
-  --primary: 348 100% 70%;
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
+  --primary: 0 80% 60%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 348 100% 90%;
-  --secondary-foreground: 348 9.8% 10%;
-  --accent: 348 100% 80%;
-  --accent-foreground: 348 9.8% 10%;
+  --secondary: 0 0% 96%;
+  --secondary-foreground: 0 0% 30%;
+  --accent: 0 0% 95%;
+  --accent-foreground: 0 0% 30%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 348 14.3% 4.1%;
-  --radius: 0.75rem;
+  --ring: 0 0% 80%;
+  --radius: 0.5rem;
 }
 
 /* Custom animations */
@@ -76,12 +76,12 @@
   .timeline-container::after {
     content: '';
     position: absolute;
-    width: 4px;
-    background-color: hsl(var(--accent));
+    width: 2px;
+    background-color: #e5e7eb; /* gray-200 */
     top: 0;
     bottom: 0;
     left: 50%;
-    margin-left: -2px;
+    margin-left: -1px;
     z-index: 0;
   }
 
@@ -93,10 +93,10 @@
   .timeline-item::after {
     content: '';
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     background-color: white;
-    border: 4px solid hsl(var(--primary));
+    border: 3px solid hsl(var(--primary));
     border-radius: 50%;
     top: 50%;
     left: 50%;

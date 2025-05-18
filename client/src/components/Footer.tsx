@@ -13,19 +13,19 @@ export default function Footer({ profile1Name, profile2Name }: FooterProps) {
   }, []);
 
   return (
-    <footer className="py-10 bg-gray-900 text-white">
+    <footer className="py-16 bg-white border-t border-gray-100">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-2xl font-script text-secondary mb-4">
+        <h2 className="text-2xl font-script text-gray-800 mb-6">
           {profile1Name} & {profile2Name}
         </h2>
-        <p className="max-w-lg mx-auto mb-6 text-gray-300">
+        <p className="max-w-lg mx-auto mb-8 text-gray-600 font-light italic">
           "In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine."
         </p>
-        <p className="text-sm text-gray-400">
+        <p className="text-xs text-gray-400 tracking-wide uppercase">
           Made with{" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4 inline-block text-primary"
+            className="h-3 w-3 inline-block text-primary"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
