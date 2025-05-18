@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # Database
+  db:
+    image: postgres:15-alpine
+    container_name: love-story-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-lovestory}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - love-story-network
+
+  # Backend
+  backend:
+    build:
+      context: ./BE
+      dockerfile: Dockerfile
+    container_name: love-story-backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${POSTGRES_DB:-lovestory}
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER:-postgres}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - APP_JWT_SECRET=${JWT_SECRET:-loveStorySecretKey2024ThisIsAVeryLongKeyThatIsAtLeast256BitsLongForSecurityRequirements}
+      - APP_JWT_EXPIRATION_MS=86400000
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    volumes:
+      - uploads:/app/uploads
+    ports:
+      - "8080:8080"
+    networks:
+      - love-story-network
+
+  # Frontend
+  frontend:
+    build:
+      context: ./FE
+      dockerfile: Dockerfile
+    container_name: love-story-frontend
+    restart: always
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_BASE_URL=http://backend:8080
+    ports:
+      - "80:80"
+    networks:
+      - love-story-network
+
+networks:
+  love-story-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+  uploads:
