@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class Countdown {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
     private Long id;
 
     @NotBlank
