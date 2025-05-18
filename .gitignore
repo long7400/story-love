@@ -1,6 +1,70 @@
-node_modules
-dist
+# IDE và Editor
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
 .DS_Store
-server/public
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+.pnp/
+.pnp.js
+
+# Build và output
+dist/
+build/
+target/
+out/
+server/public/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vite và các tệp liên quan
 vite.config.ts.*
+.vite/
+*.timestamp-*
+
+# Testing
+/coverage
+
+# Backend/Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
 *.tar.gz
+*.rar
+.mvn/wrapper/maven-wrapper.jar
+
+# Upload directories
+uploads/*
+!uploads/.gitkeep
+BE/uploads/*
+!BE/uploads/.gitkeep
+
+# Temp files and backups
+*~
+*.swp
+*.bak
+*.tmp
+
+# Cụ thể cho Spring Boot
+.gradle
+!gradle/wrapper/gradle-wrapper.jar
+
+# File cụ thể
+.replit
+cleanup_plan/
