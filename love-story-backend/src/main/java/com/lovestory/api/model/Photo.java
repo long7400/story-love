@@ -1,48 +1,43 @@
 package com.lovestory.api.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "photos")
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "photos")
 public class Photo {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(nullable = false)
+
+    @NotBlank
     private String title;
     
-    @Column(nullable = false)
-    private String date;
+    private LocalDate date;
     
     @Column(columnDefinition = "TEXT")
     private String description;
     
-    @Column(name = "image_url", nullable = false)
+    @NotBlank
     private String imageUrl;
     
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    // Optional fields for enhanced photo details
+    private String location;
+    private String tags;
     
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    // Flag for whether HTML is allowed in descriptions
+    private Boolean htmlEnabled = false;
     
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-    
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
+    // References the relationship this photo belongs to
+    @ManyToOne
+    @JoinColumn(name = "relationship_id")
+    private Relationship relationship;
 }

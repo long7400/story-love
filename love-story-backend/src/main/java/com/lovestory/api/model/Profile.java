@@ -1,42 +1,35 @@
 package com.lovestory.api.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "profiles")
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "profiles")
 public class Profile {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(nullable = false)
+
+    @NotBlank
     private String name;
     
-    @Column(name = "birthday")
-    private String birthday;
+    private LocalDate birthday;
+
+    // Optional fields for enhanced profiles
+    private String avatarUrl;
+    private String bio;
+    private String favoriteQuote;
     
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-    
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-    
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-    
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
+    // Many profiles can belong to the same relationship
+    @ManyToOne
+    @JoinColumn(name = "relationship_id")
+    private Relationship relationship;
 }

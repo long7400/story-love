@@ -12,29 +12,31 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "events")
-public class Event {
+@Table(name = "location_markers")
+public class LocationMarker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    private String title;
+    private String name;
+    
+    @Column(columnDefinition = "TEXT")
+    private String description;
     
     private LocalDate date;
     
-    @Column(length = 1000)
-    private String shortDescription;
+    // Coordinates
+    private Double latitude;
+    private Double longitude;
     
-    @Column(columnDefinition = "TEXT")
-    private String fullDescription;
+    // For special locations (like first date, proposal, etc.)
+    private Boolean isSpecial = false;
     
+    // Optional image
     private String imageUrl;
     
-    // Flag for whether HTML is allowed in descriptions
-    private Boolean htmlEnabled = false;
-    
-    // References the relationship this event belongs to
+    // References the relationship this location belongs to
     @ManyToOne
     @JoinColumn(name = "relationship_id")
     private Relationship relationship;
