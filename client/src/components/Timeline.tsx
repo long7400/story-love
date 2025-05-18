@@ -16,7 +16,7 @@ export default function Timeline({ events, onEventClick }: TimelineProps) {
       data-aos="fade-up"
     >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-10" data-aos="fade-up">
+        <div className="text-center mb-12" data-aos="fade-up">
           <div className="flex items-center justify-center mb-3">
             <div className="w-8 h-1 bg-primary rounded-full mr-2 opacity-70"></div>
             <Clock className="w-5 h-5 text-primary" />
@@ -30,14 +30,48 @@ export default function Timeline({ events, onEventClick }: TimelineProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-          {events.map((event, index) => (
-            <MinimalistTimelineCard
-              key={event.id}
-              event={event}
-              onReadMore={() => onEventClick(event)}
-            />
-          ))}
+        {/* Vertical Timeline with Center Line */}
+        <div className="relative mt-16">
+          {/* Center vertical line */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-pink-200 rounded-full"></div>
+          
+          <div className="relative">
+            {events.map((event, index) => (
+              <div 
+                key={event.id} 
+                className={`flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'} relative mb-16`}
+              >
+                {/* Timeline event for left side (even index) */}
+                {index % 2 === 0 && (
+                  <>
+                    <div className="w-5/12 pr-8">
+                      <MinimalistTimelineCard
+                        event={event}
+                        onReadMore={() => onEventClick(event)}
+                      />
+                    </div>
+                    <div className="absolute left-1/2 top-10 transform -translate-x-1/2 w-4 h-4 rounded-full bg-primary border-4 border-white shadow-md z-10"></div>
+                  </>
+                )}
+                
+                {/* Timeline event for right side (odd index) */}
+                {index % 2 === 1 && (
+                  <>
+                    <div className="w-5/12 invisible">
+                      {/* This is empty space for the left side when event is on the right */}
+                    </div>
+                    <div className="absolute left-1/2 top-10 transform -translate-x-1/2 w-4 h-4 rounded-full bg-primary border-4 border-white shadow-md z-10"></div>
+                    <div className="w-5/12 pl-8">
+                      <MinimalistTimelineCard
+                        event={event}
+                        onReadMore={() => onEventClick(event)}
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
