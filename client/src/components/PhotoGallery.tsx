@@ -23,15 +23,13 @@ export default function PhotoGallery({ photos, onPhotoClick }: PhotoGalleryProps
     <section id="gallery" className="py-20 bg-gradient-to-b from-pink-50/60 to-white/60" data-aos="fade-up">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16" data-aos="fade-up">
-          <div className="flex items-center justify-center mb-3">
-            <div className="w-8 h-1 bg-primary rounded-full mr-2 opacity-70"></div>
-            <Camera className="w-5 h-5 text-primary" />
-            <div className="w-8 h-1 bg-primary rounded-full ml-2 opacity-70"></div>
+          <div className="mb-4 text-gray-400 tracking-[0.4em] text-xs uppercase">
+            Photos
           </div>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 bg-gradient-to-r from-primary to-pink-400 bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-script mb-6 text-gray-800">
             Our Beautiful Memories
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto font-light tracking-wide">
             Each photo tells a story of our love, joy, and adventures together.
           </p>
         </div>

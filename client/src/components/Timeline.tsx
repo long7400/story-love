@@ -17,15 +17,13 @@ export default function Timeline({ events, onEventClick }: TimelineProps) {
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-12" data-aos="fade-up">
-          <div className="flex items-center justify-center mb-3">
-            <div className="w-8 h-1 bg-primary rounded-full mr-2 opacity-70"></div>
-            <Clock className="w-5 h-5 text-primary" />
-            <div className="w-8 h-1 bg-primary rounded-full ml-2 opacity-70"></div>
+          <div className="mb-4 text-gray-400 tracking-[0.4em] text-xs uppercase">
+            Timeline
           </div>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 bg-gradient-to-r from-primary to-pink-400 bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-script mb-6 text-gray-800">
             Our Journey Together
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto font-light tracking-wide">
             Every step of our journey has been a beautiful memory that we cherish forever.
           </p>
         </div>

@@ -46,10 +46,10 @@ export default function HeroSection({ profiles, relationship }: HeroSectionProps
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="mb-3 text-gray-500 font-light tracking-widest text-sm">
-            OUR STORY
+          <div className="mb-4 text-gray-500 tracking-[0.4em] text-xs uppercase">
+            Our Story
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-gray-800">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-script mb-8 text-gray-800">
             {profiles.profile1.name} & {profiles.profile2.name}
           </h1>
           <p className="text-lg text-gray-600 mb-6">

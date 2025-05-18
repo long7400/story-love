@@ -33,9 +33,9 @@ export default function MinimalistTimelineCard({ event, onReadMore }: Minimalist
       <div className="p-6">
         {/* Title and date - styled like the example image */}
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-heading font-medium text-primary">{event.title}</h3>
-          <div className="flex items-center px-3 py-1 rounded-lg bg-pink-100 text-primary text-sm">
-            <Calendar className="w-3.5 h-3.5 mr-1.5" />
+          <h3 className="text-xl font-heading font-normal text-gray-800">{event.title}</h3>
+          <div className="flex items-center px-3 py-1 rounded-md bg-gray-100 text-gray-600 text-xs">
+            <Calendar className="w-3 h-3 mr-1.5" />
             {formattedDate}
           </div>
         </div>
