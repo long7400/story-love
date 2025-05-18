@@ -9,6 +9,7 @@ import AdminPage from "@/pages/AdminPage";
 import { SoundProvider } from "@/lib/SoundContext";
 import { useEffect, useState } from "react";
 import MusicPlayer from "@/components/MusicPlayer";
+import LoveButton from "@/components/LoveButton";
 
 // Loading animation component
 function LoadingScreen() {
@@ -78,6 +79,7 @@ function App() {
             <>
               <Router />
               <MusicPlayer />
+              <LoveButton />
             </>
           )}
         </TooltipProvider>
