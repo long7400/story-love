@@ -4,6 +4,13 @@
 
 ![Love Story Preview](./preview.png)
 
+## Cấu trúc dự án
+
+Dự án được tổ chức thành các phần riêng biệt:
+- `client/`: Mã nguồn frontend React/Vite
+- `love-story-backend/`: Mã nguồn backend Spring Boot
+- `docs/`: Hướng dẫn và tài liệu
+
 ## Tính năng chính
 
 - **Timeline Tình Yêu**: Hiển thị câu chuyện tình yêu theo dòng thời gian với giao diện tương tác.
@@ -48,10 +55,12 @@
 4. Truy cập ứng dụng:
    - Storefront (SF): http://localhost
    - Back Office (BO): http://localhost/admin
+   - Swagger UI: http://localhost:8080/swagger-ui.html
    
    Phiên bản production:
    - Storefront (SF): https://yourdomain.com
    - Back Office (BO): https://admin.yourdomain.com
+   - Swagger UI: https://api.yourdomain.com/swagger-ui.html
 
 ### Phương pháp 2: Chạy riêng từng phần
 
@@ -74,8 +83,9 @@
 #### Frontend (React)
 
 1. Đảm bảo cài đặt Node.js v16 trở lên
-2. Di chuyển vào thư mục gốc và cài đặt dependencies:
+2. Di chuyển vào thư mục client và cài đặt dependencies:
    ```bash
+   cd client
    npm install
    ```
 
