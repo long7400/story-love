@@ -163,7 +163,7 @@
   /* Dark mode cho nội dung HTML */
   .dark .event-content a,
   .dark .photo-description a {
-    @apply text-primary-300;
+    @apply text-primary;
   }
   
   .dark .event-content blockquote,
