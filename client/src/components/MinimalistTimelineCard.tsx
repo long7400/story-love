@@ -45,12 +45,13 @@ export default function MinimalistTimelineCard({ event, onReadMore }: Minimalist
           {event.shortDescription}
         </p>
 
-        {/* Image */}
-        <div className="rounded-lg overflow-hidden mb-4">
+        {/* Image - Adaptive height container for any orientation */}
+        <div className="rounded-lg overflow-hidden mb-4 relative aspect-[4/3]">
           <img
             src={event.imageUrl}
             alt={event.title}
-            className="w-full h-48 object-cover transition-transform duration-500 hover:scale-105"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            loading="lazy"
           />
         </div>
 

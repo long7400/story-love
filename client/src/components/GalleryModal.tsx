@@ -89,11 +89,14 @@ export default function GalleryModal({ photos, initialIndex, onClose }: GalleryM
                       transition={{ duration: 0.25 }}
                       className="relative rounded-xl overflow-hidden"
                     >
-                      <img
-                        src={currentPhoto.imageUrl}
-                        alt={currentPhoto.title}
-                        className="w-full max-h-[70vh] object-contain"
-                      />
+                      <div className="bg-black w-full aspect-[16/10] flex items-center justify-center">
+                        <img
+                          src={currentPhoto.imageUrl}
+                          alt={currentPhoto.title}
+                          className="max-w-full max-h-[70vh] object-contain"
+                          loading="lazy"
+                        />
+                      </div>
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
                         <motion.div 
                           initial={{ y: 20, opacity: 0 }}

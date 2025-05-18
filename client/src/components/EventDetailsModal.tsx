@@ -55,11 +55,12 @@ export default function EventDetailsModal({ event, onClose }: EventDetailsModalP
             <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-pink-200/30 w-full max-w-2xl overflow-hidden transform transition-all">
               <div className="relative">
                 {/* Header Image with Gradient Overlay */}
-                <div className="relative h-48 w-full overflow-hidden">
+                <div className="relative w-full overflow-hidden aspect-video">
                   <img
                     src={event.imageUrl}
                     alt={event.title}
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-contain bg-black"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent">
                     <div className="p-6 text-white">

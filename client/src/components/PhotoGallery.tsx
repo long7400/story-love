@@ -51,11 +51,12 @@ export default function PhotoGallery({ photos, onPhotoClick }: PhotoGalleryProps
               data-aos="zoom-in"
               data-aos-delay={index * 100}
             >
-              <div className="relative h-64 overflow-hidden group">
+              <div className="relative overflow-hidden group aspect-[4/3]">
                 <img
                   src={photo.imageUrl}
                   alt={photo.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 absolute inset-0"
+                  loading="lazy"
                 />
                 
                 {/* Overlay */}
