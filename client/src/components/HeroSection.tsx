@@ -126,7 +126,7 @@ export default function HeroSection({ profiles, relationship }: HeroSectionProps
                 onMouseLeave={() => setIsHeartHovered(false)}
               >
                 <div className="w-12 h-12 md:w-14 md:h-14 bg-white rounded-full flex items-center justify-center shadow-md cursor-pointer border border-gray-100">
-                  <Heart className={`h-6 w-6 transition-colors duration-300 ${isHeartHovered ? 'text-primary fill-primary' : 'text-gray-300 fill-gray-200'}`} />
+                  <Heart className="h-6 w-6 transition-colors duration-300 text-red-500 fill-red-500" />
                 </div>
               </motion.div>
               
