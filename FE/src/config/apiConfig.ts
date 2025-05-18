@@ -1,7 +1,7 @@
-// API Configuration for Spring Boot backend connection
+// API Configuration
 const API_CONFIG = {
-  // Sử dụng BASE_URL từ biến môi trường hoặc mặc định đến Spring Boot backend
-  BASE_URL: (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:8080',
+  // Sử dụng BASE_URL từ biến môi trường hoặc mặc định đến proxy
+  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
   
   // API endpoints cơ bản
   ENDPOINTS: {

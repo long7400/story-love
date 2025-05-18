@@ -46,9 +46,24 @@ function proxyRequest(req: any, res: any, endpoint: string) {
   
   proxyReq.on('error', (error) => {
     console.error('Proxy error:', error);
-    res.status(500).json({ 
-      message: "Failed to connect to Spring Boot backend. Please make sure it's running." 
-    });
+    // Nếu không kết nối được đến Spring Boot, sử dụng dữ liệu mặc định từ file
+    try {
+      // Đọc từ file local
+      const dataPath = path.join(process.cwd(), "public", "data.json");
+      if (fs.existsSync(dataPath)) {
+        const jsonData = fs.readFileSync(dataPath, "utf-8");
+        const loveStoryData = JSON.parse(jsonData);
+        res.status(200).json(loveStoryData);
+      } else {
+        res.status(500).json({ 
+          message: "Failed to connect to Spring Boot backend and no local data found." 
+        });
+      }
+    } catch (err) {
+      res.status(500).json({ 
+        message: "Failed to load fallback data. Please try again later." 
+      });
+    }
   });
   
   if (req.body) {
@@ -63,7 +78,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/love-story-data", async (req, res) => {
     try {
       // Thử đọc từ file local trước
-      const dataPath = path.join(process.cwd(), "FE/public", "data.json");
+      const dataPath = path.join(process.cwd(), "public", "data.json");
       const fileExists = fs.existsSync(dataPath);
       
       if (fileExists) {
