@@ -2,19 +2,12 @@ package com.lovestory.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@RestController
+@EnableConfigurationProperties
 public class Application {
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-    }
-
-    @GetMapping("/api/health")
-    public String health() {
-        return "Love Story API is running!";
     }
 }
