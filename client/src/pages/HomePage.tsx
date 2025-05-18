@@ -4,6 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import Timeline from "@/components/Timeline";
 import PhotoGallery from "@/components/PhotoGallery";
 import Footer from "@/components/Footer";
+import SummaryHeader from "@/components/SummaryHeader";
 import { useState } from "react";
 import EventDetailsModal from "@/components/EventDetailsModal";
 import GalleryModal from "@/components/GalleryModal";
@@ -65,6 +66,13 @@ export default function HomePage() {
       <HeroSection 
         profiles={data.profiles} 
         relationship={data.relationship} 
+      />
+      <SummaryHeader
+        relationship={data.relationship}
+        profileNames={{
+          profile1: data.profiles.profile1.name,
+          profile2: data.profiles.profile2.name
+        }}
       />
       <Timeline 
         events={data.events}
