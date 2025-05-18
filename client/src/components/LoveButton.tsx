@@ -57,14 +57,14 @@ export default function LoveButton({ className = '' }: LoveButtonProps) {
       <motion.button
         className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center 
                    transition-all duration-300 ${isActive 
-                     ? 'bg-primary text-white' 
+                     ? 'bg-white' 
                      : 'bg-white'}`}
         onClick={toggleLove}
         whileTap={{ scale: 0.9 }}
         initial={{ scale: 1 }}
         whileHover={{ scale: 1.1 }}
       >
-        <Heart className={`w-6 h-6 ${isActive ? 'fill-white' : 'text-gray-300'}`} />
+        <Heart className={`w-6 h-6 ${isActive ? 'text-red-500 fill-red-500' : 'text-gray-300'}`} />
       </motion.button>
 
       {/* Heart burst animation container */}
@@ -94,7 +94,7 @@ export default function LoveButton({ className = '' }: LoveButtonProps) {
                 ease: "easeOut",
               }}
             >
-              <Heart className="fill-primary text-primary w-6 h-6" />
+              <Heart className="fill-red-500 text-red-500 w-6 h-6" />
             </motion.div>
           ))}
         </AnimatePresence>
@@ -131,7 +131,7 @@ export default function LoveButton({ className = '' }: LoveButtonProps) {
                   }
                 }}
               >
-                <Heart className="w-4 h-4 fill-primary opacity-30" />
+                <Heart className="w-4 h-4 fill-red-500 opacity-30" />
               </motion.div>
             ))}
           </motion.div>
