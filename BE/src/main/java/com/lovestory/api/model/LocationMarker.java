@@ -16,6 +16,7 @@ import java.time.LocalDate;
 public class LocationMarker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
     private Long id;
 
     @NotBlank
