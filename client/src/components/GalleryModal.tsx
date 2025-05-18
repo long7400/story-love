@@ -116,7 +116,14 @@ export default function GalleryModal({ photos, initialIndex, onClose }: GalleryM
                             <Info className="h-3.5 w-3.5 mr-1.5" />
                             <p className="text-sm">{`Photo ${currentIndex + 1} of ${photos.length}`}</p>
                           </div>
-                          <p className="text-white/90">{currentPhoto.description}</p>
+                          {currentPhoto.htmlEnabled ? (
+                            <div 
+                              className="text-white/90 photo-description" 
+                              dangerouslySetInnerHTML={{ __html: currentPhoto.description }}
+                            />
+                          ) : (
+                            <p className="text-white/90">{currentPhoto.description}</p>
+                          )}
                         </motion.div>
                       </div>
                     </motion.div>

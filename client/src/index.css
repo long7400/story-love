@@ -71,6 +71,122 @@
   p, span, div {
     @apply font-body font-light;
   }
+  
+  /* Định dạng cho nội dung HTML trong timeline và gallery */
+  .event-content h1,
+  .event-content h2,
+  .event-content h3,
+  .event-content h4,
+  .event-content h5,
+  .event-content h6,
+  .photo-description h1,
+  .photo-description h2,
+  .photo-description h3,
+  .photo-description h4,
+  .photo-description h5,
+  .photo-description h6 {
+    @apply font-heading mb-3;
+  }
+  
+  .event-content h1,
+  .photo-description h1 {
+    @apply text-2xl font-medium;
+  }
+  
+  .event-content h2,
+  .photo-description h2 {
+    @apply text-xl font-medium;
+  }
+  
+  .event-content h3,
+  .photo-description h3 {
+    @apply text-lg font-medium;
+  }
+  
+  .event-content p,
+  .photo-description p {
+    @apply mb-4;
+  }
+  
+  .event-content ul,
+  .photo-description ul {
+    @apply list-disc pl-6 mb-4;
+  }
+  
+  .event-content ol,
+  .photo-description ol {
+    @apply list-decimal pl-6 mb-4;
+  }
+  
+  .event-content a,
+  .photo-description a {
+    @apply text-primary underline;
+  }
+  
+  .event-content blockquote,
+  .photo-description blockquote {
+    @apply border-l-4 border-gray-300 pl-4 italic my-4;
+  }
+  
+  .event-content img,
+  .photo-description img {
+    @apply my-4 rounded-lg max-w-full;
+  }
+  
+  .event-content pre,
+  .photo-description pre {
+    @apply bg-gray-100 p-3 rounded-md overflow-auto mb-4 text-sm;
+  }
+  
+  .event-content pre code,
+  .photo-description pre code {
+    @apply font-mono;
+  }
+  
+  .event-content table,
+  .photo-description table {
+    @apply w-full border-collapse mb-4;
+  }
+  
+  .event-content table th,
+  .event-content table td,
+  .photo-description table th,
+  .photo-description table td {
+    @apply border border-gray-300 p-2;
+  }
+  
+  .event-content table th,
+  .photo-description table th {
+    @apply bg-gray-100;
+  }
+  
+  /* Dark mode cho nội dung HTML */
+  .dark .event-content a,
+  .dark .photo-description a {
+    @apply text-primary-300;
+  }
+  
+  .dark .event-content blockquote,
+  .dark .photo-description blockquote {
+    @apply border-l-4 border-gray-600;
+  }
+  
+  .dark .event-content pre,
+  .dark .photo-description pre {
+    @apply bg-gray-800;
+  }
+  
+  .dark .event-content table th,
+  .dark .photo-description table th {
+    @apply bg-gray-800;
+  }
+  
+  .dark .event-content table th,
+  .dark .event-content table td,
+  .dark .photo-description table th,
+  .dark .photo-description table td {
+    @apply border-gray-700;
+  }
 
   /* Timeline Styles */
   .timeline-container::after {

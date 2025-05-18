@@ -1,8 +1,17 @@
 #!/bin/bash
 
-echo "Building Love Story Spring Boot application..."
-cd "$(dirname "$0")"
-./mvnw clean package -DskipTests
+# Tệp chạy Spring Boot Application
 
-echo "Running Love Story Spring Boot application..."
-java -jar target/api-0.0.1-SNAPSHOT.jar
+# Cấp quyền thực thi cho mvnw
+chmod +x ./mvnw
+
+# Kiểm tra biến môi trường Spring profile
+if [ -z "$SPRING_PROFILES_ACTIVE" ]; then
+  # Nếu không có, mặc định chạy local profile
+  SPRING_PROFILES_ACTIVE="local"
+fi
+
+echo "Khởi chạy với profile: $SPRING_PROFILES_ACTIVE"
+
+# Chạy ứng dụng Spring Boot
+./mvnw spring-boot:run -Dspring-boot.run.profiles=$SPRING_PROFILES_ACTIVE
