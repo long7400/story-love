@@ -53,10 +53,11 @@ function Router() {
     <Switch>
       <Route path="/" component={HomePage} />
       <Route path="/admin" component={AdminPage} />
-      <Route path="/postcards" component={() => <div>Postcards Feature</div>} />
-      <Route path="/love-language" component={() => <div>Love Language Quiz</div>} />
-      <Route path="/countdown" component={() => <div>Countdown Timer</div>} />
-      <Route path="/map" component={() => <div>Love Map</div>} />
+      <Route path="/postcards" component={() => <div>Postcards Page Coming Soon</div>} />
+      <Route path="/love-language" component={() => <div>Love Language Quiz Coming Soon</div>} />
+      <Route path="/countdown" component={() => <div>Countdown Timer Coming Soon</div>} />
+      <Route path="/map" component={() => <div>Love Map Coming Soon</div>} />
+      <Route path="/gallery" component={() => <div>Enhanced Photo Gallery Coming Soon</div>} />
       <Route component={NotFound} />
     </Switch>
   );

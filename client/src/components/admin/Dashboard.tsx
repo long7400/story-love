@@ -28,7 +28,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [section, setSection] = useState<'events' | 'photos'>('events');
+  const [section, setSection] = useState<'events' | 'photos' | 'postcards' | 'countdown' | 'map' | 'quiz'>('events');
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<EventFormValues>({
     resolver: zodResolver(eventSchema),
@@ -147,7 +147,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
       {/* Main content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Tabs */}
-        <div className="flex border-b border-gray-200 mb-6">
+        <div className="flex flex-wrap border-b border-gray-200 mb-6">
           <button
             className={`px-4 py-2 text-sm font-medium ${
               section === 'events'
@@ -167,6 +167,46 @@ export default function Dashboard({ onLogout }: DashboardProps) {
             onClick={() => setSection('photos')}
           >
             Photo Gallery
+          </button>
+          <button
+            className={`px-4 py-2 text-sm font-medium ${
+              section === 'postcards'
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+            onClick={() => setSection('postcards')}
+          >
+            Love Postcards
+          </button>
+          <button
+            className={`px-4 py-2 text-sm font-medium ${
+              section === 'countdown'
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+            onClick={() => setSection('countdown')}
+          >
+            Countdown Timers
+          </button>
+          <button
+            className={`px-4 py-2 text-sm font-medium ${
+              section === 'map'
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+            onClick={() => setSection('map')}
+          >
+            Love Map
+          </button>
+          <button
+            className={`px-4 py-2 text-sm font-medium ${
+              section === 'quiz'
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+            onClick={() => setSection('quiz')}
+          >
+            Love Language Quiz
           </button>
         </div>
 
@@ -233,11 +273,214 @@ export default function Dashboard({ onLogout }: DashboardProps) {
         )}
 
         {section === 'photos' && (
-          <div className="text-center p-12 bg-white rounded-lg shadow">
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Photo Gallery Management</h3>
-            <p className="text-gray-500 mb-4">
-              Photo gallery management will be implemented in the next phase.
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-lg font-medium text-gray-900">Manage Photo Gallery</h2>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              >
+                <Plus className="h-4 w-4 mr-1" />
+                Add New Photos
+              </motion.button>
+            </div>
+            <p className="text-gray-600 mb-4">
+              Easily manage your photo gallery with drag-and-drop uploading and organization.
             </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {photos.map(photo => (
+                <div key={photo.id} className="relative group">
+                  <div className="aspect-square rounded-lg overflow-hidden">
+                    <img 
+                      src={photo.imageUrl} 
+                      alt={photo.title} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <button className="p-1 rounded-full bg-white text-gray-700">
+                      <Edit className="h-4 w-4" />
+                    </button>
+                    <button className="p-1 rounded-full bg-white text-red-500 ml-2">
+                      <Trash className="h-4 w-4" />
+                    </button>
+                  </div>
+                  <p className="mt-1 text-sm font-medium truncate">{photo.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {section === 'postcards' && (
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-lg font-medium text-gray-900">Love Postcards Management</h2>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              >
+                <Plus className="h-4 w-4 mr-1" />
+                Add Postcard Template
+              </motion.button>
+            </div>
+            <p className="text-gray-600 mb-4">
+              Manage postcard templates and backgrounds for creating personalized digital love postcards.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="border border-gray-200 rounded-lg p-4">
+                  <div className="aspect-[4/3] rounded-md bg-gray-100 mb-3"></div>
+                  <h3 className="font-medium">Postcard Template {i}</h3>
+                  <div className="flex justify-end mt-2">
+                    <button className="p-1 rounded-full bg-gray-100 text-gray-700">
+                      <Edit className="h-4 w-4" />
+                    </button>
+                    <button className="p-1 rounded-full bg-gray-100 text-red-500 ml-2">
+                      <Trash className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {section === 'countdown' && (
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-lg font-medium text-gray-900">Countdown Timers</h2>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              >
+                <Plus className="h-4 w-4 mr-1" />
+                Add New Countdown
+              </motion.button>
+            </div>
+            <p className="text-gray-600 mb-4">
+              Manage special date countdowns for your love story.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="border border-gray-200 rounded-lg p-4">
+                  <h3 className="font-medium">Anniversary {i}</h3>
+                  <p className="text-sm text-gray-500">December 25, 2025</p>
+                  <div className="flex justify-between mt-4 text-xs">
+                    <div className="text-center">
+                      <div className="font-medium text-lg">134</div>
+                      <div>days</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-medium text-lg">12</div>
+                      <div>hours</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-medium text-lg">55</div>
+                      <div>mins</div>
+                    </div>
+                  </div>
+                  <div className="flex justify-end mt-4">
+                    <button className="p-1 rounded-full bg-gray-100 text-gray-700">
+                      <Edit className="h-4 w-4" />
+                    </button>
+                    <button className="p-1 rounded-full bg-gray-100 text-red-500 ml-2">
+                      <Trash className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {section === 'map' && (
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-lg font-medium text-gray-900">Love Map Locations</h2>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              >
+                <Plus className="h-4 w-4 mr-1" />
+                Add New Location
+              </motion.button>
+            </div>
+            <p className="text-gray-600 mb-4">
+              Manage the locations on your love story map.
+            </p>
+            <div className="border border-gray-200 rounded-lg h-64 bg-gray-100 mb-4 flex items-center justify-center text-gray-400">
+              Map preview will appear here
+            </div>
+            <div className="space-y-2">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="border border-gray-200 rounded-lg p-3 flex justify-between items-center">
+                  <div>
+                    <h3 className="font-medium">Special Place {i}</h3>
+                    <p className="text-xs text-gray-500">June 15, 2023</p>
+                  </div>
+                  <div className="flex">
+                    <button className="p-1 rounded-full bg-gray-100 text-gray-700">
+                      <Edit className="h-4 w-4" />
+                    </button>
+                    <button className="p-1 rounded-full bg-gray-100 text-red-500 ml-2">
+                      <Trash className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {section === 'quiz' && (
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-lg font-medium text-gray-900">Love Language Quiz</h2>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              >
+                <Edit className="h-4 w-4 mr-1" />
+                Edit Quiz Settings
+              </motion.button>
+            </div>
+            <p className="text-gray-600 mb-4">
+              Customize your love language quiz questions and results.
+            </p>
+            <div className="space-y-4">
+              <div className="border border-gray-200 rounded-lg p-4">
+                <h3 className="font-medium mb-2">Quiz Questions</h3>
+                <div className="space-y-2">
+                  {[1, 2, 3].map(i => (
+                    <div key={i} className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                      <span className="text-sm">Question {i}</span>
+                      <button className="p-1 rounded-full hover:bg-gray-200">
+                        <Edit className="h-3 w-3 text-gray-500" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="border border-gray-200 rounded-lg p-4">
+                <h3 className="font-medium mb-2">Results Categories</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {['Words of Affirmation', 'Physical Touch', 'Acts of Service', 'Quality Time', 'Receiving Gifts'].map((cat, i) => (
+                    <div key={i} className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                      <span className="text-sm">{cat}</span>
+                      <button className="p-1 rounded-full hover:bg-gray-200">
+                        <Edit className="h-3 w-3 text-gray-500" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </main>
