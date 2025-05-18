@@ -38,7 +38,7 @@ export default function PhotoGallery({ photos, onPhotoClick }: PhotoGalleryProps
           {visiblePhotos.map((photo, index) => (
             <motion.div
               key={photo.id}
-              className="rounded-xl overflow-hidden shadow-lg shadow-pink-100/50 cursor-pointer bg-white/90 backdrop-blur-sm"
+              className="rounded-lg overflow-hidden shadow-sm border border-gray-100 cursor-pointer bg-white"
               whileHover={{ y: -8, scale: 1.02 }}
               onClick={() => handlePhotoClick(index)}
               onMouseEnter={playHover}
