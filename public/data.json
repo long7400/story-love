@@ -2,8 +2,8 @@
   "profiles": {
     "profile1": {
       "id": 1,
-      "name": "Minh",
-      "birthday": "1995-05-10",
+      "name": "Long",
+      "birthday": "2023-11-25",
       "bio": "Yêu thích âm nhạc, nghệ thuật và khám phá những địa điểm mới.",
       "favoriteColor": "#FF5757",
       "imageUrl": "/images/profile1.jpg"

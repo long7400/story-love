@@ -6,14 +6,14 @@ TRUNCATE TABLE photos CASCADE;
 
 -- Insert relationship
 INSERT INTO relationships (id, start_date, title, description, song, song_url, couple_image_url)
-VALUES (1, '2020-11-09', 'Mối tình đẹp', 'Một hành trình tình yêu tràn đầy kỷ niệm đẹp, niềm vui và sự tôn trọng lẫn nhau.', 'Em Của Ngày Hôm Qua - Sơn Tùng MTP', '/sounds/love-song.mp3', '/images/couple.jpg');
+VALUES (1, '2023-11-25', 'Mối tình đẹp', 'Một hành trình tình yêu tràn đầy kỷ niệm đẹp, niềm vui và sự tôn trọng lẫn nhau.', 'Em Của Ngày Hôm Qua - Sơn Tùng MTP', '/sounds/love-song.mp3', '/images/couple.jpg');
 
 -- Insert profiles
 INSERT INTO profiles (id, name, birthday, avatar_url, bio, favorite_quote, relationship_id)
-VALUES (1, 'Minh', '1995-05-10', '/images/profile1.jpg', 'Yêu thích âm nhạc, nghệ thuật và khám phá những địa điểm mới.', 'Yêu là cho đi mà không mong nhận lại', 1);
+VALUES (1, 'Long', '2000-04-07', '/images/profile1.jpg', 'Yêu thích âm nhạc, nghệ thuật và khám phá những địa điểm mới.', 'Yêu là cho đi mà không mong nhận lại', 1);
 
 INSERT INTO profiles (id, name, birthday, avatar_url, bio, favorite_quote, relationship_id)
-VALUES (2, 'Linh', '1996-08-15', '/images/profile2.jpg', 'Đam mê đọc sách, nấu ăn và đi du lịch cùng người yêu.', 'Tình yêu là sự tôn trọng và thấu hiểu', 1);
+VALUES (2, 'Linh', '2000-03-10', '/images/profile2.jpg', 'Đam mê đọc sách, nấu ăn và đi du lịch cùng người yêu.', 'Tình yêu là sự tôn trọng và thấu hiểu', 1);
 
 -- Insert events
 INSERT INTO events (id, title, date, short_description, full_description, image_url, relationship_id)
