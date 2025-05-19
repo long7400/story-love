@@ -54,19 +54,27 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
 
   const checkGender = async () => {
     try {
-      const response = await axios.post(`${apiConfig.baseUrl}/api/storefront/check-gender`, {
+      // Kiểm tra thông tin tài khoản và chuyển sang bước kích hoạt
+      const response = await axios.post(`${apiConfig.baseUrl}/api/storefront/check-account`, {
         username,
-        password: '' // Không cần mật khẩu cho endpoint này
+        password
       });
       
-      if (response.data && response.data.message) {
-        setGender(response.data.message as 'male' | 'female');
-      }
-      
+      // Giả định response thành công và đây là tài khoản PARTNER
+      setGender('male'); // Mặc định giá trị (sẽ được cập nhật sau khi đăng nhập thành công)
       setStep('loveQuestion');
-    } catch (err) {
-      console.error('Lỗi khi kiểm tra giới tính:', err);
-      setError('Không thể xác định người dùng. Vui lòng thử lại.');
+    } catch (err: any) {
+      console.error('Lỗi khi xác thực tài khoản:', err);
+      
+      // Nếu lỗi 401 Unauthorized, vẫn chuyển sang màn hình kích hoạt
+      if (err.response && err.response.status === 401) {
+        setStep('loveQuestion');
+        setError(''); // Xóa thông báo lỗi nếu có
+      } else {
+        setError('Đăng nhập không thành công. Vui lòng kiểm tra thông tin đăng nhập.');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,6 +115,10 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
       console.error('Lỗi đăng nhập:', err);
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
+      } else if (err.response && err.response.status === 401) {
+        // Đây là giai đoạn kích hoạt tài khoản
+        setError('');
+        setStep('loveQuestion');
       } else {
         setError('Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập.');
       }
@@ -157,7 +169,7 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
           </p>
         </div>
 
-        {error && (
+        {error && step === 'credentials' && (
           <div className="p-3 text-sm text-white bg-red-500 rounded-md">
             {error}
           </div>
