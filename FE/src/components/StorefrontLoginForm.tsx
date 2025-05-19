@@ -60,9 +60,38 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
         password
       });
       
-      // Giả định response thành công và đây là tài khoản PARTNER
-      setGender('male'); // Mặc định giá trị (sẽ được cập nhật sau khi đăng nhập thành công)
-      setStep('loveQuestion');
+      // Nếu tài khoản đã được kích hoạt, đăng nhập trực tiếp mà không hiển thị câu hỏi
+      if (response.data && response.data.activated === true) {
+        // Đăng nhập thành công, không cần hiển thị câu hỏi tình yêu
+        try {
+          const loginResponse = await axios.post(`${apiConfig.baseUrl}/api/storefront/login`, {
+            username, 
+            password
+          });
+          
+          if (loginResponse.data && loginResponse.data.accessToken) {
+            // Lưu token vào localStorage
+            localStorage.setItem('token', loginResponse.data.accessToken);
+            localStorage.setItem('user', JSON.stringify({
+              id: loginResponse.data.id,
+              username: loginResponse.data.username,
+              email: loginResponse.data.email,
+              roles: loginResponse.data.roles
+            }));
+            localStorage.setItem('love_story_sf_auth', 'true');
+            
+            // Thông báo đăng nhập thành công và để component cha xử lý chuyển hướng
+            onSuccess(loginResponse.data.accessToken);
+          }
+        } catch (loginErr) {
+          console.error('Lỗi đăng nhập:', loginErr);
+          setError('Đăng nhập thất bại. Vui lòng thử lại.');
+        }
+      } else {
+        // Tài khoản chưa kích hoạt, hiển thị câu hỏi tình yêu
+        setGender('male'); // Mặc định giá trị (sẽ được cập nhật sau khi đăng nhập thành công)
+        setStep('loveQuestion');
+      }
     } catch (err: any) {
       console.error('Lỗi khi xác thực tài khoản:', err);
       
@@ -103,6 +132,7 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
             email: response.data.email,
             roles: response.data.roles
           }));
+          localStorage.setItem('love_story_sf_auth', 'true');
           
           // Thông báo đăng nhập thành công và để component cha xử lý chuyển hướng
           onSuccess(response.data.accessToken);
@@ -145,6 +175,7 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
           email: response.data.email,
           roles: response.data.roles
         }));
+        localStorage.setItem('love_story_sf_auth', 'true');
         
         // Thông báo đăng nhập thành công và để component cha xử lý chuyển hướng
         onSuccess(response.data.accessToken);
