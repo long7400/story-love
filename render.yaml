@@ -1,0 +1,29 @@
+services:
+  # Backend service configuration
+  - type: web
+    name: lovestory-backend
+    env: docker
+    dockerfilePath: ./BE/Dockerfile
+    region: singapore
+    plan: free
+    branch: main
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 8080
+    autoDeploy: true
+
+databases:
+  # Note: For Supabase, we don't define the database here as it's managed externally
+  # This section is just for documentation purposes
+  # - name: lovestory-db
+  #   plan: free
+  #   region: singapore
+  #   databaseName: lovestory_prod
+  #   user: lovestory_user
