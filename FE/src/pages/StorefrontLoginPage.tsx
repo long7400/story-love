@@ -15,8 +15,18 @@ const StorefrontLoginPage: React.FC = () => {
 
   const handleLoginSuccess = (token: string) => {
     setLoginSuccess(true);
+    
+    // Tạo và dispatch custom event để thông báo trạng thái đăng nhập đã thay đổi
+    const loginEvent = new Event('login-status-changed');
+    window.dispatchEvent(loginEvent);
+    
+    // Tạo event để cập nhật trạng thái xác thực
+    const authEvent = new Event('auth-update');
+    window.dispatchEvent(authEvent);
+    
+    // Điều hướng tới trang chủ sau khi hiện thông báo đăng nhập thành công
     setTimeout(() => {
-      setLocation('/');
+      window.location.href = '/'; // Chuyển hướng thay vì dùng setLocation để đảm bảo trang được tải lại hoàn toàn
     }, 2000);
   };
 

@@ -28,8 +28,8 @@ export default function Timeline({ events, onEventClick }: TimelineProps) {
           </p>
         </div>
 
-        {/* Vertical Timeline with Center Line */}
-        <div className="relative mt-16">
+        {/* Vertical Timeline with Center Line - Desktop */}
+        <div className="relative mt-16 hidden md:block">
           {/* Center vertical line */}
           <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-pink-200 rounded-full"></div>
           
@@ -75,6 +75,30 @@ export default function Timeline({ events, onEventClick }: TimelineProps) {
                     </div>
                   </>
                 )}
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Mobile timeline - single column */}
+        <div className="relative mt-10 block md:hidden">
+          {/* Left vertical line */}
+          <div className="absolute left-5 transform h-full w-1 bg-pink-200 rounded-full"></div>
+          
+          <div className="relative">
+            {events.map((event) => (
+              <div key={event.id} className="flex relative mb-10">
+                <div className="absolute left-5 top-6 transform -translate-x-1/2 w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center z-10">
+                  <svg className="w-4 h-4 text-primary fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                  </svg>
+                </div>
+                <div className="ml-10 w-full">
+                  <MinimalistTimelineCard
+                    event={event}
+                    onReadMore={() => onEventClick(event)}
+                  />
+                </div>
               </div>
             ))}
           </div>

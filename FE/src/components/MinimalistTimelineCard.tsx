@@ -3,6 +3,7 @@ import { formatDate } from "@/lib/utils";
 import { Event } from "@/lib/types";
 import { Calendar, ArrowRight } from "lucide-react";
 import { useSound } from "@/lib/SoundContext";
+import ImageTransition from './ImageTransition';
 
 interface MinimalistTimelineCardProps {
   event: Event;
@@ -45,13 +46,12 @@ export default function MinimalistTimelineCard({ event, onReadMore }: Minimalist
           {event.shortDescription}
         </p>
 
-        {/* Image - Adaptive height container for any orientation */}
+        {/* Image with transition effect */}
         <div className="rounded-lg overflow-hidden mb-4 relative aspect-[4/3]">
-          <img
+          <ImageTransition
             src={event.imageUrl}
             alt={event.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-            loading="lazy"
+            className="absolute inset-0 w-full h-full"
           />
         </div>
 

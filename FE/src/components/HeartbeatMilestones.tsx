@@ -159,7 +159,7 @@ export default function HeartbeatMilestones({ startDate, profile1Name, profile2N
         <div className="flex flex-col items-center mb-4">
           <div 
             ref={heartRef}
-            className="text-primary text-7xl md:text-8xl cursor-pointer transform transition-transform duration-300"
+            className="text-primary text-6xl sm:text-7xl md:text-8xl cursor-pointer transform transition-transform duration-300"
             onClick={handleToggleDetails}
             style={{ textShadow: '0 0 15px rgba(239, 68, 68, 0.3)' }}
             aria-label="Trái tim nhịp đập - Nhấn để xem chi tiết"
