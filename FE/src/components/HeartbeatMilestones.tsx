@@ -208,16 +208,16 @@ export default function HeartbeatMilestones({ startDate, profile1Name, profile2N
                         onMouseEnter={() => handleMilestoneHover(milestone)}
                         onMouseLeave={() => setActiveMilestone(null)}
                       >
-                        <div className="flex justify-between items-center">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
                           <div className="flex items-center">
                             {isCompleted ? (
-                              <div className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center mr-3">
+                              <div className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center mr-3 flex-shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                 </svg>
                               </div>
                             ) : (
-                              <div className="w-6 h-6 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center">
+                              <div className="w-6 h-6 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center flex-shrink-0">
                                 {progress > 0 && (
                                   <div 
                                     className="bg-red-200 rounded-full"
@@ -236,7 +236,7 @@ export default function HeartbeatMilestones({ startDate, profile1Name, profile2N
                               <p className="text-xs text-gray-500">{milestone.date}</p>
                             </div>
                           </div>
-                          <div className="text-right">
+                          <div className="text-right mt-2 sm:mt-0 ml-9 sm:ml-0">
                             <span className={`
                               ${isCompleted ? 'text-primary' : 'text-gray-400'}
                               ${isCurrent ? 'font-bold' : 'font-medium'}

@@ -11,6 +11,7 @@ import { SoundProvider } from "@/lib/SoundContext";
 import { useEffect, useState } from "react";
 import MusicPlayer from "@/components/MusicPlayer";
 import LoveButton from "@/components/LoveButton";
+import PageTransition from "./components/PageTransition";
 
 // Loading animation component
 function LoadingScreen() {
@@ -106,17 +107,19 @@ function Router() {
   };
 
   return (
-    <Switch>
-      <Route path="/" component={ProtectedHomePage} />
-      <Route path="/login" component={StorefrontLoginPage} />
-      <Route path="/admin" component={AdminPage} />
-      <Route path="/postcards" component={() => <div>Postcards Page Coming Soon</div>} />
-      <Route path="/love-language" component={() => <div>Love Language Quiz Coming Soon</div>} />
-      <Route path="/countdown" component={() => <div>Countdown Timer Coming Soon</div>} />
-      <Route path="/map" component={() => <div>Love Map Coming Soon</div>} />
-      <Route path="/gallery" component={() => <div>Enhanced Photo Gallery Coming Soon</div>} />
-      <Route component={NotFound} />
-    </Switch>
+    <PageTransition>
+      <Switch>
+        <Route path="/" component={ProtectedHomePage} />
+        <Route path="/login" component={StorefrontLoginPage} />
+        <Route path="/admin" component={AdminPage} />
+        <Route path="/postcards" component={() => <div>Postcards Page Coming Soon</div>} />
+        <Route path="/love-language" component={() => <div>Love Language Quiz Coming Soon</div>} />
+        <Route path="/countdown" component={() => <div>Countdown Timer Coming Soon</div>} />
+        <Route path="/map" component={() => <div>Love Map Coming Soon</div>} />
+        <Route path="/gallery" component={() => <div>Enhanced Photo Gallery Coming Soon</div>} />
+        <Route component={NotFound} />
+      </Switch>
+    </PageTransition>
   );
 }
 
