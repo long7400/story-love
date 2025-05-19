@@ -34,7 +34,7 @@ export default function PhotoGallery({ photos, onPhotoClick }: PhotoGalleryProps
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 iphone:grid-cols-2 tablet:grid-cols-3 gap-4 iphone:gap-6 tablet:gap-8">
           {visiblePhotos.map((photo, index) => (
             <motion.div
               key={photo.id}
@@ -49,7 +49,7 @@ export default function PhotoGallery({ photos, onPhotoClick }: PhotoGalleryProps
               data-aos="zoom-in"
               data-aos-delay={index * 100}
             >
-              <div className="relative overflow-hidden group aspect-[4/3]">
+              <div className="relative overflow-hidden group aspect-[3/4] iphone:aspect-[4/3]">
                 <img
                   src={photo.imageUrl}
                   alt={photo.title}
@@ -61,20 +61,20 @@ export default function PhotoGallery({ photos, onPhotoClick }: PhotoGalleryProps
                 {index === 5 && remainingCount > 0 ? (
                   <div className="absolute inset-0 bg-black/50 flex items-center justify-center transition-all duration-300">
                     <div className="text-center">
-                      <span className="text-white text-4xl font-bold flex items-center justify-center">
+                      <span className="text-white text-3xl iphone:text-4xl font-bold flex items-center justify-center">
                         +{remainingCount}
                       </span>
-                      <div className="flex items-center mt-2 text-white/90 text-sm">
-                        <Eye className="w-4 h-4 mr-1" />
+                      <div className="flex items-center mt-2 text-white/90 text-xs iphone:text-sm">
+                        <Eye className="w-3.5 h-3.5 iphone:w-4 iphone:h-4 mr-1" />
                         <span>View all photos</span>
                       </div>
                     </div>
                   </div>
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent group-hover:from-primary/70 transition-all duration-300 flex flex-col justify-end">
-                    <div className="p-4 transform translate-y-0 group-hover:translate-y-0 transition-transform duration-300">
-                      <h4 className="font-heading font-bold text-white text-lg">{photo.title}</h4>
-                      <div className="flex items-center text-white/80 text-sm mt-1">
+                    <div className="p-3 iphone:p-4 transform translate-y-0 group-hover:translate-y-0 transition-transform duration-300">
+                      <h4 className="font-heading font-bold text-white text-base iphone:text-lg">{photo.title}</h4>
+                      <div className="flex items-center text-white/80 text-xs iphone:text-sm mt-1">
                         <Calendar className="w-3 h-3 mr-1" />
                         <p>{formatDate(photo.date, { month: 'long', year: 'numeric' })}</p>
                       </div>

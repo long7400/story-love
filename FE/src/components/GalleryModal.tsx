@@ -63,10 +63,10 @@ export default function GalleryModal({ photos, initialIndex, onClose }: GalleryM
               <motion.button
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
-                className="absolute top-4 right-4 z-10 p-2.5 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors text-white"
+                className="absolute top-2 iphone:top-3 tablet:top-4 right-2 iphone:right-3 tablet:right-4 z-10 p-2 iphone:p-2.5 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors text-white"
                 onClick={onClose}
               >
-                <X className="h-5 w-5" />
+                <X className="h-4 w-4 iphone:h-5 iphone:w-5" />
               </motion.button>
 
               <div className="flex items-center justify-between w-full">
@@ -89,11 +89,11 @@ export default function GalleryModal({ photos, initialIndex, onClose }: GalleryM
                       transition={{ duration: 0.25 }}
                       className="relative rounded-xl overflow-hidden"
                     >
-                      <div className="bg-black w-full aspect-[16/10] flex items-center justify-center">
+                      <div className="bg-black w-full aspect-auto min-h-[40vh] flex items-center justify-center">
                         <img
                           src={currentPhoto.imageUrl}
                           alt={currentPhoto.title}
-                          className="max-w-full max-h-[60vh] iphone:max-h-[65vh] tablet:max-h-[70vh] object-contain"
+                          className="max-w-full max-h-[50vh] iphone:max-h-[55vh] tablet:max-h-[65vh] object-contain"
                           loading="lazy"
                         />
                       </div>
@@ -140,14 +140,14 @@ export default function GalleryModal({ photos, initialIndex, onClose }: GalleryM
                 </motion.button>
               </div>
 
-              <div className="flex justify-center mt-6 overflow-x-auto px-2 max-w-full">
-                <div className="flex space-x-1.5 iphone:space-x-2 tablet:space-x-3 p-2 bg-black/30 backdrop-blur-sm rounded-xl w-auto">
+              <div className="flex justify-center mt-4 iphone:mt-5 tablet:mt-6 overflow-x-auto px-2 max-w-full">
+                <div className="flex space-x-1 iphone:space-x-1.5 tablet:space-x-3 p-1.5 iphone:p-2 bg-black/30 backdrop-blur-sm rounded-xl w-auto">
                   {photos.map((photo, index) => (
                     <motion.button
                       key={photo.id}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`w-12 h-12 iphone:w-13 iphone:h-13 iphoneplus:w-14 iphoneplus:h-14 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all duration-200 ${
+                      className={`w-10 h-10 iphone:w-12 iphone:h-12 iphoneplus:w-14 iphoneplus:h-14 tablet:w-16 tablet:h-16 rounded-md iphone:rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all duration-200 ${
                         index === currentIndex
                           ? "border-primary shadow-lg shadow-primary/20 scale-110"
                           : "border-transparent opacity-60 hover:opacity-100"
