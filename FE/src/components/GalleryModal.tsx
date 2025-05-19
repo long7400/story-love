@@ -73,13 +73,13 @@ export default function GalleryModal({ photos, initialIndex, onClose }: GalleryM
                 <motion.button
                   whileHover={{ scale: 1.2, x: -5 }}
                   whileTap={{ scale: 0.9 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-full p-3 text-white hover:bg-white/20 focus:outline-none transition-colors"
+                  className="bg-white/10 backdrop-blur-sm rounded-full p-2 iphone:p-2.5 tablet:p-3 text-white hover:bg-white/20 focus:outline-none transition-colors"
                   onClick={handlePrev}
                 >
-                  <ChevronLeft className="h-6 w-6" />
+                  <ChevronLeft className="h-5 w-5 iphone:h-5.5 iphone:w-5.5 tablet:h-6 tablet:w-6" />
                 </motion.button>
 
-                <div className="flex-1 mx-4">
+                <div className="flex-1 mx-2 iphone:mx-3 tablet:mx-4">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={currentIndex}
@@ -93,36 +93,36 @@ export default function GalleryModal({ photos, initialIndex, onClose }: GalleryM
                         <img
                           src={currentPhoto.imageUrl}
                           alt={currentPhoto.title}
-                          className="max-w-full max-h-[70vh] object-contain"
+                          className="max-w-full max-h-[60vh] iphone:max-h-[65vh] tablet:max-h-[70vh] object-contain"
                           loading="lazy"
                         />
                       </div>
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 iphone:p-4 tablet:p-6">
                         <motion.div 
                           initial={{ y: 20, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           transition={{ delay: 0.2 }}
                         >
-                          <div className="flex items-center space-x-2 mb-2">
-                            <Heart className="h-4 w-4 text-pink-300" />
-                            <h4 className="text-xl font-heading font-bold text-white">
+                          <div className="flex items-center space-x-2 mb-1.5 iphone:mb-2">
+                            <Heart className="h-3.5 w-3.5 iphone:h-4 iphone:w-4 text-pink-300" />
+                            <h4 className="text-lg iphone:text-xl font-heading font-bold text-white">
                               {currentPhoto.title}
                             </h4>
                           </div>
-                          <div className="flex items-center mb-3 text-gray-300">
-                            <Calendar className="h-3.5 w-3.5 mr-1.5" />
-                            <p>{formatDate(currentPhoto.date)}</p>
-                            <span className="mx-2">•</span>
-                            <Info className="h-3.5 w-3.5 mr-1.5" />
-                            <p className="text-sm">{`Photo ${currentIndex + 1} of ${photos.length}`}</p>
+                          <div className="flex flex-wrap items-center mb-2 iphone:mb-3 text-gray-300">
+                            <Calendar className="h-3 w-3 iphone:h-3.5 iphone:w-3.5 mr-1" />
+                            <p className="text-xs iphone:text-sm">{formatDate(currentPhoto.date)}</p>
+                            <span className="mx-1.5 iphone:mx-2">•</span>
+                            <Info className="h-3 w-3 iphone:h-3.5 iphone:w-3.5 mr-1" />
+                            <p className="text-xs iphone:text-sm">{`Photo ${currentIndex + 1} of ${photos.length}`}</p>
                           </div>
                           {currentPhoto.htmlEnabled ? (
                             <div 
-                              className="text-white/90 photo-description" 
+                              className="text-white/90 text-xs iphone:text-sm tablet:text-base photo-description" 
                               dangerouslySetInnerHTML={{ __html: currentPhoto.description }}
                             />
                           ) : (
-                            <p className="text-white/90">{currentPhoto.description}</p>
+                            <p className="text-white/90 text-xs iphone:text-sm tablet:text-base">{currentPhoto.description}</p>
                           )}
                         </motion.div>
                       </div>
@@ -133,10 +133,10 @@ export default function GalleryModal({ photos, initialIndex, onClose }: GalleryM
                 <motion.button
                   whileHover={{ scale: 1.2, x: 5 }}
                   whileTap={{ scale: 0.9 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-full p-3 text-white hover:bg-white/20 focus:outline-none transition-colors"
+                  className="bg-white/10 backdrop-blur-sm rounded-full p-2 iphone:p-2.5 tablet:p-3 text-white hover:bg-white/20 focus:outline-none transition-colors"
                   onClick={handleNext}
                 >
-                  <ChevronRight className="h-6 w-6" />
+                  <ChevronRight className="h-5 w-5 iphone:h-5.5 iphone:w-5.5 tablet:h-6 tablet:w-6" />
                 </motion.button>
               </div>
 
