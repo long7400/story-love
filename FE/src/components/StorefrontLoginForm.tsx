@@ -127,17 +127,45 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
     }
   };
 
-  const handleYesClick = () => {
+  const handleYesClick = async () => {
     // Kích hoạt hiệu ứng trái tim
     setShowHeartAnimation(true);
+    setLoading(true);
     
-    // Đăng nhập khi người dùng đã trả lời "có"
-    handleLogin(new Event('submit') as any);
-    
-    // Tắt hiệu ứng sau 5 giây
-    setTimeout(() => {
-      setShowHeartAnimation(false);
-    }, 5000);
+    try {
+      // Gọi API kích hoạt tài khoản
+      const response = await axios.post(`${apiConfig.baseUrl}/api/storefront/activate-account`, {
+        username,
+        password
+      });
+      
+      if (response.data && response.data.accessToken) {
+        // Lưu token vào localStorage
+        localStorage.setItem('token', response.data.accessToken);
+        localStorage.setItem('user', JSON.stringify({
+          id: response.data.id,
+          username: response.data.username,
+          email: response.data.email,
+          roles: response.data.roles
+        }));
+        
+        // Thông báo đăng nhập thành công
+        onSuccess(response.data.accessToken);
+        
+        // Chuyển hướng đến trang chính
+        setLocation('/');
+      }
+    } catch (err) {
+      console.error('Lỗi khi kích hoạt tài khoản:', err);
+      setError('Kích hoạt tài khoản thất bại. Vui lòng thử lại.');
+    } finally {
+      setLoading(false);
+      
+      // Tắt hiệu ứng sau 5 giây
+      setTimeout(() => {
+        setShowHeartAnimation(false);
+      }, 5000);
+    }
   };
 
   // Reset vị trí nút "Không" khi component được tải
@@ -218,6 +246,7 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
           </form>
         ) : (
           <div className="mt-8 space-y-6 flex flex-col items-center">
+            {/* Không hiển thị thông báo "Full authentication..." ở màn hình câu hỏi tình yêu */}
             <div className="w-full flex flex-col items-center space-y-6">
               <button
                 onClick={handleYesClick}

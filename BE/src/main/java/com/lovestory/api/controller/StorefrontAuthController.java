@@ -88,8 +88,8 @@ public class StorefrontAuthController {
                                  roles));
     }
     
-    @PostMapping("/check-gender")
-    public ResponseEntity<?> checkGender(@RequestBody LoginRequest loginRequest) {
+    @PostMapping("/check-account")
+    public ResponseEntity<?> checkAccount(@RequestBody LoginRequest loginRequest) {
         // Kiểm tra xem user có tồn tại không
         User user = userRepository.findByUsername(loginRequest.getUsername())
                 .orElse(null);
@@ -100,9 +100,62 @@ public class StorefrontAuthController {
                     .body(new MessageResponse("Error: User not found!"));
         }
         
-        // Trả về giới tính của người dùng
-        return ResponseEntity.ok().body(
-                new MessageResponse(user.getGender())
-        );
+        // Kiểm tra password - nhưng không đăng nhập
+        try {
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                
+            // Nếu chưa kích hoạt, trả về lỗi 401 để hiển thị màn hình kích hoạt
+            if (!user.isActivated()) {
+                return ResponseEntity.status(401)
+                        .body(new MessageResponse("Account needs activation"));
+            }
+            
+            // Nếu đã kích hoạt, trả về thông tin vai trò
+            return ResponseEntity.ok().body(
+                    new MessageResponse("PARTNER")
+            );
+            
+        } catch (Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Invalid credentials"));
+        }
+    }
+    
+    @PostMapping("/activate-account")
+    public ResponseEntity<?> activateAccount(@RequestBody LoginRequest loginRequest) {
+        // Kiểm tra xem user có tồn tại không
+        User user = userRepository.findByUsername(loginRequest.getUsername())
+                .orElse(null);
+                
+        if (user == null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: User not found!"));
+        }
+        
+        // Kích hoạt tài khoản
+        user.setActivated(true);
+        userRepository.save(user);
+        
+        // Xác thực người dùng và tạo token
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+        
+        // Trả về thông tin người dùng kèm token
+        return ResponseEntity.ok(new JwtResponse(jwt, 
+                                 userDetails.getId(), 
+                                 userDetails.getUsername(), 
+                                 userDetails.getEmail(), 
+                                 roles));
     }
 }
