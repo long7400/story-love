@@ -57,10 +57,9 @@ public class StorefrontAuthController {
                     .body(new MessageResponse("Error: Account is not activated!"));
         }
         
-        // Kiểm tra xem user có vai trò ROLE_MALE hoặc ROLE_FEMALE không
+        // Kiểm tra xem user có vai trò ROLE_PARTNER không
         boolean hasStorefrontRole = user.getRoles().stream()
-                .anyMatch(role -> role.getName().name().equals("ROLE_MALE") 
-                        || role.getName().name().equals("ROLE_FEMALE"));
+                .anyMatch(role -> role.getName().name().equals("ROLE_PARTNER"));
         
         if (!hasStorefrontRole) {
             return ResponseEntity
