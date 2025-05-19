@@ -17,7 +17,7 @@ INSERT INTO roles (name) VALUES
 ('ROLE_MALE'),
 ('ROLE_FEMALE');
 
--- Thêm tài khoản admin
+-- Thêm tài khoản admin (Back Office)
 -- Mật khẩu: admin123 (đã được hash bằng BCrypt)
 INSERT INTO users (username, email, password, gender, activated) VALUES 
 ('admin', 'admin@lovestory.com', '$2a$10$mR8IouAA.LnDKqDevnR3Q.1vKf7xcGvzz/GDMjB5J.AGDp2nxgdgW', 'male', true);
@@ -26,6 +26,26 @@ INSERT INTO users (username, email, password, gender, activated) VALUES
 INSERT INTO user_roles (user_id, role_id) VALUES
 (1, 1), -- ROLE_USER
 (1, 2); -- ROLE_ADMIN
+
+-- Thêm tài khoản người dùng nam (Storefront)
+-- Mật khẩu: love2024 (đã được hash bằng BCrypt)
+INSERT INTO users (username, email, password, gender, activated) VALUES 
+('male_user', 'male@lovestory.com', '$2a$10$V5SFB.UfEKWBULL3FxRBteB2pQbZtRRJkaTlEUAI4j21TFXpN4lhG', 'male', true);
+
+-- Thêm tài khoản người dùng nữ (Storefront)
+-- Mật khẩu: love2024 (đã được hash bằng BCrypt)  
+INSERT INTO users (username, email, password, gender, activated) VALUES 
+('female_user', 'female@lovestory.com', '$2a$10$V5SFB.UfEKWBULL3FxRBteB2pQbZtRRJkaTlEUAI4j21TFXpN4lhG', 'female', true);
+
+-- Gán vai trò cho người dùng nam
+INSERT INTO user_roles (user_id, role_id) VALUES
+(2, 1), -- ROLE_USER
+(2, 3); -- ROLE_MALE
+
+-- Gán vai trò cho người dùng nữ
+INSERT INTO user_roles (user_id, role_id) VALUES
+(3, 1), -- ROLE_USER
+(3, 4); -- ROLE_FEMALE
 
 -- Thêm các ràng buộc cho bảng sessions (nếu chưa có)
 DO $$

@@ -1,29 +1,34 @@
 package com.lovestory.api.controller;
 
-import com.lovestory.api.model.User;
-import com.lovestory.api.payload.request.LoginRequest;
-import com.lovestory.api.payload.response.JwtResponse;
-import com.lovestory.api.repository.UserRepository;
-import com.lovestory.api.security.jwt.JwtUtils;
-import com.lovestory.api.security.services.UserDetailsImpl;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.lovestory.api.model.User;
+import com.lovestory.api.payload.request.LoginRequest;
+import com.lovestory.api.payload.response.JwtResponse;
+import com.lovestory.api.payload.response.MessageResponse;
+import com.lovestory.api.repository.UserRepository;
+import com.lovestory.api.security.jwt.JwtUtils;
+import com.lovestory.api.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/storefront")
 public class StorefrontAuthController {
-
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -33,14 +38,39 @@ public class StorefrontAuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/login/storefront")
-    public ResponseEntity<?> authenticateStorefrontUser(@Valid @RequestBody LoginRequest loginRequest) {
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        // Kiểm tra xem user có tồn tại không
+        User user = userRepository.findByUsername(loginRequest.getUsername())
+                .orElse(null);
+        
+        if (user == null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: User not found!"));
+        }
+        
+        // Kiểm tra xem user đã được kích hoạt chưa
+        if (!user.isActivated()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Account is not activated!"));
+        }
+        
+        // Kiểm tra xem user có vai trò ROLE_MALE hoặc ROLE_FEMALE không
+        boolean hasStorefrontRole = user.getRoles().stream()
+                .anyMatch(role -> role.getName().name().equals("ROLE_MALE") 
+                        || role.getName().name().equals("ROLE_FEMALE"));
+        
+        if (!hasStorefrontRole) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: You do not have permission to access the Storefront!"));
+        }
+        
+        // Xác thực người dùng
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()
-                )
-        );
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -49,25 +79,30 @@ public class StorefrontAuthController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-
-        // Thêm thông tin về giới tính người dùng (lấy từ DB)
-        Optional<User> userOpt = userRepository.findByUsername(userDetails.getUsername());
-        String gender = "male"; // Mặc định là nam
         
-        if (userOpt.isPresent()) {
-            User user = userOpt.get();
-            // Giả sử thông tin giới tính được lưu trong trường "gender" 
-            if (user.getGender() != null && user.getGender().equalsIgnoreCase("female")) {
-                gender = "female";
-            }
+        // Trả về thông tin người dùng kèm token
+        return ResponseEntity.ok(new JwtResponse(jwt, 
+                                 userDetails.getId(), 
+                                 userDetails.getUsername(), 
+                                 userDetails.getEmail(), 
+                                 roles));
+    }
+    
+    @PostMapping("/check-gender")
+    public ResponseEntity<?> checkGender(@RequestBody LoginRequest loginRequest) {
+        // Kiểm tra xem user có tồn tại không
+        User user = userRepository.findByUsername(loginRequest.getUsername())
+                .orElse(null);
+                
+        if (user == null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: User not found!"));
         }
-
-        return ResponseEntity.ok(new JwtResponse(
-                jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles,
-                gender));
+        
+        // Trả về giới tính của người dùng
+        return ResponseEntity.ok().body(
+                new MessageResponse(user.getGender())
+        );
     }
 }
