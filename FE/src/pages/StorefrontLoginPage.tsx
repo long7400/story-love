@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import StorefrontLoginForm from '../components/StorefrontLoginForm';
 
 const StorefrontLoginPage: React.FC = () => {
   const [, setLocation] = useLocation();
   const [loginSuccess, setLoginSuccess] = useState(false);
+  
+  // Kiểm tra nếu người dùng đã đăng nhập, chuyển hướng ngay lập tức về trang chủ
+  useEffect(() => {
+    if (localStorage.getItem('love_story_sf_auth') === 'true') {
+      setLocation('/');
+    }
+  }, [setLocation]);
 
   const handleLoginSuccess = (token: string) => {
     setLoginSuccess(true);
