@@ -309,6 +309,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                onClick={() => openPhotoModal()}
               >
                 <Plus className="h-4 w-4 mr-1" />
                 Add New Photos
@@ -328,10 +329,16 @@ export default function Dashboard({ onLogout }: DashboardProps) {
                     />
                   </div>
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <button className="p-1 rounded-full bg-white text-gray-700">
+                    <button 
+                      className="p-1 rounded-full bg-white text-gray-700"
+                      onClick={() => handleEditPhoto(photo)}
+                    >
                       <Edit className="h-4 w-4" />
                     </button>
-                    <button className="p-1 rounded-full bg-white text-red-500 ml-2">
+                    <button 
+                      className="p-1 rounded-full bg-white text-red-500 ml-2"
+                      onClick={() => handleDeletePhoto(photo.id)}
+                    >
                       <Trash className="h-4 w-4" />
                     </button>
                   </div>
@@ -513,6 +520,91 @@ export default function Dashboard({ onLogout }: DashboardProps) {
           </div>
         )}
       </main>
+
+      {/* Photo Modal */}
+      {isPhotoModalOpen && (
+        <div className="fixed inset-0 overflow-y-auto z-50">
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
+            <div
+              className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+              // Không thêm onClick để ngăn modal đóng khi click vào nền
+            ></div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-2xl sm:w-full"
+            >
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="flex justify-between items-start">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900">
+                    {selectedPhoto ? 'Chỉnh sửa ảnh' : 'Thêm ảnh mới'}
+                  </h3>
+                  <button
+                    onClick={closePhotoModal}
+                    className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+                <div className="mt-4 space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Tiêu đề</label>
+                    <input
+                      type="text"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                      placeholder="Nhập tiêu đề ảnh"
+                      defaultValue={selectedPhoto?.title || ''}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Ngày chụp</label>
+                    <input
+                      type="date"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                      defaultValue={selectedPhoto ? new Date(selectedPhoto.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Mô tả</label>
+                    <textarea
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                      rows={3}
+                      placeholder="Nhập mô tả cho ảnh"
+                      defaultValue={selectedPhoto?.description || ''}
+                    ></textarea>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">URL ảnh</label>
+                    <input
+                      type="url"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                      placeholder="Nhập URL ảnh"
+                      defaultValue={selectedPhoto?.imageUrl || ''}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={closePhotoModal}
+                >
+                  {selectedPhoto ? 'Lưu thay đổi' : 'Thêm ảnh'}
+                </button>
+                <button
+                  type="button"
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:mt-0 sm:w-auto sm:text-sm"
+                  onClick={closePhotoModal}
+                >
+                  Hủy
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      )}
 
       {/* Event Modal */}
       {isModalOpen && (
