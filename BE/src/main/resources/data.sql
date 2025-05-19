@@ -65,7 +65,7 @@ INSERT INTO photos (id, title, date, description, image_url, relationship_id)
 VALUES (2, 'Picnic cuối tuần', '2021-03-27', 'Buổi picnic đầu tiên tại công viên thành phố vào một ngày xuân đẹp trời.', '/images/picnic.jpg', 1);
 
 INSERT INTO photos (id, title, date, description, image_url, relationship_id)
-VALUES (3, 'Sinh nhật của Linh', '2021-08-15', 'Bữa tiệc sinh nhật bất ngờ cho Linh tại nhà với bạn bè thân thiết.', '/images/birthday-linh.jpg', 1);
+VALUES (3, 'Sinh nhật của Linh', '2021-03-10', 'Bữa tiệc sinh nhật bất ngờ cho Linh tại nhà với bạn bè thân thiết.', '/images/birthday-linh.jpg', 1);
 
 INSERT INTO photos (id, title, date, description, image_url, relationship_id)
 VALUES (4, 'Noel 2021', '2021-12-24', 'Đón Giáng sinh đầu tiên cùng nhau tại khu phố đèn lồng.', '/images/christmas-2021.jpg', 1);
@@ -74,7 +74,7 @@ INSERT INTO photos (id, title, date, description, image_url, relationship_id)
 VALUES (5, 'Chuyến đi Sapa', '2022-01-15', 'Cùng nhau ngắm tuyết rơi tại Sapa, trải nghiệm hiếm có ở Việt Nam.', '/images/sapa-trip.jpg', 1);
 
 INSERT INTO photos (id, title, date, description, image_url, relationship_id)
-VALUES (6, 'Sinh nhật của Minh', '2022-05-10', 'Kỷ niệm sinh nhật Minh với chuyến đi chơi thuyền kayak.', '/images/birthday-minh.jpg', 1);
+VALUES (6, 'Sinh nhật của Long', '2022-04-07', 'Kỷ niệm sinh nhật Long với chuyến đi chơi thuyền kayak.', '/images/birthday-long.jpg', 1);
 
 INSERT INTO photos (id, title, date, description, image_url, relationship_id)
 VALUES (7, 'Lễ hội ánh sáng', '2022-09-18', 'Tham gia lễ hội ánh sáng tại bảo tàng nghệ thuật thành phố.', '/images/light-festival.jpg', 1);

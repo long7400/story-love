@@ -6,7 +6,7 @@ ADD COLUMN IF NOT EXISTS song_url VARCHAR(255);
 
 -- Insert sample relationship data with image and song details
 INSERT INTO relationships (id, start_date, title, description, song, song_url, couple_image_url)
-VALUES (1, '2020-11-09', 'Mối tình đẹp', 'Một hành trình tình yêu tràn đầy kỷ niệm đẹp, niềm vui và sự tôn trọng lẫn nhau.', 'Em Của Ngày Hôm Qua - Sơn Tùng MTP', '/sounds/love-song.mp3', '/images/couple.jpg')
+VALUES (1, '2023-11-25', 'Mối tình đẹp', 'Một hành trình tình yêu tràn đầy kỷ niệm đẹp, niềm vui và sự tôn trọng lẫn nhau.', 'Em Của Ngày Hôm Qua - Sơn Tùng MTP', '/sounds/love-song.mp3', '/images/couple.jpg')
 ON CONFLICT (id) DO UPDATE 
 SET start_date = EXCLUDED.start_date,
     title = EXCLUDED.title,
@@ -17,7 +17,7 @@ SET start_date = EXCLUDED.start_date,
 
 -- Insert sample profiles
 INSERT INTO profiles (id, name, birthday, avatar_url, bio, favorite_quote, relationship_id)
-VALUES (1, 'Minh', '1995-05-10', '/images/profile1.jpg', 'Yêu thích âm nhạc, nghệ thuật và khám phá những địa điểm mới.', 'Yêu là cho đi mà không mong nhận lại', 1)
+VALUES (1, 'Long', '2000-04-07', '/images/profile1.jpg', 'Yêu thích âm nhạc, nghệ thuật và khám phá những địa điểm mới.', 'Yêu là cho đi mà không mong nhận lại', 1)
 ON CONFLICT (id) DO UPDATE 
 SET name = EXCLUDED.name,
     birthday = EXCLUDED.birthday,
@@ -27,7 +27,7 @@ SET name = EXCLUDED.name,
     relationship_id = EXCLUDED.relationship_id;
 
 INSERT INTO profiles (id, name, birthday, avatar_url, bio, favorite_quote, relationship_id)
-VALUES (2, 'Linh', '1996-08-15', '/images/profile2.jpg', 'Đam mê đọc sách, nấu ăn và đi du lịch cùng người yêu.', 'Tình yêu là sự tôn trọng và thấu hiểu', 1)
+VALUES (2, 'Linh', '2000-03-10', '/images/profile2.jpg', 'Đam mê đọc sách, nấu ăn và đi du lịch cùng người yêu.', 'Tình yêu là sự tôn trọng và thấu hiểu', 1)
 ON CONFLICT (id) DO UPDATE 
 SET name = EXCLUDED.name,
     birthday = EXCLUDED.birthday,
