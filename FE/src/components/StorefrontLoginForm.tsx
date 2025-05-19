@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'wouter';
+import { useLocation } from 'wouter';
 import axios from 'axios';
 import apiConfig from '../config/apiConfig';
 
@@ -16,7 +16,7 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   const [gender, setGender] = useState<'male' | 'female' | null>(null);
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
   
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
 
   const moveNoButton = () => {
     const maxX = window.innerWidth - 100;
@@ -74,7 +74,7 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
           onSuccess(response.data.accessToken);
           
           // Chuyển hướng đến trang chính
-          navigate('/');
+          setLocation('/');
         }
       }
     } catch (err: any) {
