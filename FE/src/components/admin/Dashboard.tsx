@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Edit, Trash, Plus, Calendar, X, LogOut, Save } from "lucide-react";
-import { Event, Photo } from "@/lib/types";
-import { formatDate } from "@/lib/utils";
+import { Event, Photo } from "../../lib/types";
+import { formatDate } from "../../lib/utils";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
