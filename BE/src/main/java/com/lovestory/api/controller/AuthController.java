@@ -98,9 +98,10 @@ public class AuthController {
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+            // Mặc định role là PARTNER
+            Role partnerRole = roleRepository.findByName(ERole.ROLE_PARTNER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
+            roles.add(partnerRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
@@ -109,20 +110,15 @@ public class AuthController {
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     roles.add(adminRole);
                     break;
-                case "male":
-                    Role maleRole = roleRepository.findByName(ERole.ROLE_MALE)
+                case "partner":
+                    Role partnerRole = roleRepository.findByName(ERole.ROLE_PARTNER)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(maleRole);
-                    break;
-                case "female":
-                    Role femaleRole = roleRepository.findByName(ERole.ROLE_FEMALE)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(femaleRole);
+                    roles.add(partnerRole);
                     break;
                 default:
-                    Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    Role defaultRole = roleRepository.findByName(ERole.ROLE_PARTNER)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(userRole);
+                    roles.add(defaultRole);
                 }
             });
         }
