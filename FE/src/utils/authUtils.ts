@@ -55,17 +55,10 @@ export const isAdmin = (): boolean => {
 };
 
 /**
- * Kiểm tra xem người dùng có phải là người dùng nam không
+ * Kiểm tra xem người dùng có phải là đối tác không
  */
-export const isMale = (): boolean => {
-  return hasRole('ROLE_MALE');
-};
-
-/**
- * Kiểm tra xem người dùng có phải là người dùng nữ không
- */
-export const isFemale = (): boolean => {
-  return hasRole('ROLE_FEMALE');
+export const isPartner = (): boolean => {
+  return hasRole('ROLE_PARTNER');
 };
 
 /**
