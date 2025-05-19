@@ -525,10 +525,6 @@ export default function Dashboard({ onLogout }: DashboardProps) {
       {isPhotoModalOpen && (
         <div className="fixed inset-0 overflow-y-auto z-50">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
-            <div
-              className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-              // Không thêm onClick để ngăn modal đóng khi click vào nền
-            ></div>
 
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -610,10 +606,6 @@ export default function Dashboard({ onLogout }: DashboardProps) {
       {isModalOpen && (
         <div className="fixed inset-0 overflow-y-auto z-50">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
-            <div
-              className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-              // Đã loại bỏ onClick={closeModal} để ngăn modal đóng khi click vào nền
-            ></div>
 
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
