@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import StorefrontLoginComponent from "@/components/storefront/LoginPage";
+import StorefrontLoginComponent from "../components/storefront/LoginPage";
 
 export default function StorefrontLoginPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

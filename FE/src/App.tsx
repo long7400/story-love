@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Router as RouterBase, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import HomePage from "@/pages/HomePage";
 import AdminPage from "@/pages/AdminPage";
+import StorefrontLoginPage from "@/pages/StorefrontLoginPage";
 import { SoundProvider } from "@/lib/SoundContext";
 import { useEffect, useState } from "react";
 import MusicPlayer from "@/components/MusicPlayer";
@@ -49,9 +50,20 @@ function LoadingScreen() {
 }
 
 function Router() {
+  // Kiểm tra xem người dùng đã đăng nhập vào storefront chưa
+  const isStorefrontLoggedIn = () => {
+    return localStorage.getItem("love_story_sf_auth") === "true";
+  };
+
+  // Kiểm tra đăng nhập trước khi cho phép truy cập trang chính
+  const ProtectedHomePage = () => {
+    return isStorefrontLoggedIn() ? <HomePage /> : <StorefrontLoginPage />;
+  };
+
   return (
     <Switch>
-      <Route path="/" component={HomePage} />
+      <Route path="/" component={ProtectedHomePage} />
+      <Route path="/login" component={StorefrontLoginPage} />
       <Route path="/admin" component={AdminPage} />
       <Route path="/postcards" component={() => <div>Postcards Page Coming Soon</div>} />
       <Route path="/love-language" component={() => <div>Love Language Quiz Coming Soon</div>} />
