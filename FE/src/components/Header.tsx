@@ -61,30 +61,30 @@ export default function Header() {
                   <button 
                     onMouseEnter={playHover}
                     onClick={() => scrollToSection("home")} 
-                    className="flex items-center px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
+                    className="flex items-center px-2 md:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
                   >
-                    <Home className="w-3.5 h-3.5 mr-1.5" />
-                    <span>Home</span>
+                    <Home className="w-3.5 h-3.5 md:mr-1.5" />
+                    <span className="hidden md:inline">Home</span>
                   </button>
                 </li>
                 <li>
                   <button 
                     onMouseEnter={playHover}
                     onClick={() => scrollToSection("timeline")} 
-                    className="flex items-center px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
+                    className="flex items-center px-2 md:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
                   >
-                    <Clock className="w-3.5 h-3.5 mr-1.5" />
-                    <span>Timeline</span>
+                    <Clock className="w-3.5 h-3.5 md:mr-1.5" />
+                    <span className="hidden md:inline">Timeline</span>
                   </button>
                 </li>
                 <li>
                   <button 
                     onMouseEnter={playHover}
                     onClick={() => scrollToSection("gallery")} 
-                    className="flex items-center px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
+                    className="flex items-center px-2 md:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
                   >
-                    <Image className="w-3.5 h-3.5 mr-1.5" />
-                    <span>Gallery</span>
+                    <Image className="w-3.5 h-3.5 md:mr-1.5" />
+                    <span className="hidden md:inline">Gallery</span>
                   </button>
                 </li>
               </>
@@ -94,10 +94,10 @@ export default function Header() {
                   to="/"
                   onClick={() => playClick()}
                   onMouseEnter={() => playHover()}
-                  className="flex items-center px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
+                  className="flex items-center px-2 md:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
                 >
-                  <Home className="w-3.5 h-3.5 mr-1.5" />
-                  <span>Home</span>
+                  <Home className="w-3.5 h-3.5 md:mr-1.5" />
+                  <span className="hidden md:inline">Home</span>
                 </Link>
               </li>
             )}
@@ -107,10 +107,10 @@ export default function Header() {
               <DropdownMenu>
                 <DropdownMenuTrigger 
                   onMouseEnter={playHover}
-                  className="flex items-center px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
+                  className="flex items-center px-2 md:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
                 >
-                  <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                  <span>Features</span>
+                  <Sparkles className="w-3.5 h-3.5 md:mr-1.5" />
+                  <span className="hidden md:inline">Features</span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem asChild>
