@@ -141,13 +141,13 @@ export default function GalleryModal({ photos, initialIndex, onClose }: GalleryM
               </div>
 
               <div className="flex justify-center mt-6 overflow-x-auto px-2 max-w-full">
-                <div className="flex space-x-2 p-2 bg-black/30 backdrop-blur-sm rounded-xl w-auto">
+                <div className="flex space-x-1.5 iphone:space-x-2 tablet:space-x-3 p-2 bg-black/30 backdrop-blur-sm rounded-xl w-auto">
                   {photos.map((photo, index) => (
                     <motion.button
                       key={photo.id}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all duration-200 ${
+                      className={`w-12 h-12 iphone:w-13 iphone:h-13 iphoneplus:w-14 iphoneplus:h-14 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all duration-200 ${
                         index === currentIndex
                           ? "border-primary shadow-lg shadow-primary/20 scale-110"
                           : "border-transparent opacity-60 hover:opacity-100"

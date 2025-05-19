@@ -28,8 +28,8 @@ export default function Timeline({ events, onEventClick }: TimelineProps) {
           </p>
         </div>
 
-        {/* Vertical Timeline with Center Line - Desktop */}
-        <div className="relative mt-16 hidden tabs9:block">
+        {/* Vertical Timeline with Center Line - Desktop and Tablet */}
+        <div className="relative mt-16 hidden tablet:block">
           {/* Center vertical line */}
           <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-pink-200 rounded-full"></div>
           
@@ -81,7 +81,7 @@ export default function Timeline({ events, onEventClick }: TimelineProps) {
         </div>
         
         {/* Mobile timeline - single column */}
-        <div className="relative mt-10 block tabs9:hidden">
+        <div className="relative mt-10 block tablet:hidden">
           {/* Left vertical line */}
           <div className="absolute left-5 transform h-full w-1 bg-pink-200 rounded-full"></div>
           

@@ -6,9 +6,14 @@ export default {
   theme: {
     extend: {
       screens: {
-        // iPhone 11 width: 414px
-        'iphone11': '414px',
-        // Galaxy Tab S9 width: 1192px
+        // iPhone 11 width: 375px (iPhone 11/12/13 mini base size)
+        // Tất cả iPhone từ 11 trở lên sẽ được support với breakpoint này
+        'iphone': '375px',
+        // iPhone Plus/Max width: 428px (kích thước lớn nhất iPhone 14 Pro Max)
+        'iphoneplus': '428px',
+        // Tablet width: 768px (iPad mini và các tablet nhỏ)
+        'tablet': '768px',
+        // Galaxy Tab S9 width: 1192px (và các tablet lớn hơn)
         'tabs9': '1192px',
       },
       colors: {
