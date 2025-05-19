@@ -53,7 +53,7 @@ export default function Header() {
         </h1>
         
         <nav>
-          <ul className="flex items-center space-x-1 md:space-x-3">
+          <ul className="flex items-center space-x-1 iphone11:space-x-2 md:space-x-3">
             {/* Home Page Navigation */}
             {location === '/' ? (
               <>
@@ -61,30 +61,30 @@ export default function Header() {
                   <button 
                     onMouseEnter={playHover}
                     onClick={() => scrollToSection("home")} 
-                    className="flex items-center px-2 md:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
+                    className="flex items-center px-2 iphone11:px-2.5 tabs9:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
                   >
-                    <Home className="w-3.5 h-3.5 md:mr-1.5" />
-                    <span className="hidden md:inline">Home</span>
+                    <Home className="w-3.5 h-3.5 iphone11:mr-1 tabs9:mr-1.5" />
+                    <span className="hidden iphone11:inline">Home</span>
                   </button>
                 </li>
                 <li>
                   <button 
                     onMouseEnter={playHover}
                     onClick={() => scrollToSection("timeline")} 
-                    className="flex items-center px-2 md:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
+                    className="flex items-center px-2 iphone11:px-2.5 tabs9:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
                   >
-                    <Clock className="w-3.5 h-3.5 md:mr-1.5" />
-                    <span className="hidden md:inline">Timeline</span>
+                    <Clock className="w-3.5 h-3.5 iphone11:mr-1 tabs9:mr-1.5" />
+                    <span className="hidden iphone11:inline">Timeline</span>
                   </button>
                 </li>
                 <li>
                   <button 
                     onMouseEnter={playHover}
                     onClick={() => scrollToSection("gallery")} 
-                    className="flex items-center px-2 md:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
+                    className="flex items-center px-2 iphone11:px-2.5 tabs9:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
                   >
-                    <Image className="w-3.5 h-3.5 md:mr-1.5" />
-                    <span className="hidden md:inline">Gallery</span>
+                    <Image className="w-3.5 h-3.5 iphone11:mr-1 tabs9:mr-1.5" />
+                    <span className="hidden iphone11:inline">Gallery</span>
                   </button>
                 </li>
               </>
@@ -94,10 +94,10 @@ export default function Header() {
                   to="/"
                   onClick={() => playClick()}
                   onMouseEnter={() => playHover()}
-                  className="flex items-center px-2 md:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
+                  className="flex items-center px-2 iphone11:px-2.5 tabs9:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
                 >
-                  <Home className="w-3.5 h-3.5 md:mr-1.5" />
-                  <span className="hidden md:inline">Home</span>
+                  <Home className="w-3.5 h-3.5 iphone11:mr-1 tabs9:mr-1.5" />
+                  <span className="hidden iphone11:inline">Home</span>
                 </Link>
               </li>
             )}
@@ -107,10 +107,10 @@ export default function Header() {
               <DropdownMenu>
                 <DropdownMenuTrigger 
                   onMouseEnter={playHover}
-                  className="flex items-center px-2 md:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
+                  className="flex items-center px-2 iphone11:px-2.5 tabs9:px-3 py-2 text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm"
                 >
-                  <Sparkles className="w-3.5 h-3.5 md:mr-1.5" />
-                  <span className="hidden md:inline">Features</span>
+                  <Sparkles className="w-3.5 h-3.5 iphone11:mr-1 tabs9:mr-1.5" />
+                  <span className="hidden iphone11:inline">Features</span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem asChild>

@@ -5,6 +5,12 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      screens: {
+        // iPhone 11 width: 414px
+        'iphone11': '414px',
+        // Galaxy Tab S9 width: 1192px
+        'tabs9': '1192px',
+      },
       colors: {
         primary: {
           DEFAULT: "hsl(0 80% 60%)",
