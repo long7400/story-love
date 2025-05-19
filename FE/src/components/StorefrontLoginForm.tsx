@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'wouter';
 import axios from 'axios';
 import apiConfig from '../config/apiConfig';
+import HeartAnimation from './HeartAnimation';
+import '../styles/loveQuestion.css';
 
 interface LoginFormProps {
   onSuccess: (token: string) => void;
@@ -15,15 +17,39 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   const [step, setStep] = useState<'credentials' | 'loveQuestion'>('credentials');
   const [gender, setGender] = useState<'male' | 'female' | null>(null);
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
+  const [showHeartAnimation, setShowHeartAnimation] = useState(false);
+  const noButtonRef = useRef<HTMLButtonElement>(null);
   
   const [, setLocation] = useLocation();
 
+  // Hàm di chuyển nút "Không" khi chuột tới gần
   const moveNoButton = () => {
     const maxX = window.innerWidth - 100;
     const maxY = window.innerHeight - 50;
     const newX = Math.floor(Math.random() * maxX);
     const newY = Math.floor(Math.random() * maxY);
     setNoButtonPosition({ x: newX, y: newY });
+  };
+  
+  // Cảm biến khi chuột di chuyển gần nút "Không"
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (step !== 'loveQuestion' || !noButtonRef.current) return;
+    
+    // Lấy vị trí của nút và vị trí chuột
+    const rect = noButtonRef.current.getBoundingClientRect();
+    const buttonCenterX = rect.left + rect.width / 2;
+    const buttonCenterY = rect.top + rect.height / 2;
+    
+    // Tính khoảng cách từ chuột đến trung tâm nút
+    const dx = e.clientX - buttonCenterX;
+    const dy = e.clientY - buttonCenterY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    
+    // Nếu chuột di chuyển lại gần nút, di chuyển nút đi nơi khác
+    const proximityThreshold = 150; // px
+    if (distance < proximityThreshold) {
+      moveNoButton();
+    }
   };
 
   const checkGender = async () => {
@@ -90,8 +116,16 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   };
 
   const handleYesClick = () => {
+    // Kích hoạt hiệu ứng trái tim
+    setShowHeartAnimation(true);
+    
     // Đăng nhập khi người dùng đã trả lời "có"
     handleLogin(new Event('submit') as any);
+    
+    // Tắt hiệu ứng sau 5 giây
+    setTimeout(() => {
+      setShowHeartAnimation(false);
+    }, 5000);
   };
 
   // Reset vị trí nút "Không" khi component được tải
@@ -102,10 +136,16 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   }, [step]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-pink-100 to-red-100">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div 
+      className="relative flex items-center justify-center min-h-screen love-background"
+      onMouseMove={handleMouseMove}
+    >
+      {/* Hiệu ứng trái tim khi nhấn "Có" */}
+      <HeartAnimation isActive={showHeartAnimation} />
+      
+      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-xl md:p-10 love-question-container">
         <div className="text-center">
-          <h1 className="text-3xl font-extrabold text-red-500">
+          <h1 className={`text-3xl font-extrabold ${step === 'loveQuestion' ? 'love-question-title' : 'text-red-500'}`}>
             {step === 'credentials' ? 'Đăng nhập Storefront' : 'Câu hỏi tình yêu'}
           </h1>
           <p className="mt-2 text-gray-600">
@@ -169,20 +209,21 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
             <div className="w-full flex flex-col items-center space-y-6">
               <button
                 onClick={handleYesClick}
-                className="w-64 py-3 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200 transform hover:scale-105"
+                className="w-64 py-3 px-4 border border-transparent text-lg font-medium rounded-md text-white yes-button heartbeat-animation"
               >
                 Có
               </button>
               
               <button
+                ref={noButtonRef}
                 style={{
                   position: noButtonPosition.x !== 0 || noButtonPosition.y !== 0 ? 'fixed' : 'relative',
                   left: noButtonPosition.x,
                   top: noButtonPosition.y,
-                  transition: 'all 0.3s ease'
+                  zIndex: 100
                 }}
                 onMouseEnter={moveNoButton}
-                className="w-64 py-3 px-4 border border-gray-300 text-lg font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                className="w-64 py-3 px-4 text-lg font-medium rounded-md no-button"
               >
                 Không
               </button>
@@ -190,12 +231,17 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
             
             <button
               onClick={() => setStep('credentials')}
-              className="text-sm text-red-500 hover:text-red-600"
+              className="text-sm text-red-500 hover:text-red-600 mt-4"
             >
               Quay lại
             </button>
           </div>
         )}
+      </div>
+      
+      {/* Responsive design info */}
+      <div className="absolute bottom-4 right-4 text-xs text-pink-800 hidden md:block">
+        <p>💖 Designed with love 💖</p>
       </div>
     </div>
   );

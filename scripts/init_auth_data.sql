@@ -14,6 +14,7 @@ ALTER SEQUENCE users_id_seq RESTART WITH 1;
 INSERT INTO roles (name) VALUES
 ('ROLE_USER'),
 ('ROLE_ADMIN'),
+('ROLE_PARTNER'),
 ('ROLE_MALE'),
 ('ROLE_FEMALE');
 
@@ -40,12 +41,14 @@ INSERT INTO users (username, email, password, gender, activated) VALUES
 -- Gán vai trò cho người dùng nam
 INSERT INTO user_roles (user_id, role_id) VALUES
 (2, 1), -- ROLE_USER
-(2, 3); -- ROLE_MALE
+(2, 3), -- ROLE_PARTNER
+(2, 4); -- ROLE_MALE
 
 -- Gán vai trò cho người dùng nữ
 INSERT INTO user_roles (user_id, role_id) VALUES
 (3, 1), -- ROLE_USER
-(3, 4); -- ROLE_FEMALE
+(3, 3), -- ROLE_PARTNER
+(3, 5); -- ROLE_FEMALE
 
 -- Thêm các ràng buộc cho bảng sessions (nếu chưa có)
 DO $$
