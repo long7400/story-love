@@ -1,30 +1,18 @@
-FROM node:18-alpine as build
-
+# Build stage
+FROM node:18-alpine AS build
 WORKDIR /app
-
-# Sao chép package.json và package-lock.json
 COPY package*.json ./
-
-# Cài đặt dependencies
+# Thêm dòng sau để đảm bảo axios được cài đặt
+RUN npm install axios
 RUN npm ci
-
-# Sao chép toàn bộ source code frontend
 COPY . .
-
-# Xây dựng ứng dụng
+ARG VITE_API_BASE_URL
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 RUN npm run build
 
-# Bước production - sử dụng Nginx để phục vụ trang tĩnh
+# Production stage
 FROM nginx:alpine
-
-# Sao chép cấu hình Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Sao chép build files từ bước build
 COPY --from=build /app/dist /usr/share/nginx/html
-
-# Mở port 80
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
-
-# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]

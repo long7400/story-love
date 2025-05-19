@@ -1,66 +1,77 @@
 version: '3.8'
+# To make the website publicly accessible:
+# 1. Ensure your server's firewall allows traffic on ports 80 (HTTP) and 8080 (API)
+# 2. Access the website using your server's IP address or domain name
+# 3. The Docker images remain private on your server
+# 
+# GitHub Codespaces Configuration:
+# This docker-compose file is configured to work with GitHub Codespaces
+# The services will be automatically started when the Codespace is created
 
 services:
-  # Database
-  db:
-    image: postgres:15-alpine
-    container_name: love-story-db
-    restart: always
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_DB: ${POSTGRES_DB:-lovestory}
-    ports:
-      - "5432:5432"
+  postgres:
+    image: postgres:14-alpine
+    container_name: lovestory-postgres
+    restart: unless-stopped
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-lovestory}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1233}
+    ports:
+      - "5433:5432"
     networks:
-      - love-story-network
+      - lovestory-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # Backend
   backend:
     build:
       context: ./BE
       dockerfile: Dockerfile
-    container_name: love-story-backend
-    restart: always
+    container_name: lovestory-backend
+    restart: unless-stopped
     depends_on:
-      - db
+      postgres:
+        condition: service_healthy
     environment:
-      - SPRING_PROFILES_ACTIVE=dev
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${POSTGRES_DB:-lovestory}
-      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER:-postgres}
-      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD:-postgres}
-      - APP_JWT_SECRET=${JWT_SECRET:-loveStorySecretKey2024ThisIsAVeryLongKeyThatIsAtLeast256BitsLongForSecurityRequirements}
-      - APP_JWT_EXPIRATION_MS=86400000
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
-    volumes:
-      - uploads:/app/uploads
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-lovestory}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-postgres}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-1233}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
+      SERVER_PORT: 8080
+      JWT_SECRET: ${JWT_SECRET:-your_jwt_secret_key}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-your_openai_api_key}
+      # Allow all origins by default, can be restricted to specific domains
+      ALLOWED_ORIGINS: "*"
     ports:
       - "8080:8080"
     networks:
-      - love-story-network
+      - lovestory-network
 
-  # Frontend
   frontend:
     build:
       context: ./FE
       dockerfile: Dockerfile
-    container_name: love-story-frontend
-    restart: always
-    depends_on:
-      - backend
-    environment:
-      - VITE_API_BASE_URL=http://backend:8080
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
+    container_name: lovestory-frontend
+    restart: unless-stopped
     ports:
       - "80:80"
+    depends_on:
+      - backend
     networks:
-      - love-story-network
+      - lovestory-network
 
 networks:
-  love-story-network:
+  lovestory-network:
     driver: bridge
 
 volumes:
-  pgdata:
-  uploads:
+  postgres_data:

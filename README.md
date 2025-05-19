@@ -1,81 +1,70 @@
-# Love Story Website
+# Love Story Website Deployment Guide
 
-Nền tảng số thân mật dành cho các cặp đôi giúp họ lưu giữ và chia sẻ câu chuyện tình yêu của mình qua các trải nghiệm tương tác sáng tạo được hỗ trợ bởi công nghệ.
+This guide provides instructions on how to deploy the Love Story Website and make it publicly accessible while keeping Docker images private.
 
-## Cấu trúc dự án
+## Prerequisites
 
-Dự án được tổ chức thành hai phần chính:
+- Docker and Docker Compose installed on your server
+- A server with a public IP address or domain name
+- Ports 80 (HTTP) and 8080 (API) open on your server's firewall
 
-- **BE**: Backend Spring Boot Java
-  - REST API
-  - Xác thực và phân quyền
-  - Kết nối cơ sở dữ liệu PostgreSQL
-  - Tích hợp OpenAI
+## Deployment Steps
 
-- **FE**: Frontend React + Node.js API
-  - Giao diện người dùng React
-  - API Node.js
-  - Tích hợp với BE
+1. Clone or download this repository to your server
+2. Navigate to the project directory
+3. Run the deployment script:
+   - On Linux/Mac: `./deploy.sh`
+   - On Windows: `deploy.bat`
 
-## Công nghệ sử dụng
+The script will:
+- Stop any running containers
+- Build the Docker images locally (keeping them private)
+- Start the containers in detached mode
 
-- **Frontend**:
-  - React.js với TypeScript
-  - Tailwind CSS
-  - Vite
-  - Các component tương tác với chủ đề tình yêu và micro-animations
+## Accessing the Website
 
-- **Backend**:
-  - Spring Boot Java
-  - Node.js Express (API trung gian)
-  - PostgreSQL
+After deployment, you can access the website using your server's IP address or domain name:
 
-## Tính năng chính
+- Frontend: `http://YOUR_SERVER_IP`
+- Backend API: `http://YOUR_SERVER_IP:8080`
+- Swagger UI: `http://YOUR_SERVER_IP:8080/swagger-ui.html`
 
-- **Dòng thời gian mối quan hệ**: Hiển thị các sự kiện quan trọng theo thứ tự thời gian
-- **Thư viện ảnh**: Lưu trữ và hiển thị khoảnh khắc đáng nhớ
-- **Bảng điều khiển tâm trạng**: Trực quan hóa cảm xúc của cặp đôi theo thời gian
-- **Trích dẫn tình yêu**: Hiển thị các trích dẫn lãng mạn với hiệu ứng chuyển đổi
-- **Nhịp tim cột mốc**: Theo dõi các mốc quan trọng trong mối quan hệ với hiệu ứng nhịp tim
-- **Bản đồ tình yêu**: Hiển thị các địa điểm quan trọng của cặp đôi
-- **Thẻ bưu thiếp**: Tạo và chia sẻ các bưu thiếp tình yêu cá nhân hóa
+## Configuration
 
-## Triển khai
+The application is configured using environment variables in the `.env` file. You can modify these variables to customize the application:
 
-Dự án được cấu hình để triển khai dễ dàng bằng Docker:
+- Database settings
+- JWT secret and expiration
+- API keys
+- CORS settings
 
-```bash
-docker-compose up -d
-```
+## Useful Commands
 
-Sau khi triển khai:
-- Frontend: http://localhost
-- Backend: http://localhost:8080
-- API Documentation: http://localhost:8080/swagger-ui.html
+- Check if containers are running: `docker-compose ps`
+- View logs: `docker-compose logs -f`
+- Stop the services: `docker-compose down`
 
-## Phát triển
+## Deployment Options
 
-### Frontend
+### Local Deployment
 
-```bash
-cd FE
-npm install
-npm run dev
-```
+Follow the steps in the "Deployment Steps" section above to deploy the application locally using Docker.
 
-### Backend (Spring Boot)
+### GitHub Codespaces Deployment
 
-```bash
-cd BE
-./mvnw spring-boot:run
-```
+For development and testing in a cloud environment, you can deploy the application to GitHub Codespaces. See [github-codespaces-guide.md](github-codespaces-guide.md) for detailed instructions.
 
-## Tài liệu
+## Security Considerations
 
-Xem thêm tài liệu chi tiết trong thư mục `docs`:
+- The Docker images are built locally and not pushed to any public registry, keeping them private
+- By default, the API allows requests from all origins (`*`). You can restrict this by modifying the `ALLOWED_ORIGINS` environment variable in the `docker-compose.yml` file
+- Make sure to use strong passwords for the database and JWT secret in production
 
-- [Cài đặt](docs/INSTALLATION.md)
-- [Tài liệu API](docs/API_DOCUMENTATION.md)
-- [Hướng dẫn Back Office](docs/BACK_OFFICE_GUIDE.md)
-- [Tích hợp OpenAI](docs/OPENAI_INTEGRATION.md)
-- [Hướng dẫn Swagger](docs/SWAGGER_GUIDE.md)
+## Troubleshooting
+
+If you encounter any issues:
+
+1. Check the logs: `docker-compose logs -f`
+2. Ensure all containers are running: `docker-compose ps`
+3. Verify that ports 80 and 8080 are open on your server's firewall
+4. Check that the environment variables are set correctly in the `.env` file
