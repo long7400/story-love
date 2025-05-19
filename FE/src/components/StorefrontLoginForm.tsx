@@ -149,11 +149,8 @@ const StorefrontLoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
           roles: response.data.roles
         }));
         
-        // Thông báo đăng nhập thành công
+        // Thông báo đăng nhập thành công và để component cha xử lý chuyển hướng
         onSuccess(response.data.accessToken);
-        
-        // Chuyển hướng đến trang chính
-        setLocation('/');
       }
     } catch (err) {
       console.error('Lỗi khi kích hoạt tài khoản:', err);
