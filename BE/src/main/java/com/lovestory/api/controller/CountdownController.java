@@ -14,18 +14,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/countdowns")
 public class CountdownController {
-    
+
     @Autowired
     private CountdownService countdownService;
-    
+
     @Autowired
     private RelationshipService relationshipService;
-    
+
     @GetMapping
     public ResponseEntity<List<Countdown>> getAllCountdowns() {
         return ResponseEntity.ok(countdownService.getAllCountdowns());
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<Countdown> getCountdownById(@PathVariable Long id) {
         Countdown countdown = countdownService.getCountdownById(id);
@@ -34,7 +34,7 @@ public class CountdownController {
         }
         return ResponseEntity.ok(countdown);
     }
-    
+
     @GetMapping("/relationship/{relationshipId}")
     public ResponseEntity<List<Countdown>> getCountdownsByRelationship(@PathVariable Long relationshipId) {
         Relationship relationship = relationshipService.getRelationshipById(relationshipId);
@@ -43,30 +43,30 @@ public class CountdownController {
         }
         return ResponseEntity.ok(countdownService.getCountdownsByRelationship(relationship));
     }
-    
+
     @GetMapping("/future")
     public ResponseEntity<List<Countdown>> getFutureCountdowns() {
         return ResponseEntity.ok(countdownService.getFutureCountdowns());
     }
-    
+
     @GetMapping("/past")
     public ResponseEntity<List<Countdown>> getPastCountdowns() {
         return ResponseEntity.ok(countdownService.getPastCountdowns());
     }
-    
+
     @GetMapping("/search")
     public ResponseEntity<List<Countdown>> searchCountdowns(@RequestParam String term) {
         return ResponseEntity.ok(countdownService.searchCountdowns(term));
     }
-    
+
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('PARTNER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Countdown> createCountdown(@RequestBody Countdown countdown) {
         return ResponseEntity.ok(countdownService.createCountdown(countdown));
     }
-    
+
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('PARTNER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Countdown> updateCountdown(@PathVariable Long id, @RequestBody Countdown countdownDetails) {
         Countdown updatedCountdown = countdownService.updateCountdown(id, countdownDetails);
         if (updatedCountdown == null) {
@@ -74,9 +74,9 @@ public class CountdownController {
         }
         return ResponseEntity.ok(updatedCountdown);
     }
-    
+
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('PARTNER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteCountdown(@PathVariable Long id) {
         boolean success = countdownService.deleteCountdown(id);
         if (!success) {

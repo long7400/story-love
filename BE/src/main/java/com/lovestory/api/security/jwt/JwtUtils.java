@@ -8,20 +8,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
 
-@Component
-public class JwtUtils {
+/**
+ * Implementation of the JwtService interface.
+ * This class is responsible for JWT token operations.
+ */
+@Service
+public class JwtUtils implements JwtService {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${app.jwtSecret}")
-    private String jwtSecret;
+    private final String jwtSecret;
+    private final int jwtExpirationMs;
 
-    @Value("${app.jwtExpirationMs}")
-    private int jwtExpirationMs;
+    public JwtUtils(
+            @Value("${app.jwtSecret}") String jwtSecret,
+            @Value("${app.jwtExpirationMs}") int jwtExpirationMs) {
+        this.jwtSecret = jwtSecret;
+        this.jwtExpirationMs = jwtExpirationMs;
+    }
 
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -45,7 +53,11 @@ public class JwtUtils {
 
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);
+            Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(authToken);
+
+            Date expiration = claims.getBody().getExpiration();
+            String subject = claims.getBody().getSubject();
+            logger.info("JWT token validated successfully. Subject: {}, Expiration: {}", subject, expiration);
             return true;
         } catch (MalformedJwtException e) {
             logger.error("Invalid JWT token: {}", e.getMessage());

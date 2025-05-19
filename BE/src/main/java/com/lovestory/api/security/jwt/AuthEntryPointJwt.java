@@ -15,15 +15,29 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Entry point for handling unauthorized access attempts.
+ * This class is responsible for creating a custom error response when authentication fails.
+ */
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
+    private final ObjectMapper objectMapper;
+
+    public AuthEntryPointJwt(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
             throws IOException, ServletException {
-        logger.error("Unauthorized error: {}", authException.getMessage());
+        // Log detailed information about the unauthorized request
+        String authHeader = request.getHeader("Authorization");
+        logger.error("Unauthorized error: Full authentication is required to access this resource");
+        logger.error("Request details - Method: {}, URI: {}, Auth Header: {}", 
+                request.getMethod(), request.getRequestURI(), authHeader);
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -34,7 +48,6 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         body.put("message", authException.getMessage());
         body.put("path", request.getServletPath());
 
-        final ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(response.getOutputStream(), body);
+        objectMapper.writeValue(response.getOutputStream(), body);
     }
 }

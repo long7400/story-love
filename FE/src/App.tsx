@@ -6,7 +6,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import HomePage from "@/pages/HomePage";
 import AdminPage from "@/pages/AdminPage";
-import StorefrontLoginPage from "@/pages/StorefrontLoginPage";
 import { SoundProvider } from "@/lib/SoundContext";
 import { useEffect, useState } from "react";
 import MusicPlayer from "@/components/MusicPlayer";
@@ -16,7 +15,7 @@ import PageTransition from "./components/PageTransition";
 // Loading animation component
 function LoadingScreen() {
   const [progress, setProgress] = useState(0);
-  
+
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress(prev => {
@@ -27,10 +26,10 @@ function LoadingScreen() {
         return prev + 5;
       });
     }, 50);
-    
+
     return () => clearInterval(interval);
   }, []);
-  
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-r from-pink-50 to-rose-100">
       <div className="mb-8">
@@ -52,65 +51,11 @@ function LoadingScreen() {
 
 function Router() {
   const [location] = useLocation();
-  
-  // Kiểm tra xem người dùng đã đăng nhập vào storefront chưa
-  const isStorefrontLoggedIn = () => {
-    return localStorage.getItem("love_story_sf_auth") === "true";
-  };
-
-  // Tạo context để chia sẻ trạng thái đăng nhập
-  const [authState, setAuthState] = useState({
-    isLoggedIn: isStorefrontLoggedIn(),
-    isChecking: false
-  });
-  
-  // Cập nhật trạng thái đăng nhập khi localStorage thay đổi
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setAuthState(prev => ({
-        ...prev,
-        isLoggedIn: isStorefrontLoggedIn()
-      }));
-    };
-    
-    // Theo dõi thay đổi từ localStorage
-    window.addEventListener('storage', handleStorageChange);
-    
-    // Theo dõi sự kiện đăng nhập tùy chỉnh
-    const handleLoginEvent = () => {
-      setAuthState(prev => ({
-        ...prev,
-        isLoggedIn: isStorefrontLoggedIn()
-      }));
-    };
-    
-    // Sử dụng event tùy chỉnh để cập nhật trạng thái đăng nhập
-    window.addEventListener('login-status-changed', handleLoginEvent);
-    window.addEventListener('auth-update', handleLoginEvent);
-    
-    // Kiểm tra trạng thái đăng nhập mỗi khi component render
-    setAuthState(prev => ({
-      ...prev,
-      isLoggedIn: isStorefrontLoggedIn()
-    }));
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('login-status-changed', handleLoginEvent);
-      window.removeEventListener('auth-update', handleLoginEvent);
-    };
-  }, [location]); // Re-run effect when location changes
-
-  // Kiểm tra đăng nhập trước khi cho phép truy cập trang chính
-  const ProtectedHomePage = () => {
-    return authState.isLoggedIn ? <HomePage /> : <StorefrontLoginPage />;
-  };
 
   return (
     <PageTransition>
       <Switch>
-        <Route path="/" component={ProtectedHomePage} />
-        <Route path="/login" component={StorefrontLoginPage} />
+        <Route path="/" component={HomePage} />
         <Route path="/admin" component={AdminPage} />
         <Route path="/postcards" component={() => <div>Postcards Page Coming Soon</div>} />
         <Route path="/love-language" component={() => <div>Love Language Quiz Coming Soon</div>} />
@@ -125,16 +70,16 @@ function Router() {
 
 function App() {
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     // Simulate loading time
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2000);
-    
+
     return () => clearTimeout(timer);
   }, []);
-  
+
   return (
     <QueryClientProvider client={queryClient}>
       <SoundProvider>

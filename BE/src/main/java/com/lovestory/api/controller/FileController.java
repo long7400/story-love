@@ -26,7 +26,7 @@ public class FileController {
     private FileStorageService fileStorageService;
 
     @PostMapping("/upload")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('PARTNER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<FileUploadResponse> uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
 
@@ -45,7 +45,7 @@ public class FileController {
     }
 
     @PostMapping("/uploads")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('PARTNER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<FileUploadResponse>> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         List<FileUploadResponse> responses = Arrays.stream(files)
                 .map(file -> {
@@ -88,9 +88,9 @@ public class FileController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
-    
+
     @DeleteMapping("/{fileName:.+}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('PARTNER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteFile(@PathVariable String fileName) {
         boolean deleted = fileStorageService.deleteFile(fileName);
         if (deleted) {

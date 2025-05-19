@@ -1,57 +1,43 @@
-import { QueryClient, QueryFunction } from "@tanstack/react-query";
+import {QueryClient, QueryFunction} from "@tanstack/react-query";
 
-async function throwIfResNotOk(res: Response) {
-  if (!res.ok) {
-    const text = (await res.text()) || res.statusText;
-    throw new Error(`${res.status}: ${text}`);
-  }
+async function throwIfResNotOk(res: Response): Promise<void> {
+    if (!res.ok) {
+        const error = await res.json().catch(() => ({message: "Unknown error."}));
+        throw new Error(error.message || `Request failed with status ${res.status}`);
+    }
 }
 
-export async function apiRequest(
-  method: string,
-  url: string,
-  data?: unknown | undefined,
-): Promise<Response> {
-  const res = await fetch(url, {
-    method,
-    headers: data ? { "Content-Type": "application/json" } : {},
-    body: data ? JSON.stringify(data) : undefined,
-    credentials: "include",
-  });
+// Default query function
+const defaultQueryFn: QueryFunction<unknown> = async ({queryKey}) => {
+    const url = queryKey[0] as string;
+    const token = localStorage.getItem("love_story_auth_token");
+    const headers: HeadersInit = {
+        "Content-Type": "application/json",
+    };
 
-  await throwIfResNotOk(res);
-  return res;
-}
-
-type UnauthorizedBehavior = "returnNull" | "throw";
-export const getQueryFn: <T>(options: {
-  on401: UnauthorizedBehavior;
-}) => QueryFunction<T> =
-  ({ on401: unauthorizedBehavior }) =>
-  async ({ queryKey }) => {
-    const res = await fetch(queryKey[0] as string, {
-      credentials: "include",
-    });
-
-    if (unauthorizedBehavior === "returnNull" && res.status === 401) {
-      return null;
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
     }
 
-    await throwIfResNotOk(res);
-    return await res.json();
-  };
+    const res = await fetch(url, {
+        method: "GET",
+        credentials: "include",
+        headers,
+    });
 
+    await throwIfResNotOk(res);
+
+    return res.json();
+};
+
+// Query Client với default query function
 export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      queryFn: getQueryFn({ on401: "throw" }),
-      refetchInterval: false,
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
-      retry: false,
+    defaultOptions: {
+        queries: {
+            queryFn: defaultQueryFn, // Đặt default queryFn
+            retry: 1,               // Giới hạn số lần retry
+            refetchOnWindowFocus: false,
+            staleTime: 60 * 1000,   // Dữ liệu "tươi mới" trong 1 phút
+        },
     },
-    mutations: {
-      retry: false,
-    },
-  },
 });

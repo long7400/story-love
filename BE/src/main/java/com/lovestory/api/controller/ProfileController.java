@@ -12,15 +12,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/profiles")
 public class ProfileController {
-    
+
     @Autowired
     private ProfileService profileService;
-    
+
     @GetMapping
     public ResponseEntity<List<Profile>> getAllProfiles() {
         return ResponseEntity.ok(profileService.getAllProfiles());
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfileById(@PathVariable Long id) {
         Profile profile = profileService.getProfileById(id);
@@ -29,15 +29,15 @@ public class ProfileController {
         }
         return ResponseEntity.ok(profile);
     }
-    
+
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
         return ResponseEntity.ok(profileService.createProfile(profile));
     }
-    
+
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('PARTNER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Profile> updateProfile(@PathVariable Long id, @RequestBody Profile profileDetails) {
         Profile updatedProfile = profileService.updateProfile(id, profileDetails);
         if (updatedProfile == null) {
@@ -45,7 +45,7 @@ public class ProfileController {
         }
         return ResponseEntity.ok(updatedProfile);
     }
-    
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteProfile(@PathVariable Long id) {

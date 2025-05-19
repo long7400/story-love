@@ -12,15 +12,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/relationships")
 public class RelationshipController {
-    
+
     @Autowired
     private RelationshipService relationshipService;
-    
+
     @GetMapping
     public ResponseEntity<List<Relationship>> getAllRelationships() {
         return ResponseEntity.ok(relationshipService.getAllRelationships());
     }
-    
+
     @GetMapping("/active")
     public ResponseEntity<Relationship> getActiveRelationship() {
         Relationship relationship = relationshipService.getActiveRelationship();
@@ -29,7 +29,7 @@ public class RelationshipController {
         }
         return ResponseEntity.ok(relationship);
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<Relationship> getRelationshipById(@PathVariable Long id) {
         Relationship relationship = relationshipService.getRelationshipById(id);
@@ -38,15 +38,15 @@ public class RelationshipController {
         }
         return ResponseEntity.ok(relationship);
     }
-    
+
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Relationship> createRelationship(@RequestBody Relationship relationship) {
         return ResponseEntity.ok(relationshipService.createRelationship(relationship));
     }
-    
+
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('PARTNER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Relationship> updateRelationship(@PathVariable Long id, @RequestBody Relationship relationshipDetails) {
         Relationship updatedRelationship = relationshipService.updateRelationship(id, relationshipDetails);
         if (updatedRelationship == null) {
@@ -54,7 +54,7 @@ public class RelationshipController {
         }
         return ResponseEntity.ok(updatedRelationship);
     }
-    
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteRelationship(@PathVariable Long id) {
