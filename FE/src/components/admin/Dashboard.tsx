@@ -26,7 +26,9 @@ export default function Dashboard({ onLogout }: DashboardProps) {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [section, setSection] = useState<'events' | 'photos' | 'postcards' | 'countdown' | 'map' | 'quiz'>('events');
 
@@ -114,6 +116,33 @@ export default function Dashboard({ onLogout }: DashboardProps) {
   const handleDeleteEvent = (id: number) => {
     if (window.confirm("Are you sure you want to delete this event?")) {
       setEvents(events.filter(event => event.id !== id));
+    }
+  };
+  
+  // Chức năng xử lý cho Photo Gallery
+  const openPhotoModal = (photo?: Photo) => {
+    if (photo) {
+      setSelectedPhoto(photo);
+      // Reset photo form with existing data
+    } else {
+      setSelectedPhoto(null);
+      // Reset photo form with empty values
+    }
+    setIsPhotoModalOpen(true);
+  };
+
+  const closePhotoModal = () => {
+    setIsPhotoModalOpen(false);
+    setSelectedPhoto(null);
+  };
+
+  const handleEditPhoto = (photo: Photo) => {
+    openPhotoModal(photo);
+  };
+
+  const handleDeletePhoto = (id: number) => {
+    if (window.confirm("Bạn có chắc chắn muốn xóa ảnh này?")) {
+      setPhotos(photos.filter(photo => photo.id !== id));
     }
   };
 
@@ -491,7 +520,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
             <div
               className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-              onClick={closeModal}
+              // Đã loại bỏ onClick={closeModal} để ngăn modal đóng khi click vào nền
             ></div>
 
             <motion.div
