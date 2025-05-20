@@ -21,15 +21,13 @@ public class Profile {
 
     @NotBlank
     private String name;
-    
+
     private LocalDate birthday;
 
-    // Optional fields for enhanced profiles
     private String avatarUrl;
     private String bio;
     private String favoriteQuote;
-    
-    // Many profiles can belong to the same relationship
+
     @ManyToOne
     @JoinColumn(name = "relationship_id")
     private Relationship relationship;

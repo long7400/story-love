@@ -1,106 +1,153 @@
 package com.lovestory.api.controller;
 
-import com.lovestory.api.model.Postcard;
-import com.lovestory.api.model.Relationship;
-import com.lovestory.api.model.User;
-import com.lovestory.api.repository.UserRepository;
+import com.lovestory.api.dto.request.PostcardRequestDto;
+import com.lovestory.api.dto.response.PostcardDto;
 import com.lovestory.api.service.PostcardService;
-import com.lovestory.api.service.RelationshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 import java.util.List;
 
+/**
+ * REST controller for managing postcards
+ */
 @RestController
 @RequestMapping("/api/postcards")
 public class PostcardController {
 
-    @Autowired
-    private PostcardService postcardService;
+    private final PostcardService postcardService;
 
     @Autowired
-    private RelationshipService relationshipService;
+    public PostcardController(PostcardService postcardService) {
+        this.postcardService = postcardService;
+    }
 
-    @Autowired
-    private UserRepository userRepository;
-
+    /**
+     * Get all postcards
+     * 
+     * @return ResponseEntity with list of PostcardDto
+     */
     @GetMapping
-    public ResponseEntity<List<Postcard>> getAllPostcards() {
+    public ResponseEntity<List<PostcardDto>> getAllPostcards() {
         return ResponseEntity.ok(postcardService.getAllPostcards());
     }
 
+    /**
+     * Get postcard by ID
+     * 
+     * @param id Postcard ID
+     * @return ResponseEntity with PostcardDto
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<Postcard> getPostcardById(@PathVariable Long id) {
-        Postcard postcard = postcardService.getPostcardById(id);
+    public ResponseEntity<PostcardDto> getPostcardById(@PathVariable Long id) {
+        PostcardDto postcard = postcardService.getPostcardById(id);
         if (postcard == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(postcard);
     }
 
+    /**
+     * Get postcards by relationship ID
+     * 
+     * @param relationshipId Relationship ID
+     * @return ResponseEntity with list of PostcardDto
+     */
     @GetMapping("/relationship/{relationshipId}")
-    public ResponseEntity<List<Postcard>> getPostcardsByRelationship(@PathVariable Long relationshipId) {
-        Relationship relationship = relationshipService.getRelationshipById(relationshipId);
-        if (relationship == null) {
+    public ResponseEntity<List<PostcardDto>> getPostcardsByRelationship(@PathVariable Long relationshipId) {
+        List<PostcardDto> postcards = postcardService.getPostcardsByRelationshipId(relationshipId);
+        if (postcards.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(postcardService.getPostcardsByRelationship(relationship));
+        return ResponseEntity.ok(postcards);
     }
 
+    /**
+     * Get postcards by sender name
+     * 
+     * @param senderName Sender name
+     * @return ResponseEntity with list of PostcardDto
+     */
     @GetMapping("/from/{senderName}")
-    public ResponseEntity<List<Postcard>> getPostcardsBySender(@PathVariable String senderName) {
+    public ResponseEntity<List<PostcardDto>> getPostcardsBySender(@PathVariable String senderName) {
         return ResponseEntity.ok(postcardService.getPostcardsBySender(senderName));
     }
 
+    /**
+     * Get postcards by recipient name
+     * 
+     * @param recipientName Recipient name
+     * @return ResponseEntity with list of PostcardDto
+     */
     @GetMapping("/to/{recipientName}")
-    public ResponseEntity<List<Postcard>> getPostcardsByRecipient(@PathVariable String recipientName) {
+    public ResponseEntity<List<PostcardDto>> getPostcardsByRecipient(@PathVariable String recipientName) {
         return ResponseEntity.ok(postcardService.getPostcardsByRecipient(recipientName));
     }
 
+    /**
+     * Get all undelivered postcards
+     * 
+     * @return ResponseEntity with list of PostcardDto
+     */
     @GetMapping("/undelivered")
-    public ResponseEntity<List<Postcard>> getUndeliveredPostcards() {
+    public ResponseEntity<List<PostcardDto>> getUndeliveredPostcards() {
         return ResponseEntity.ok(postcardService.getUndeliveredPostcards());
     }
 
+    /**
+     * Create a new postcard
+     * 
+     * @param requestDto PostcardRequestDto
+     * @return ResponseEntity with created PostcardDto
+     */
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Postcard> createPostcard(@RequestBody Postcard postcard) {
-        // Get the current authenticated user
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByUsername(username).orElse(null);
-
-        if (user != null) {
-            postcard.setCreator(user);
-        }
-
-        return ResponseEntity.ok(postcardService.createPostcard(postcard));
+    public ResponseEntity<PostcardDto> createPostcard(@Valid @RequestBody PostcardRequestDto requestDto) {
+        return ResponseEntity.ok(postcardService.createPostcard(requestDto));
     }
 
+    /**
+     * Update an existing postcard
+     * 
+     * @param id Postcard ID
+     * @param requestDto PostcardRequestDto with updated values
+     * @return ResponseEntity with updated PostcardDto
+     */
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Postcard> updatePostcard(@PathVariable Long id, @RequestBody Postcard postcardDetails) {
-        Postcard updatedPostcard = postcardService.updatePostcard(id, postcardDetails);
+    public ResponseEntity<PostcardDto> updatePostcard(@PathVariable Long id, @Valid @RequestBody PostcardRequestDto requestDto) {
+        PostcardDto updatedPostcard = postcardService.updatePostcard(id, requestDto);
         if (updatedPostcard == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(updatedPostcard);
     }
 
+    /**
+     * Mark a postcard as delivered
+     * 
+     * @param id Postcard ID
+     * @return ResponseEntity with delivered PostcardDto
+     */
     @PutMapping("/{id}/deliver")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Postcard> markAsDelivered(@PathVariable Long id) {
-        Postcard deliveredPostcard = postcardService.markAsDelivered(id);
+    public ResponseEntity<PostcardDto> markAsDelivered(@PathVariable Long id) {
+        PostcardDto deliveredPostcard = postcardService.markAsDelivered(id);
         if (deliveredPostcard == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(deliveredPostcard);
     }
 
+    /**
+     * Delete a postcard
+     * 
+     * @param id Postcard ID
+     * @return ResponseEntity with no content
+     */
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deletePostcard(@PathVariable Long id) {

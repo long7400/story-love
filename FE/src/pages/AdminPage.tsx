@@ -17,7 +17,8 @@ export default function AdminPage() {
     };
 
     const handleLogout = () => {
-        sessionStorage.removeItem("love_story_admin_auth");
+        sessionStorage.removeItem('love_story_admin_auth');
+        sessionStorage.removeItem('love_story_auth_token');
         setIsAuthenticated(false);
     };
 

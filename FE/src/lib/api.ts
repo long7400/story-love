@@ -13,8 +13,8 @@ import {
 } from '../lib/types';
 
 /**
- * API client để giao tiếp với backend Spring Boot.
- * Tự động thêm Authorization header và xử lý các lỗi liên quan đến token.
+ * API client for communicating with the Spring Boot backend.
+ * Automatically adds Authorization header and handles token-related errors.
  */
 class ApiClient {
     private token: string | null = null;
@@ -24,7 +24,7 @@ class ApiClient {
     }
 
     /**
-     * Tạo tiêu đề (headers): tự động thêm Authorization nếu token tồn tại.
+     * Create headers: automatically add Authorization if token exists.
      */
     private getHeaders(contentType = true): HeadersInit {
         const headers: HeadersInit = {};
@@ -40,25 +40,25 @@ class ApiClient {
     }
 
     /**
-     * Lưu token khi người dùng đăng nhập thành công.
+     * Save token when user successfully logs in.
      */
     setAuthToken(token: string): void {
-        console.log("Saving token: ", token);
         this.token = token;
         sessionStorage.setItem('love_story_auth_token', token);
     }
 
 
     /**
-     * Xóa token khi người dùng đăng xuất.
+     * Clear token when user logs out.
      */
     clearAuthToken(): void {
         this.token = null;
         localStorage.removeItem('love_story_auth_token');
+        sessionStorage.removeItem('love_story_auth_token');
     }
 
     /**
-     * Hàm chính xử lý mọi request đến backend.
+     * Main function to handle all requests to the backend.
      */
     private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
         const method = options.method?.toUpperCase();
@@ -76,9 +76,9 @@ class ApiClient {
             });
 
             if (response.status === 401) {
-                this.clearAuthToken();
+                // this.clearAuthToken();
                 window.location.href = '/admin';
-                throw new Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+                throw new Error('Your session has expired. Please log in again.');
             }
 
             if (!response.ok) {
@@ -206,15 +206,15 @@ class ApiClient {
     }
 
     /** ------------------------------------------------------------------
-     * Các API liên quan đến event (quản lý dòng thời gian)
+     * APIs related to events (timeline management)
      */
 
-    /** Lấy tất cả các sự kiện và câu chuyện */
+    /** Get all events and story data */
     async getLoveStoryData(): Promise<LoveStoryData> {
         return this.request<LoveStoryData>(API_CONFIG.ENDPOINTS.LOVE_STORY_DATA);
     }
 
-    /** Tạo mới sự kiện */
+    /** Create a new event */
     async createEvent(event: Omit<Event, 'id'>): Promise<Event> {
         return this.request<Event>(API_CONFIG.ENDPOINTS.EVENTS, {
             method: 'POST',
@@ -222,7 +222,7 @@ class ApiClient {
         });
     }
 
-    /** Cập nhật sự kiện */
+    /** Update an event */
     async updateEvent(id: number, event: Partial<Event>): Promise<Event> {
         return this.request<Event>(`${API_CONFIG.ENDPOINTS.EVENTS}/${id}`, {
             method: 'PUT',
@@ -230,14 +230,14 @@ class ApiClient {
         });
     }
 
-    /** Xóa sự kiện */
+    /** Delete an event */
     async deleteEvent(id: number): Promise<void> {
         await this.request<void>(`${API_CONFIG.ENDPOINTS.EVENTS}/${id}`, {
             method: 'DELETE',
         });
     }
 
-    /** Xóa một photo */
+    /** Delete a photo */
     async deletePhoto(id: number): Promise<void> {
         await this.request<void>(`${API_CONFIG.ENDPOINTS.PHOTOS}/${id}`, {
             method: 'DELETE',
@@ -246,5 +246,5 @@ class ApiClient {
 
 }
 
-// Export một instance của API Client
+// Export an instance of the API Client
 export const api = new ApiClient();

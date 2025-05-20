@@ -10,7 +10,7 @@ async function throwIfResNotOk(res: Response): Promise<void> {
 // Default query function
 const defaultQueryFn: QueryFunction<unknown> = async ({queryKey}) => {
     const url = queryKey[0] as string;
-    const token = localStorage.getItem("love_story_auth_token");
+    const token = sessionStorage.getItem("love_story_auth_token");
     const headers: HeadersInit = {
         "Content-Type": "application/json",
     };

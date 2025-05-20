@@ -1,34 +1,38 @@
 package com.lovestory.api.controller;
 
-import com.lovestory.api.model.LocationMarker;
-import com.lovestory.api.model.Relationship;
+import com.lovestory.api.dto.request.LocationMarkerRequestDto;
+import com.lovestory.api.dto.response.LocationMarkerDto;
 import com.lovestory.api.service.LocationMarkerService;
-import com.lovestory.api.service.RelationshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 import java.util.List;
 
+/**
+ * REST controller for managing location markers
+ */
 @RestController
 @RequestMapping("/api/location-markers")
 public class LocationMarkerController {
 
-    @Autowired
-    private LocationMarkerService locationMarkerService;
+    private final LocationMarkerService locationMarkerService;
 
     @Autowired
-    private RelationshipService relationshipService;
+    public LocationMarkerController(LocationMarkerService locationMarkerService) {
+        this.locationMarkerService = locationMarkerService;
+    }
 
     @GetMapping
-    public ResponseEntity<List<LocationMarker>> getAllLocationMarkers() {
+    public ResponseEntity<List<LocationMarkerDto>> getAllLocationMarkers() {
         return ResponseEntity.ok(locationMarkerService.getAllLocationMarkers());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LocationMarker> getLocationMarkerById(@PathVariable Long id) {
-        LocationMarker locationMarker = locationMarkerService.getLocationMarkerById(id);
+    public ResponseEntity<LocationMarkerDto> getLocationMarkerById(@PathVariable Long id) {
+        LocationMarkerDto locationMarker = locationMarkerService.getLocationMarkerById(id);
         if (locationMarker == null) {
             return ResponseEntity.notFound().build();
         }
@@ -36,38 +40,38 @@ public class LocationMarkerController {
     }
 
     @GetMapping("/relationship/{relationshipId}")
-    public ResponseEntity<List<LocationMarker>> getLocationMarkersByRelationship(@PathVariable Long relationshipId) {
-        Relationship relationship = relationshipService.getRelationshipById(relationshipId);
-        if (relationship == null) {
+    public ResponseEntity<List<LocationMarkerDto>> getLocationMarkersByRelationship(@PathVariable Long relationshipId) {
+        List<LocationMarkerDto> locationMarkers = locationMarkerService.getLocationMarkersByRelationshipId(relationshipId);
+        if (locationMarkers.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(locationMarkerService.getLocationMarkersByRelationship(relationship));
+        return ResponseEntity.ok(locationMarkers);
     }
 
     @GetMapping("/special/{relationshipId}")
-    public ResponseEntity<List<LocationMarker>> getSpecialLocationMarkers(@PathVariable Long relationshipId) {
-        Relationship relationship = relationshipService.getRelationshipById(relationshipId);
-        if (relationship == null) {
+    public ResponseEntity<List<LocationMarkerDto>> getSpecialLocationMarkers(@PathVariable Long relationshipId) {
+        List<LocationMarkerDto> locationMarkers = locationMarkerService.getSpecialLocationMarkersByRelationshipId(relationshipId);
+        if (locationMarkers.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(locationMarkerService.getSpecialLocationMarkers(relationship));
+        return ResponseEntity.ok(locationMarkers);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<LocationMarker>> searchLocationMarkers(@RequestParam String term) {
+    public ResponseEntity<List<LocationMarkerDto>> searchLocationMarkers(@RequestParam String term) {
         return ResponseEntity.ok(locationMarkerService.searchLocationMarkers(term));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<LocationMarker> createLocationMarker(@RequestBody LocationMarker locationMarker) {
-        return ResponseEntity.ok(locationMarkerService.createLocationMarker(locationMarker));
+    public ResponseEntity<LocationMarkerDto> createLocationMarker(@Valid @RequestBody LocationMarkerRequestDto requestDto) {
+        return ResponseEntity.ok(locationMarkerService.createLocationMarker(requestDto));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<LocationMarker> updateLocationMarker(@PathVariable Long id, @RequestBody LocationMarker locationMarkerDetails) {
-        LocationMarker updatedLocationMarker = locationMarkerService.updateLocationMarker(id, locationMarkerDetails);
+    public ResponseEntity<LocationMarkerDto> updateLocationMarker(@PathVariable Long id, @Valid @RequestBody LocationMarkerRequestDto requestDto) {
+        LocationMarkerDto updatedLocationMarker = locationMarkerService.updateLocationMarker(id, requestDto);
         if (updatedLocationMarker == null) {
             return ResponseEntity.notFound().build();
         }

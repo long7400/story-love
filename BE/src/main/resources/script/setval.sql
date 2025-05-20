@@ -1,0 +1,11 @@
+SELECT setval('countdowns_id_seq', COALESCE((SELECT MAX(id) FROM countdowns), 1));
+SELECT setval('events_id_seq', COALESCE((SELECT MAX(id) FROM events), 1));
+SELECT setval('flyway_schema_history_id_seq', COALESCE((SELECT MAX(id) FROM flyway_schema_history), 1));
+SELECT setval('location_markers_id_seq', COALESCE((SELECT MAX(id) FROM location_markers), 1));
+SELECT setval('photos_id_seq', COALESCE((SELECT MAX(id) FROM photos), 1));
+SELECT setval('postcards_id_seq', COALESCE((SELECT MAX(id) FROM postcards), 1));
+SELECT setval('profiles_id_seq', COALESCE((SELECT MAX(id) FROM profiles), 1));
+SELECT setval('relationships_id_seq', COALESCE((SELECT MAX(id) FROM relationships), 1));
+SELECT setval('roles_id_seq', COALESCE((SELECT MAX(id) FROM roles), 1));
+SELECT setval('user_roles_id_seq', COALESCE((SELECT MAX(id) FROM user_roles), 1));
+SELECT setval('users_id_seq', COALESCE((SELECT MAX(id) FROM users), 1));

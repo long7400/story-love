@@ -1,36 +1,40 @@
 package com.lovestory.api.controller;
 
-import com.lovestory.api.model.Photo;
-import com.lovestory.api.model.Relationship;
+import com.lovestory.api.dto.request.PhotoRequestDto;
+import com.lovestory.api.dto.response.PhotoDto;
 import com.lovestory.api.service.PhotoService;
-import com.lovestory.api.service.RelationshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * REST controller for managing photos
+ */
 @RestController
 @RequestMapping("/api/photos")
 public class PhotoController {
 
-    @Autowired
-    private PhotoService photoService;
+    private final PhotoService photoService;
 
     @Autowired
-    private RelationshipService relationshipService;
+    public PhotoController(PhotoService photoService) {
+        this.photoService = photoService;
+    }
 
     @GetMapping
-    public ResponseEntity<List<Photo>> getAllPhotos() {
+    public ResponseEntity<List<PhotoDto>> getAllPhotos() {
         return ResponseEntity.ok(photoService.getAllPhotos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Photo> getPhotoById(@PathVariable Long id) {
-        Photo photo = photoService.getPhotoById(id);
+    public ResponseEntity<PhotoDto> getPhotoById(@PathVariable Long id) {
+        PhotoDto photo = photoService.getPhotoById(id);
         if (photo == null) {
             return ResponseEntity.notFound().build();
         }
@@ -38,21 +42,21 @@ public class PhotoController {
     }
 
     @GetMapping("/relationship/{relationshipId}")
-    public ResponseEntity<List<Photo>> getPhotosByRelationship(@PathVariable Long relationshipId) {
-        Relationship relationship = relationshipService.getRelationshipById(relationshipId);
-        if (relationship == null) {
+    public ResponseEntity<List<PhotoDto>> getPhotosByRelationship(@PathVariable Long relationshipId) {
+        List<PhotoDto> photos = photoService.getPhotosByRelationshipId(relationshipId);
+        if (photos.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(photoService.getPhotosByRelationship(relationship));
+        return ResponseEntity.ok(photos);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Photo>> searchPhotos(@RequestParam String term) {
+    public ResponseEntity<List<PhotoDto>> searchPhotos(@RequestParam String term) {
         return ResponseEntity.ok(photoService.searchPhotos(term));
     }
 
     @GetMapping("/date-range")
-    public ResponseEntity<List<Photo>> getPhotosBetweenDates(
+    public ResponseEntity<List<PhotoDto>> getPhotosBetweenDates(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         return ResponseEntity.ok(photoService.getPhotosBetweenDates(startDate, endDate));
@@ -60,14 +64,14 @@ public class PhotoController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Photo> createPhoto(@RequestBody Photo photo) {
-        return ResponseEntity.ok(photoService.createPhoto(photo));
+    public ResponseEntity<PhotoDto> createPhoto(@Valid @RequestBody PhotoRequestDto requestDto) {
+        return ResponseEntity.ok(photoService.createPhoto(requestDto));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Photo> updatePhoto(@PathVariable Long id, @RequestBody Photo photoDetails) {
-        Photo updatedPhoto = photoService.updatePhoto(id, photoDetails);
+    public ResponseEntity<PhotoDto> updatePhoto(@PathVariable Long id, @Valid @RequestBody PhotoRequestDto requestDto) {
+        PhotoDto updatedPhoto = photoService.updatePhoto(id, requestDto);
         if (updatedPhoto == null) {
             return ResponseEntity.notFound().build();
         }
