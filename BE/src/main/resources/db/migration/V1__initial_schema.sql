@@ -152,10 +152,6 @@ CREATE TABLE countdowns
     FOREIGN KEY (relationship_id) REFERENCES relationships (id)
 );
 
--- Insert a default admin user (password: admin123)
-INSERT INTO users (username, email, password)
-VALUES ('admin', 'admin@lovestory.com', '$2a$10$5hU7TrU3cZM/rnoTffYuZeZ3QzR/M5s9OZLxdz.77BUtAkVlXnMaW');
-
--- Assign admin role to the admin user
-INSERT INTO user_roles (user_id, role_id)
-VALUES (1, 2); -- Role ID 2 is ROLE_ADMIN
+-- Default admin user will be created by the application on first run
+-- using environment variables for secure credentials
+-- See AdminInitializer.java for implementation
